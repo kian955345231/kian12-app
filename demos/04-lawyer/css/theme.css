@@ -1,0 +1,436 @@
+/* ==========================================================================
+   Demo 04  Lawyer  ·  demos/04-lawyer/css/theme.css
+
+   Design rationale
+   ----------------
+   Classic, symmetric, institutional. Deep navy ink with a restrained gold,
+   set on warm off-white paper. Corners are nearly square and rules replace
+   shadows  the visual grammar of letterhead, not of a startup.
+   Layout archetype B: a centred editorial column with a utility bar above
+   the header and generous rules between sections.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--lawyer only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #a8862a;
+  --rp-primary-strong: #8d6e18;
+  --rp-primary-soft: rgba(168, 134, 42, 0.12);
+  --rp-accent: #1d3a5f;
+  --rp-on-primary: #ffffff;
+  --rp-on-accent: #ffffff;
+  --rp-danger: #a12435;
+
+  --rp-bg: #fffdf8;
+  --rp-surface: #f6f3ea;
+  --rp-surface-2: #ece7d9;
+  --rp-text: #0e1a2b;
+  --rp-text-soft: #2b3a4e;
+  --rp-muted: #6c7686;
+  --rp-border: #e0dacb;
+  --rp-border-strong: #c6bda6;
+
+  --rp-container: 1120px;
+  /* Squared-off geometry reads as formal and traditional. */
+  --rp-radius-sm: 2px;
+  --rp-radius: 3px;
+  --rp-radius-lg: 4px;
+  --rp-btn-radius: 3px;
+  --rp-shadow: none;
+  --rp-shadow-lg: 0 8px 30px rgba(14, 26, 43, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #c9a227;
+  --rp-primary-strong: #ddb63b;
+  --rp-primary-soft: rgba(201, 162, 39, 0.15);
+  --rp-accent: #8fa6c4;
+  --rp-on-primary: #0e1a2b;
+
+  --rp-bg: #0b1524;
+  --rp-surface: #101f33;
+  --rp-surface-2: #16293f;
+  --rp-text: #f2f0e8;
+  --rp-text-soft: #cdd5e0;
+  --rp-muted: #8b98a9;
+  --rp-border: #1e3149;
+  --rp-border-strong: #2d4763;
+  --rp-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography  formal, wider tracking
+   -------------------------------------------------------------------------- */
+
+.rp-demo--lawyer .rp-section-title,
+.rp-demo--lawyer .rp-card-title,
+.rp-demo--lawyer .rp-feature-title {
+  letter-spacing: 0;
+}
+
+.rp-demo--lawyer .rp-eyebrow {
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  color: var(--rp-primary);
+}
+
+/* A centred gold rule instead of the default dash. */
+.rp-demo--lawyer .rp-section-head--center .rp-eyebrow::before {
+  inline-size: 42px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Utility bar above the header
+   -------------------------------------------------------------------------- */
+
+.lw-topbar {
+  background: var(--rp-text);
+  color: var(--rp-bg);
+  font-size: var(--rp-fs-xs);
+}
+
+.lw-topbar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rp-space-4);
+  padding-block: var(--rp-space-2);
+}
+
+.lw-topbar a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  opacity: 0.85;
+  transition: opacity 0.2s var(--rp-ease);
+}
+
+.lw-topbar a:hover {
+  opacity: 1;
+}
+
+.lw-topbar-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-5);
+}
+
+@media (max-width: 640px) {
+  .lw-topbar {
+    display: none;
+  }
+}
+
+/* Header sits under the bar, so it must not stick to the very top. */
+.rp-demo--lawyer .rp-header {
+  border-block-end: 1px solid var(--rp-border);
+}
+
+.rp-demo--lawyer .rp-header::before {
+  background: color-mix(in srgb, var(--rp-bg) 90%, transparent);
+}
+
+/* --------------------------------------------------------------------------
+   5. Hero  centred editorial
+   -------------------------------------------------------------------------- */
+
+.lw-hero {
+  position: relative;
+  text-align: center;
+  padding-block: clamp(3rem, 1.5rem + 7vw, 7rem);
+  border-block-end: 1px solid var(--rp-border);
+  background:
+    linear-gradient(var(--rp-bg), var(--rp-surface));
+}
+
+.lw-hero-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(2rem, 1.2rem + 3.6vw, 4rem);
+  font-weight: 700;
+  line-height: 1.3;
+  max-inline-size: 20ch;
+  margin-inline: auto;
+  margin-block: var(--rp-space-5) var(--rp-space-5);
+}
+
+.lw-hero-lead {
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-text-soft);
+  max-inline-size: 62ch;
+  margin-inline: auto;
+  line-height: var(--rp-lh-base);
+}
+
+.lw-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* Ornamental gold rule with a diamond in the middle. */
+.lw-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rp-space-3);
+  margin-block: var(--rp-space-6);
+}
+
+.lw-rule::before,
+.lw-rule::after {
+  content: '';
+  inline-size: min(90px, 18vw);
+  block-size: 1px;
+  background: var(--rp-primary);
+  opacity: 0.6;
+}
+
+.lw-rule i {
+  inline-size: 8px;
+  block-size: 8px;
+  background: var(--rp-primary);
+  transform: rotate(45deg);
+}
+
+/* --------------------------------------------------------------------------
+   6. Credentials strip
+   -------------------------------------------------------------------------- */
+
+.lw-creds {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  border-block: 1px solid var(--rp-border);
+  background: var(--rp-bg);
+}
+
+.lw-cred {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-3);
+  padding: var(--rp-space-5);
+  border-inline-end: 1px solid var(--rp-border);
+}
+
+.lw-cred:last-child {
+  border-inline-end: 0;
+}
+
+.lw-cred .rp-icon {
+  color: var(--rp-primary);
+  flex: none;
+}
+
+.lw-cred strong {
+  display: block;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+}
+
+.lw-cred span {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   7. Practice areas
+   -------------------------------------------------------------------------- */
+
+.lw-areas {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  background: var(--rp-border);
+  border: 1px solid var(--rp-border);
+}
+
+/* Cells share hairline rules rather than sitting apart as cards. */
+.lw-area {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rp-space-3);
+  padding: var(--rp-space-6);
+  background: var(--rp-bg);
+  transition: background-color 0.3s var(--rp-ease);
+}
+
+.lw-area:hover {
+  background: var(--rp-surface);
+}
+
+.lw-area-icon {
+  color: var(--rp-primary);
+}
+
+.lw-area h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+}
+
+.lw-area p {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+.lw-area-more {
+  margin-block-start: auto;
+  padding-block-start: var(--rp-space-3);
+  font-size: var(--rp-fs-sm);
+  font-weight: 700;
+  color: var(--rp-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+}
+
+/* --------------------------------------------------------------------------
+   8. About  portrait with a gold offset frame
+   -------------------------------------------------------------------------- */
+
+.lw-about {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: center;
+}
+
+@media (max-width: 880px) {
+  .lw-about {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lw-portrait {
+  position: relative;
+}
+
+.lw-portrait img {
+  position: relative;
+  inline-size: 100%;
+  z-index: 1;
+}
+
+/* The offset outline behind the portrait. */
+.lw-portrait::before {
+  content: '';
+  position: absolute;
+  inset-block: 24px -24px;
+  inset-inline: -24px 24px;
+  border: 1px solid var(--rp-primary);
+}
+
+.lw-signature {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-2xl);
+  color: var(--rp-primary);
+  margin-block-start: var(--rp-space-5);
+}
+
+/* --------------------------------------------------------------------------
+   9. Case results
+   -------------------------------------------------------------------------- */
+
+.lw-results {
+  padding: clamp(2rem, 1rem + 3vw, 3.5rem);
+  background: var(--rp-text);
+  color: var(--rp-bg);
+}
+
+.lw-results .rp-stat-value {
+  color: var(--rp-primary);
+}
+
+.lw-results .rp-stat-label {
+  color: inherit;
+  opacity: 0.75;
+}
+
+/* --------------------------------------------------------------------------
+   10. Contact  office details beside the form
+   -------------------------------------------------------------------------- */
+
+.lw-contact {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: start;
+}
+
+@media (max-width: 880px) {
+  .lw-contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lw-panel {
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border);
+  background: var(--rp-bg);
+}
+
+.lw-hours {
+  display: grid;
+  gap: var(--rp-space-2);
+  margin-block-start: var(--rp-space-4);
+  font-size: var(--rp-fs-sm);
+}
+
+.lw-hours div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--rp-space-4);
+  padding-block: var(--rp-space-2);
+  border-block-end: 1px dashed var(--rp-border);
+}
+
+.lw-hours span:last-child {
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   11. Footer
+   -------------------------------------------------------------------------- */
+
+.rp-demo--lawyer .rp-footer {
+  background: var(--rp-text);
+  color: var(--rp-bg);
+  border-block-start: 3px solid var(--rp-primary);
+}
+
+.rp-demo--lawyer .rp-footer .rp-color-muted,
+.rp-demo--lawyer .rp-footer-bottom {
+  color: inherit;
+  opacity: 0.7;
+}
+
+.rp-demo--lawyer .rp-footer-bottom {
+  border-block-start-color: rgba(255, 255, 255, 0.14);
+}
+
+.rp-demo--lawyer .rp-footer .rp-brand,
+.rp-demo--lawyer .rp-footer h2 {
+  color: var(--rp-bg);
+}
+
+.rp-demo--lawyer .rp-footer .rp-icon-btn {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--rp-bg);
+}
+
+.rp-demo--lawyer .rp-footer .rp-icon-btn:hover {
+  background: var(--rp-primary);
+  border-color: var(--rp-primary);
+}

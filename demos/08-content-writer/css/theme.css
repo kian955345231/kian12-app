@@ -1,0 +1,355 @@
+/* ==========================================================================
+   Demo 08  Content Writer  ·  demos/08-content-writer/css/theme.css
+
+   Design rationale
+   ----------------
+   A page that behaves like a well-set book. Warm cream paper, rust ink for
+   emphasis, a single narrow measure and larger-than-usual body text with a
+   loose leading. Layout archetype B like demo 04, but where the lawyer is
+   institutional and gridded, this is literary: no boxes, no shadows, just
+   type, rules and a drop cap.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--content-writer only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #b4471f;
+  --rp-primary-strong: #963813;
+  --rp-primary-soft: rgba(180, 71, 31, 0.1);
+  --rp-accent: #3f6f5f;
+  --rp-on-primary: #fffdf9;
+  --rp-danger: #a52c2c;
+
+  --rp-bg: #fffdf9;
+  --rp-surface: #faf5ec;
+  --rp-surface-2: #f2ebde;
+  --rp-text: #2a1d15;
+  --rp-text-soft: #4b3a2e;
+  --rp-muted: #7d6b5c;
+  --rp-border: #eae0d0;
+  --rp-border-strong: #d3c3ad;
+
+  --rp-container: 1080px;
+  --rp-radius: 6px;
+  --rp-radius-lg: 10px;
+  --rp-btn-radius: 6px;
+  --rp-shadow: none;
+  --rp-shadow-lg: 0 10px 34px rgba(42, 29, 21, 0.09);
+
+  /* Reading comfort: bigger body copy, looser leading. */
+  --rp-fs-base: clamp(1rem, 0.94rem + 0.28vw, 1.14rem);
+  --rp-lh-base: 1.95;
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #e2764a;
+  --rp-primary-strong: #ee8a60;
+  --rp-primary-soft: rgba(226, 118, 74, 0.15);
+  --rp-accent: #7fb8a4;
+  --rp-on-primary: #1b1310;
+
+  --rp-bg: #191310;
+  --rp-surface: #221a15;
+  --rp-surface-2: #2d221b;
+  --rp-text: #f6efe6;
+  --rp-text-soft: #d8cabc;
+  --rp-muted: #9d8b7c;
+  --rp-border: #2f251e;
+  --rp-border-strong: #46372c;
+}
+
+/* --------------------------------------------------------------------------
+   3. Typographic base
+   -------------------------------------------------------------------------- */
+
+.rp-demo--content-writer .rp-section-title {
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.rp-demo--content-writer .rp-eyebrow {
+  letter-spacing: 0.16em;
+  font-weight: 600;
+}
+
+/* The reading column. Everything narrative lives inside this width. */
+.cw-measure {
+  max-inline-size: 40rem;
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero  quiet, centred, all type
+   -------------------------------------------------------------------------- */
+
+.cw-hero {
+  text-align: center;
+  padding-block: clamp(3rem, 1.5rem + 7vw, 6.5rem) clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+}
+
+.cw-hero-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(2rem, 1.2rem + 3.4vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.32;
+  max-inline-size: 22ch;
+  margin-inline: auto;
+  margin-block: var(--rp-space-5) var(--rp-space-5);
+}
+
+/* Rust underline under a single emphasised word. */
+.cw-hero-title em {
+  position: relative;
+  display: inline-block;
+  font-style: normal;
+  color: var(--rp-primary);
+}
+
+.cw-hero-title em::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -0.06em;
+  block-size: 2px;
+  background: currentColor;
+  opacity: 0.45;
+}
+
+.cw-hero-lead {
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-text-soft);
+  max-inline-size: 52ch;
+  margin-inline: auto;
+}
+
+.cw-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* Thin rule that closes the hero. */
+.cw-hero::after {
+  content: '';
+  display: block;
+  inline-size: 60px;
+  block-size: 1px;
+  margin: var(--rp-space-7) auto 0;
+  background: var(--rp-border-strong);
+}
+
+/* --------------------------------------------------------------------------
+   5. Published-in strip
+   -------------------------------------------------------------------------- */
+
+.cw-published {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rp-space-3) var(--rp-space-6);
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-muted);
+}
+
+.cw-published span {
+  position: relative;
+}
+
+/* Dot separators between publication names. */
+.cw-published span + span::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: calc(var(--rp-space-6) / -2);
+  inline-size: 4px;
+  block-size: 4px;
+  border-radius: 50%;
+  background: var(--rp-border-strong);
+  transform: translateY(-50%);
+}
+
+/* --------------------------------------------------------------------------
+   6. About  drop cap
+   -------------------------------------------------------------------------- */
+
+.cw-prose p + p {
+  margin-block-start: var(--rp-space-5);
+}
+
+.cw-prose > p:first-of-type::first-letter {
+  float: inline-start;
+  font-family: var(--rp-font-display);
+  font-size: 3.4em;
+  line-height: 0.82;
+  font-weight: 700;
+  color: var(--rp-primary);
+  padding-inline-end: 0.12em;
+  padding-block-start: 0.06em;
+}
+
+/* Pull-quote inside the prose. */
+.cw-pull {
+  margin-block: var(--rp-space-6);
+  padding-inline-start: var(--rp-space-5);
+  border-inline-start: 3px solid var(--rp-primary);
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  line-height: 1.6;
+  color: var(--rp-text);
+}
+
+/* --------------------------------------------------------------------------
+   7. Article list  rules, not cards
+   -------------------------------------------------------------------------- */
+
+.cw-articles {
+  border-block-start: 1px solid var(--rp-border);
+}
+
+.cw-article {
+  display: grid;
+  gap: var(--rp-space-2) var(--rp-space-5);
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  padding-block: var(--rp-space-6);
+  border-block-end: 1px solid var(--rp-border);
+  transition: background-color 0.3s var(--rp-ease);
+}
+
+.cw-article:hover {
+  background: var(--rp-surface);
+}
+
+.cw-article h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.cw-article h3 a:hover {
+  color: var(--rp-primary);
+}
+
+.cw-article-meta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-4);
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+.cw-article-outlet {
+  font-weight: 700;
+  color: var(--rp-primary);
+  white-space: nowrap;
+}
+
+.cw-article p {
+  grid-column: 1 / -1;
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+  max-inline-size: 62ch;
+}
+
+/* --------------------------------------------------------------------------
+   8. Services  plain numbered blocks
+   -------------------------------------------------------------------------- */
+
+.cw-services {
+  display: grid;
+  gap: var(--rp-space-7) var(--rp-space-6);
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+}
+
+.cw-service h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  padding-block-end: var(--rp-space-3);
+  margin-block-end: var(--rp-space-3);
+  border-block-end: 1px solid var(--rp-border);
+}
+
+.cw-service h3::before {
+  content: attr(data-num);
+  display: inline-block;
+  margin-inline-end: var(--rp-space-3);
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-primary);
+}
+
+.cw-service p {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+.cw-service ul {
+  margin-block-start: var(--rp-space-3);
+  padding-inline-start: var(--rp-space-5);
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+.cw-service li::marker {
+  color: var(--rp-primary);
+}
+
+/* --------------------------------------------------------------------------
+   9. Stats  inline, understated
+   -------------------------------------------------------------------------- */
+
+.cw-figures {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--rp-space-7);
+  padding-block: var(--rp-space-6);
+  border-block: 1px solid var(--rp-border);
+  text-align: center;
+}
+
+.cw-figure strong {
+  display: block;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-2xl);
+  font-weight: 700;
+  color: var(--rp-primary);
+}
+
+/* Direct child only: the animated counter sits in a <span> inside <strong>,
+   and a descendant selector here would shrink the figure itself. */
+.cw-figure > span {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   10. Contact
+   -------------------------------------------------------------------------- */
+
+.cw-contact {
+  padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+  background: var(--rp-surface);
+  border-radius: var(--rp-radius-lg);
+}
+
+.cw-contact .rp-input,
+.cw-contact .rp-textarea,
+.cw-contact .rp-select {
+  background: var(--rp-bg);
+}

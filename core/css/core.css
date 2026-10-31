@@ -1,0 +1,360 @@
+/* ==========================================================================
+   Bavarsa Portfolio  core/css/core.css
+   Fonts, the DESIGN TOKEN CONTRACT, layout primitives and typography.
+
+   RULES FOR THIS FILE (do not break them  the whole architecture rests here):
+   1. It must never contain a demo-specific selector.
+   2. It only ever CONSUMES tokens. Values live in each demo's css/theme.css.
+   3. Changes must be additive, so existing demos cannot regress.
+   4. RTL: use logical properties only (inline/block), never left/right.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Fonts  self-hosted variable fonts, zero external requests
+   -------------------------------------------------------------------------- */
+
+/* Dana  Persian UI/body text. Variable weight 100-900. */
+@font-face {
+  font-family: 'Dana';
+  src: url('../assets/fonts/DanaVF.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Rokh  Persian display face, used for headings in most demos. */
+@font-face {
+  font-family: 'Rokh';
+  src: url('../assets/fonts/RokhVFGX.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Plus Jakarta Sans  Latin fallback for code, numerals and brand words. */
+@font-face {
+  font-family: 'PlusJakartaSans';
+  src: url('../assets/fonts/PlusJakartaSans-VF.ttf') format('truetype-variations');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+   2. TOKEN CONTRACT
+   Every value below is a safe neutral default. A demo's theme.css overrides
+   the ones it cares about; anything it omits still renders correctly.
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* --- Brand ------------------------------------------------------------ */
+  --rp-primary: #2563eb;
+  --rp-primary-strong: #1d4ed8;
+  --rp-primary-soft: rgba(37, 99, 235, 0.12);
+  --rp-accent: #14b8a6;
+  --rp-on-primary: #ffffff;
+
+  /* --- Surfaces & text (light mode values) ------------------------------ */
+  --rp-bg: #ffffff;
+  --rp-surface: #f7f8fa;
+  --rp-surface-2: #eef1f5;
+  --rp-text: #12151c;
+  --rp-text-soft: #3b4254;
+  --rp-muted: #6b7280;
+  --rp-border: #e3e6ec;
+  --rp-border-strong: #c9cedb;
+
+  /* --- Typography ------------------------------------------------------- */
+  --rp-font-body: 'Dana', 'PlusJakartaSans', ui-sans-serif, system-ui, sans-serif;
+  --rp-font-display: 'Rokh', 'Dana', ui-sans-serif, system-ui, sans-serif;
+  --rp-font-mono: 'PlusJakartaSans', ui-monospace, 'Cascadia Code', monospace;
+
+  /* Fluid type scale  clamp(min, preferred, max). No media queries needed. */
+  --rp-fs-xs: clamp(0.72rem, 0.69rem + 0.15vw, 0.8rem);
+  --rp-fs-sm: clamp(0.82rem, 0.79rem + 0.18vw, 0.92rem);
+  --rp-fs-base: clamp(0.94rem, 0.9rem + 0.22vw, 1.05rem);
+  --rp-fs-lg: clamp(1.06rem, 1rem + 0.32vw, 1.25rem);
+  --rp-fs-xl: clamp(1.24rem, 1.14rem + 0.5vw, 1.55rem);
+  --rp-fs-2xl: clamp(1.5rem, 1.32rem + 0.9vw, 2.1rem);
+  --rp-fs-3xl: clamp(1.85rem, 1.5rem + 1.7vw, 2.9rem);
+  --rp-fs-4xl: clamp(2.25rem, 1.6rem + 3vw, 4.1rem);
+  --rp-fs-5xl: clamp(2.6rem, 1.6rem + 4.6vw, 5.4rem);
+
+  --rp-lh-tight: 1.25;
+  --rp-lh-snug: 1.45;
+  --rp-lh-base: 1.75;
+
+  /* --- Space scale ------------------------------------------------------ */
+  --rp-space-1: 0.25rem;
+  --rp-space-2: 0.5rem;
+  --rp-space-3: 0.75rem;
+  --rp-space-4: 1rem;
+  --rp-space-5: 1.5rem;
+  --rp-space-6: 2rem;
+  --rp-space-7: 3rem;
+  --rp-space-8: 4rem;
+  --rp-space-9: 6rem;
+
+  /* Vertical rhythm between page sections (fluid). */
+  --rp-section-y: clamp(3.5rem, 2rem + 6vw, 7.5rem);
+
+  /* --- Shape & depth ---------------------------------------------------- */
+  --rp-radius-sm: 6px;
+  --rp-radius: 12px;
+  --rp-radius-lg: 22px;
+  --rp-radius-pill: 999px;
+  --rp-shadow: 0 1px 2px rgba(16, 24, 40, 0.05), 0 6px 18px rgba(16, 24, 40, 0.06);
+  --rp-shadow-lg: 0 10px 40px rgba(16, 24, 40, 0.12);
+  --rp-ring: 0 0 0 1px var(--rp-border);
+
+  /* --- Layout ----------------------------------------------------------- */
+  --rp-container: 1180px;
+  --rp-gutter: clamp(1rem, 0.6rem + 1.6vw, 2rem);
+  --rp-header-h: 72px;
+  --rp-scroll-offset: 96px;
+
+  /* --- Motion ----------------------------------------------------------- */
+  --rp-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --rp-dur: 0.4s;
+
+  color-scheme: light;
+}
+
+/* Dark mode defaults. Demos override these under the same selector in
+   their own theme.css, so a demo never has to restate the whole palette. */
+:root[data-theme='dark'] {
+  --rp-bg: #0b0e14;
+  --rp-surface: #121722;
+  --rp-surface-2: #1a2030;
+  --rp-text: #f2f5fa;
+  --rp-text-soft: #c4ccdb;
+  --rp-muted: #8b95a8;
+  --rp-border: #232b3b;
+  --rp-border-strong: #364154;
+  --rp-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 20px rgba(0, 0, 0, 0.45);
+  --rp-shadow-lg: 0 14px 50px rgba(0, 0, 0, 0.6);
+
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   3. Base document
+   -------------------------------------------------------------------------- */
+
+body {
+  font-family: var(--rp-font-body);
+  font-size: var(--rp-fs-base);
+  line-height: var(--rp-lh-base);
+  color: var(--rp-text);
+  background-color: var(--rp-bg);
+  /* Theme switching should feel like a dissolve, not a flash. */
+  transition: background-color var(--rp-dur) var(--rp-ease),
+              color var(--rp-dur) var(--rp-ease);
+}
+
+::selection {
+  background: var(--rp-primary);
+  color: var(--rp-on-primary);
+}
+
+/* --------------------------------------------------------------------------
+   4. Layout primitives
+   -------------------------------------------------------------------------- */
+
+/* Centred, gutter-padded content column. */
+.rp-container {
+  inline-size: 100%;
+  max-inline-size: var(--rp-container);
+  margin-inline: auto;
+  padding-inline: var(--rp-gutter);
+}
+
+.rp-container--wide {
+  --rp-container: 1400px;
+}
+
+.rp-container--narrow {
+  --rp-container: 820px;
+}
+
+/* Standard page section rhythm. */
+.rp-section {
+  padding-block: var(--rp-section-y);
+  position: relative;
+}
+
+.rp-section--tight {
+  padding-block: calc(var(--rp-section-y) * 0.6);
+}
+
+.rp-section--alt {
+  background-color: var(--rp-surface);
+}
+
+/* Section heading block: eyebrow + title + lead. */
+.rp-section-head {
+  max-inline-size: 62ch;
+  margin-block-end: var(--rp-space-7);
+}
+
+.rp-section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.rp-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  font-size: var(--rp-fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--rp-primary);
+  margin-block-end: var(--rp-space-3);
+}
+
+/* Small decorative dash before the eyebrow text. */
+.rp-eyebrow::before {
+  content: '';
+  inline-size: 26px;
+  block-size: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.rp-section-head--center .rp-eyebrow {
+  justify-content: center;
+}
+
+.rp-section-title {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-3xl);
+  font-weight: 800;
+  line-height: var(--rp-lh-tight);
+  color: var(--rp-text);
+}
+
+.rp-section-lead {
+  margin-block-start: var(--rp-space-4);
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-muted);
+  line-height: var(--rp-lh-snug);
+}
+
+/* Auto-fit grid. Demos set --rp-grid-min to change the breakpoint density. */
+.rp-grid {
+  display: grid;
+  gap: var(--rp-space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--rp-grid-min, 260px), 100%), 1fr));
+}
+
+.rp-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rp-gap, var(--rp-space-4));
+}
+
+.rp-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rp-gap, var(--rp-space-3));
+}
+
+/* --------------------------------------------------------------------------
+   5. Typography helpers
+   -------------------------------------------------------------------------- */
+
+.rp-display {
+  font-family: var(--rp-font-display);
+  font-weight: 800;
+  line-height: var(--rp-lh-tight);
+  letter-spacing: -0.01em;
+}
+
+.rp-lead {
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-text-soft);
+  line-height: var(--rp-lh-snug);
+}
+
+.rp-muted {
+  color: var(--rp-muted);
+}
+
+/* Latin text inside an RTL paragraph (emails, tech names, code). */
+.rp-ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--rp-font-mono);
+}
+
+/* Gradient headline text. Demos redefine the two stop tokens. */
+.rp-gradient-text {
+  background-image: linear-gradient(
+    var(--rp-gradient-angle, 90deg),
+    var(--rp-primary),
+    var(--rp-accent)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   6. Scroll-reveal (driven by core.js [data-rp-reveal])
+   Elements are hidden only once JS confirms it is running, so a no-JS
+   visitor still sees all content.
+   -------------------------------------------------------------------------- */
+
+.rp-js [data-rp-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--rp-ease), transform 0.7s var(--rp-ease);
+  transition-delay: var(--rp-reveal-delay, 0ms);
+}
+
+.rp-js [data-rp-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rp-js [data-rp-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Accessibility utilities
+   -------------------------------------------------------------------------- */
+
+.rp-sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Keyboard-only "skip to content" link. */
+.rp-skip-link {
+  position: absolute;
+  inset-block-start: var(--rp-space-3);
+  inset-inline-start: var(--rp-space-3);
+  z-index: 999;
+  padding: var(--rp-space-2) var(--rp-space-4);
+  background: var(--rp-primary);
+  color: var(--rp-on-primary);
+  border-radius: var(--rp-radius-sm);
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--rp-ease);
+}
+
+.rp-skip-link:focus-visible {
+  transform: none;
+}

@@ -1,0 +1,604 @@
+/* ==========================================================================
+   Demo 15  Fitness Coach  ·  demos/15-fitness-coach/css/theme.css
+
+   Design rationale
+   ----------------
+   Loud, dark and built around execution. Lime on near-black with a single
+   orange signal colour, fully rounded buttons and cards that read like an
+   app the athlete opens every morning. Layout archetype D (card-led)  the
+   same skeleton as demo 02 and demo 09  but where the app developer is
+   crisp daylight and the freelancer is warm and chatty, this one is a gym at
+   night. The weekly plan replaces the usual feature grid as the signature.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--fitness-coach only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light (the opposite mode; this demo is designed in dark)
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #65a30d;
+  --rp-primary-strong: #4d7c0f;
+  --rp-primary-soft: rgba(101, 163, 13, 0.12);
+  --rp-accent: #ea7317;
+  --rp-on-primary: #ffffff;
+  --rp-danger: #dc2626;
+
+  --rp-bg: #ffffff;
+  --rp-surface: #f5f7f0;
+  --rp-surface-2: #e8eddf;
+  --rp-text: #14180f;
+  --rp-text-soft: #3b422f;
+  --rp-muted: #6b7360;
+  --rp-border: #e3e8da;
+  --rp-border-strong: #c6cfb5;
+
+  --rp-container: 1200px;
+  --rp-radius: 14px;
+  --rp-radius-lg: 22px;
+  --rp-btn-radius: 999px;
+  --rp-shadow: 0 2px 6px rgba(12, 16, 8, 0.06), 0 16px 40px rgba(12, 16, 8, 0.08);
+  --rp-shadow-lg: 0 24px 60px rgba(12, 16, 8, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark (the designed mode)
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #a3e635;
+  --rp-primary-strong: #bef264;
+  --rp-primary-soft: rgba(163, 230, 53, 0.14);
+  --rp-accent: #fb923c;
+  --rp-on-primary: #12180a;
+
+  --rp-bg: #0c1008;
+  --rp-surface: #141a0f;
+  --rp-surface-2: #1d2616;
+  --rp-text: #f2f7e8;
+  --rp-text-soft: #cbd6b8;
+  --rp-muted: #8b957c;
+  --rp-border: #1d2616;
+  --rp-border-strong: #2f3d23;
+}
+
+/* --------------------------------------------------------------------------
+   3. Hero
+   -------------------------------------------------------------------------- */
+
+.ft-hero {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(2.5rem, 1.5rem + 5vw, 5rem) var(--rp-section-y);
+  overflow: hidden;
+}
+
+/* A lime glow behind the headline instead of a photograph. */
+.ft-hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset-block-start: -30%;
+  inset-inline-start: 50%;
+  transform: translateX(50%);
+  inline-size: min(900px, 120%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--rp-primary-soft), transparent 62%);
+}
+
+.ft-hero-inner {
+  max-inline-size: 46rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.ft-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  padding: var(--rp-space-2) var(--rp-space-4);
+  border: 1px solid var(--rp-border-strong);
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-surface);
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+}
+
+.ft-tag .rp-icon {
+  color: var(--rp-primary);
+}
+
+.ft-hero-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(2rem, 1.15rem + 3.9vw, 4rem);
+  font-weight: 800;
+  line-height: 1.16;
+  margin-block: var(--rp-space-4);
+}
+
+.ft-hero-lead {
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-text-soft);
+  line-height: var(--rp-lh-snug);
+  max-inline-size: 46ch;
+  margin-inline: auto;
+}
+
+.ft-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* --- The card that carries the photograph -------------------------------- */
+
+.ft-hero-card {
+  position: relative;
+  margin-block-start: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+  border-radius: var(--rp-radius-lg);
+  overflow: hidden;
+  background: var(--rp-surface);
+  box-shadow: var(--rp-shadow-lg);
+}
+
+.ft-hero-card img {
+  inline-size: 100%;
+  block-size: 100%;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+}
+
+@media (max-width: 700px) {
+  .ft-hero-card img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.ft-hero-stats {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+  gap: var(--rp-space-4);
+  padding: var(--rp-space-7) var(--rp-space-6) var(--rp-space-5);
+  background: linear-gradient(transparent, rgba(6, 9, 4, 0.9));
+  color: #fff;
+  text-align: center;
+}
+
+.ft-hero-stats strong {
+  display: block;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-2xl);
+  font-weight: 800;
+  color: var(--rp-primary);
+}
+
+/* Direct child of the cell only: the counter is a <span> inside <strong>. */
+.ft-hero-stats > div > span {
+  font-size: var(--rp-fs-xs);
+  opacity: 0.8;
+}
+
+/* --------------------------------------------------------------------------
+   4. Programs
+   -------------------------------------------------------------------------- */
+
+.ft-programs {
+  --rp-grid-min: 290px;
+}
+
+.ft-program {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-surface);
+  transition: transform 0.35s var(--rp-ease), border-color 0.35s var(--rp-ease);
+}
+
+.ft-program:hover {
+  transform: translateY(-4px);
+  border-color: var(--rp-primary);
+}
+
+.ft-program--pick {
+  border-color: var(--rp-primary);
+  box-shadow: 0 0 0 1px var(--rp-primary), var(--rp-shadow);
+}
+
+.ft-program-tag {
+  position: absolute;
+  inset-block-start: calc(var(--rp-space-3) * -1);
+  inset-inline-start: var(--rp-space-6);
+  padding: 2px var(--rp-space-3);
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-primary);
+  color: var(--rp-on-primary);
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+}
+
+.ft-program-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 52px;
+  block-size: 52px;
+  margin-block-end: var(--rp-space-4);
+  border-radius: var(--rp-radius);
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+}
+
+.ft-program h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+  margin-block-end: var(--rp-space-2);
+}
+
+.ft-program p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.ft-facts {
+  margin-block: var(--rp-space-5) var(--rp-space-6);
+  border-block-start: 1px solid var(--rp-border-strong);
+}
+
+.ft-facts > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--rp-space-3);
+  padding-block: var(--rp-space-3);
+  border-block-end: 1px dashed var(--rp-border-strong);
+  font-size: var(--rp-fs-sm);
+}
+
+.ft-facts dt {
+  color: var(--rp-muted);
+}
+
+.ft-facts dd {
+  font-weight: 700;
+}
+
+.ft-program .rp-btn {
+  margin-block-start: auto;
+}
+
+/* --------------------------------------------------------------------------
+   5. Weekly plan  the signature block
+   -------------------------------------------------------------------------- */
+
+.ft-week {
+  border: 1px solid var(--rp-border-strong);
+  border-radius: var(--rp-radius-lg);
+  overflow: hidden;
+  background: var(--rp-bg);
+}
+
+.ft-week-head,
+.ft-day {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) 6rem minmax(0, 11rem);
+  gap: var(--rp-space-4);
+  align-items: center;
+  padding: var(--rp-space-4) var(--rp-space-5);
+}
+
+.ft-week-head {
+  background: var(--rp-surface-2);
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  color: var(--rp-muted);
+}
+
+.ft-day + .ft-day {
+  border-block-start: 1px solid var(--rp-border);
+}
+
+.ft-day b {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-base);
+  font-weight: 800;
+}
+
+.ft-focus {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-text-soft);
+}
+
+.ft-dur {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+  white-space: nowrap;
+}
+
+/* Rest days step back so the hard days read as the peaks. */
+.ft-day--rest {
+  background: var(--rp-surface);
+}
+
+.ft-day--rest b,
+.ft-day--rest .ft-focus {
+  color: var(--rp-muted);
+}
+
+/* --- Intensity bar -------------------------------------------------------
+   The fill is sized on the INLINE axis, whose containing block is always
+   definite, so it needs none of the tricks a percentage height would. */
+
+.ft-int {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-3);
+}
+
+.ft-int i {
+  position: relative;
+  flex: 1;
+  min-inline-size: 0;
+  block-size: 8px;
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-surface-2);
+  overflow: hidden;
+}
+
+.ft-int i::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: var(--i, 50%);
+  border-radius: var(--rp-radius-pill);
+  background: linear-gradient(to left, var(--rp-primary), var(--rp-accent));
+}
+
+.ft-int em {
+  font-style: normal;
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+  min-inline-size: 4ch;
+  text-align: end;
+}
+
+@media (max-width: 820px) {
+  .ft-week-head {
+    display: none;
+  }
+
+  .ft-day {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: var(--rp-space-2);
+  }
+
+  .ft-focus {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+
+  .ft-int {
+    grid-column: 1 / -1;
+    order: 4;
+  }
+}
+
+.ft-week-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+  max-inline-size: 72ch;
+}
+
+.ft-week-note .rp-icon {
+  flex: none;
+  color: var(--rp-accent);
+  margin-block-start: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Results
+   -------------------------------------------------------------------------- */
+
+.ft-results {
+  --rp-grid-min: 300px;
+}
+
+.ft-result {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--rp-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--rp-border);
+  background: var(--rp-surface);
+  transition: transform 0.35s var(--rp-ease);
+}
+
+.ft-result:hover {
+  transform: translateY(-5px);
+}
+
+.ft-result-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.ft-result-media img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--rp-ease);
+}
+
+.ft-result:hover .ft-result-media img {
+  transform: scale(1.05);
+}
+
+.ft-result-badge {
+  position: absolute;
+  inset-block-end: var(--rp-space-4);
+  inset-inline-start: var(--rp-space-4);
+  padding: var(--rp-space-2) var(--rp-space-4);
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-primary);
+  color: var(--rp-on-primary);
+  font-family: var(--rp-font-display);
+  font-weight: 800;
+  font-size: var(--rp-fs-base);
+}
+
+.ft-result-body {
+  padding: var(--rp-space-5) var(--rp-space-6) var(--rp-space-6);
+}
+
+.ft-result h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block-end: var(--rp-space-2);
+}
+
+.ft-result p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   7. Coaching tiers
+   -------------------------------------------------------------------------- */
+
+.ft-tiers {
+  display: grid;
+  gap: var(--rp-space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  align-items: start;
+}
+
+.ft-tier {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border-strong);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-bg);
+}
+
+.ft-tier--pick {
+  border-color: var(--rp-primary);
+  background: var(--rp-surface);
+  box-shadow: 0 0 0 1px var(--rp-primary), var(--rp-shadow);
+}
+
+.ft-tier-tag {
+  position: absolute;
+  inset-block-start: calc(var(--rp-space-3) * -1);
+  inset-inline-start: var(--rp-space-6);
+  padding: 2px var(--rp-space-3);
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-accent);
+  color: #24140a;
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+}
+
+.ft-tier h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+}
+
+.ft-tier-price {
+  margin-block: var(--rp-space-2) var(--rp-space-5);
+  padding-block-end: var(--rp-space-5);
+  border-block-end: 1px solid var(--rp-border);
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 800;
+  color: var(--rp-primary);
+}
+
+.ft-tier-price span {
+  display: block;
+  margin-block-start: var(--rp-space-1);
+  font-family: var(--rp-font-body);
+  font-size: var(--rp-fs-xs);
+  font-weight: 400;
+  color: var(--rp-muted);
+}
+
+.ft-list {
+  display: grid;
+  gap: var(--rp-space-3);
+  margin-block-end: var(--rp-space-6);
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-text-soft);
+}
+
+.ft-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--rp-space-2);
+}
+
+.ft-list .rp-icon {
+  flex: none;
+  inline-size: 1em;
+  block-size: 1em;
+  margin-block-start: 0.4em;
+  color: var(--rp-primary);
+}
+
+.ft-tier .rp-btn {
+  margin-block-start: auto;
+}
+
+/* --------------------------------------------------------------------------
+   8. Split layout  about and contact
+   -------------------------------------------------------------------------- */
+
+.ft-split {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  /* minmax(0, …) so a photograph cannot widen the column past the viewport. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+/* minmax(0, …) here too: a plain 1fr keeps its auto minimum, so a wide form
+   row inside the panel would push the whole page sideways. */
+@media (max-width: 880px) {
+  .ft-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ft-portrait {
+  inline-size: 100%;
+  max-inline-size: 440px;
+  aspect-ratio: 4 / 5;
+  block-size: auto;
+  object-fit: cover;
+}
+
+.ft-panel {
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-bg);
+}

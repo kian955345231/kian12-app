@@ -1,0 +1,444 @@
+/* ==========================================================================
+   Demo 02  App Developer  ·  demos/02-app-developer/css/theme.css
+
+   Design rationale
+   ----------------
+   Light, airy and app-like. Indigo primary with a pink accent, generous
+   rounding and soft shadows  the visual language of a modern mobile OS
+   rather than a website. Layout archetype D: a centred hero holding a real
+   phone mockup, then alternating feature rows and a card-based body.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--app-developer only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light (the mode this demo is designed in)
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #5b5bd6;
+  --rp-primary-strong: #4a48c4;
+  --rp-primary-soft: rgba(91, 91, 214, 0.1);
+  --rp-accent: #ec4899;
+  --rp-on-primary: #ffffff;
+  --rp-on-accent: #ffffff;
+  --rp-danger: #e11d48;
+
+  --rp-bg: #ffffff;
+  --rp-surface: #f6f6fd;
+  --rp-surface-2: #eceafc;
+  --rp-text: #141329;
+  --rp-text-soft: #3d3b5c;
+  --rp-muted: #7472a0;
+  --rp-border: #e6e5f6;
+  --rp-border-strong: #cdcbe9;
+
+  --rp-container: 1160px;
+  --rp-radius: 18px;
+  --rp-radius-lg: 28px;
+  --rp-btn-radius: var(--rp-radius-pill);
+  --rp-shadow: 0 2px 6px rgba(30, 27, 75, 0.05), 0 12px 32px rgba(30, 27, 75, 0.07);
+  --rp-shadow-lg: 0 22px 60px rgba(30, 27, 75, 0.14);
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #8b8bf0;
+  --rp-primary-strong: #a2a2f7;
+  --rp-primary-soft: rgba(139, 139, 240, 0.16);
+  --rp-accent: #f472b6;
+  --rp-on-primary: #10102a;
+
+  --rp-bg: #0e0d1c;
+  --rp-surface: #16152b;
+  --rp-surface-2: #1f1e3a;
+  --rp-text: #f0efff;
+  --rp-text-soft: #c6c4e6;
+  --rp-muted: #8a88b4;
+  --rp-border: #262444;
+  --rp-border-strong: #383560;
+}
+
+/* --------------------------------------------------------------------------
+   3. Page atmosphere  soft colour wash behind the hero
+   -------------------------------------------------------------------------- */
+
+.rp-demo--app-developer {
+  background: var(--rp-bg);
+}
+
+.ad-hero {
+  position: relative;
+  padding-block: clamp(2.5rem, 1rem + 6vw, 5.5rem) var(--rp-section-y);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Two blurred colour fields  the "aurora" look of app landing pages. */
+.ad-hero::before,
+.ad-hero::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inline-size: 46vw;
+  block-size: 46vw;
+  max-inline-size: 620px;
+  max-block-size: 620px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+}
+
+.ad-hero::before {
+  inset-block-start: -14%;
+  inset-inline-start: -8%;
+  background: var(--rp-primary);
+}
+
+.ad-hero::after {
+  inset-block-start: 6%;
+  inset-inline-end: -10%;
+  background: var(--rp-accent);
+  opacity: 0.34;
+}
+
+.ad-hero-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(2rem, 1.3rem + 3vw, 3.7rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  max-inline-size: 20ch;
+  margin-inline: auto;
+  margin-block: var(--rp-space-4) var(--rp-space-4);
+}
+
+.ad-hero-lead {
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-muted);
+  max-inline-size: 56ch;
+  margin-inline: auto;
+  line-height: var(--rp-lh-snug);
+}
+
+.ad-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* --------------------------------------------------------------------------
+   4. Phone mockup
+   -------------------------------------------------------------------------- */
+
+.ad-phone {
+  position: relative;
+  inline-size: var(--ad-phone-w, 290px);
+  aspect-ratio: 9 / 19.2;
+  flex: none;
+  padding: 12px;
+  border-radius: 46px;
+  background: linear-gradient(160deg, var(--rp-border-strong), var(--rp-surface-2));
+  box-shadow: var(--rp-shadow-lg);
+}
+
+.ad-phone-screen {
+  position: relative;
+  block-size: 100%;
+  border-radius: 36px;
+  overflow: hidden;
+  background: var(--rp-surface);
+}
+
+.ad-phone-screen img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* The notch / dynamic island. */
+.ad-phone::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 22px;
+  inset-inline-start: 50%;
+  inline-size: 86px;
+  block-size: 22px;
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-text);
+  opacity: 0.85;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.ad-hero-device {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: var(--rp-space-5);
+  margin-block-start: var(--rp-space-8);
+}
+
+/* The two side phones are smaller and pushed back. */
+.ad-hero-device .ad-phone:not(.is-lead) {
+  --ad-phone-w: 226px;
+  opacity: 0.75;
+  transform: translateY(24px) scale(0.96);
+}
+
+@media (max-width: 760px) {
+  .ad-hero-device .ad-phone:not(.is-lead) {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Store badges
+   -------------------------------------------------------------------------- */
+
+.ad-store {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-3);
+  padding: 0.7em 1.4em;
+  border-radius: var(--rp-radius);
+  background: var(--rp-text);
+  color: var(--rp-bg);
+  transition: transform 0.25s var(--rp-ease), box-shadow 0.25s var(--rp-ease);
+}
+
+.ad-store:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--rp-shadow-lg);
+}
+
+.ad-store small {
+  display: block;
+  font-size: 0.7em;
+  opacity: 0.7;
+  line-height: 1.2;
+}
+
+.ad-store strong {
+  font-size: 1.05em;
+  line-height: 1.2;
+}
+
+/* --------------------------------------------------------------------------
+   6. Alternating feature rows
+   -------------------------------------------------------------------------- */
+
+.ad-row {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+}
+
+.ad-row + .ad-row {
+  margin-block-start: var(--rp-space-9);
+}
+
+/* Every second row swaps its columns. */
+.ad-row:nth-child(even) .ad-row-visual {
+  order: -1;
+}
+
+@media (max-width: 860px) {
+  .ad-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ad-row:nth-child(even) .ad-row-visual {
+    order: 0;
+  }
+}
+
+.ad-row-visual {
+  display: flex;
+  justify-content: center;
+  /* min-width:0 so a photo can never push the grid column wider than the
+     viewport  the classic cause of a shrink-to-fit mobile layout. */
+  min-inline-size: 0;
+}
+
+/* The about photograph: fluid first, capped second, cropped to a stable box so
+   the row height does not jump between demos or breakpoints. */
+.ad-portrait {
+  inline-size: 100%;
+  max-inline-size: 420px;
+  aspect-ratio: 4 / 5;
+  block-size: auto;
+  object-fit: cover;
+}
+
+.ad-row-title {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-2xl);
+  font-weight: 800;
+  line-height: var(--rp-lh-tight);
+  margin-block: var(--rp-space-3);
+}
+
+.ad-check-list {
+  display: grid;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-5);
+}
+
+.ad-check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--rp-space-3);
+  color: var(--rp-text-soft);
+  font-size: var(--rp-fs-sm);
+}
+
+.ad-check-list .rp-icon {
+  flex: none;
+  margin-block-start: 0.25em;
+  padding: 3px;
+  border-radius: 50%;
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+}
+
+/* --------------------------------------------------------------------------
+   7. Stats band
+   -------------------------------------------------------------------------- */
+
+.ad-band {
+  border-radius: var(--rp-radius-lg);
+  padding: clamp(2rem, 1rem + 3vw, 3.5rem);
+  background: linear-gradient(135deg, var(--rp-primary), var(--rp-accent));
+  color: #fff;
+}
+
+.ad-band .rp-stat-value,
+.ad-band .rp-stat-label {
+  color: #fff;
+}
+
+.ad-band .rp-stat-label {
+  opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   8. App cards
+   -------------------------------------------------------------------------- */
+
+.ad-apps {
+  --rp-grid-min: 250px;
+}
+
+.ad-app-card {
+  text-align: center;
+  padding: var(--rp-space-6) var(--rp-space-5);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  transition: transform 0.35s var(--rp-ease), box-shadow 0.35s var(--rp-ease);
+}
+
+.ad-app-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--rp-shadow-lg);
+}
+
+/* Squircle app icon. */
+.ad-app-icon {
+  inline-size: 76px;
+  block-size: 76px;
+  margin-inline: auto;
+  margin-block-end: var(--rp-space-4);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: var(--rp-shadow);
+}
+
+.ad-app-icon img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.ad-app-meta {
+  display: flex;
+  justify-content: center;
+  gap: var(--rp-space-4);
+  margin-block-start: var(--rp-space-4);
+  padding-block-start: var(--rp-space-4);
+  border-block-start: 1px solid var(--rp-border);
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   9. Screens slider  phones side by side
+   -------------------------------------------------------------------------- */
+
+.ad-screens .rp-slider-track {
+  --rp-slide-size: 260px;
+}
+
+.ad-screens .ad-phone {
+  --ad-phone-w: 250px;
+}
+
+/* --------------------------------------------------------------------------
+   10. Final CTA card
+   -------------------------------------------------------------------------- */
+
+.ad-cta {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border-radius: var(--rp-radius-lg);
+  padding: clamp(2.5rem, 1rem + 5vw, 5rem) var(--rp-space-5);
+  background: var(--rp-text);
+  color: var(--rp-bg);
+}
+
+.ad-cta h2 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-3xl);
+  font-weight: 800;
+  line-height: var(--rp-lh-tight);
+  max-inline-size: 20ch;
+  margin-inline: auto;
+}
+
+.ad-cta p {
+  color: inherit;
+  opacity: 0.72;
+  max-inline-size: 52ch;
+  margin-inline: auto;
+  margin-block: var(--rp-space-4) var(--rp-space-6);
+}
+
+/* Soft glow behind the CTA text. */
+.ad-cta::before {
+  content: '';
+  position: absolute;
+  inset-block-start: -40%;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  inline-size: 520px;
+  block-size: 520px;
+  border-radius: 50%;
+  background: var(--rp-primary);
+  filter: blur(110px);
+  opacity: 0.45;
+}
+
+.ad-cta > * {
+  position: relative;
+}

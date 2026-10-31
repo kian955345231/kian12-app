@@ -1,0 +1,435 @@
+/* ==========================================================================
+   Demo 05  Doctor  ·  demos/05-doctor/css/theme.css
+
+   Design rationale
+   ----------------
+   Calm and clinical without being cold. Teal primary with a mint accent on
+   a near-white ground; soft edges, plenty of air, no hard contrast. Layout
+   archetype C: a full-bleed hero with an image overlay, and a booking card
+   that overlaps the hero's bottom edge so the primary action is impossible
+   to miss.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--doctor only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #0e8f8f;
+  --rp-primary-strong: #0b7676;
+  --rp-primary-soft: rgba(14, 143, 143, 0.11);
+  --rp-accent: #34c98a;
+  --rp-on-primary: #ffffff;
+  --rp-on-accent: #04241a;
+  --rp-danger: #d4455c;
+
+  --rp-bg: #ffffff;
+  --rp-surface: #eef8f8;
+  --rp-surface-2: #ddf0f0;
+  --rp-text: #08262e;
+  --rp-text-soft: #26454e;
+  --rp-muted: #61818a;
+  --rp-border: #dcebeb;
+  --rp-border-strong: #b6d6d6;
+
+  --rp-container: 1180px;
+  --rp-radius: 16px;
+  --rp-radius-lg: 24px;
+  --rp-btn-radius: var(--rp-radius-pill);
+  --rp-shadow: 0 2px 6px rgba(8, 38, 46, 0.04), 0 10px 30px rgba(8, 38, 46, 0.06);
+  --rp-shadow-lg: 0 18px 50px rgba(8, 38, 46, 0.13);
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #2dd4bf;
+  --rp-primary-strong: #5eead4;
+  --rp-primary-soft: rgba(45, 212, 191, 0.15);
+  --rp-accent: #4ade80;
+  --rp-on-primary: #04231f;
+
+  --rp-bg: #06181d;
+  --rp-surface: #0c242b;
+  --rp-surface-2: #123039;
+  --rp-text: #eaf6f6;
+  --rp-text-soft: #bcd6d8;
+  --rp-muted: #7d9ba1;
+  --rp-border: #16343d;
+  --rp-border-strong: #234c58;
+}
+
+/* --------------------------------------------------------------------------
+   3. Full-bleed hero
+   -------------------------------------------------------------------------- */
+
+.dr-hero {
+  position: relative;
+  isolation: isolate;
+  /* Extra bottom padding leaves room for the overlapping booking card. */
+  padding-block: clamp(3.5rem, 2rem + 7vw, 7rem) clamp(7rem, 4rem + 9vw, 11rem);
+  overflow: hidden;
+  color: #fff;
+}
+
+.dr-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.dr-hero-bg img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* Tinted scrim keeps the headline legible over any artwork. */
+.dr-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to bottom, rgba(4, 32, 38, 0.55), rgba(4, 32, 38, 0.9)),
+    linear-gradient(to left, transparent 30%, var(--rp-primary-strong) 130%);
+  opacity: 0.94;
+}
+
+.dr-hero-inner {
+  max-inline-size: 40rem;
+}
+
+.dr-hero-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(2rem, 1.2rem + 3.6vw, 3.9rem);
+  font-weight: 800;
+  line-height: 1.22;
+  margin-block: var(--rp-space-4);
+}
+
+.dr-hero-lead {
+  font-size: var(--rp-fs-lg);
+  line-height: var(--rp-lh-snug);
+  opacity: 0.9;
+}
+
+.dr-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* Hero buttons sit on a dark scrim, so they need their own treatment. */
+.dr-hero .rp-btn--outline {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.dr-hero .rp-btn--outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #fff;
+  color: #fff;
+}
+
+.dr-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-5);
+  margin-block-start: var(--rp-space-7);
+  padding-block-start: var(--rp-space-5);
+  border-block-start: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: var(--rp-fs-sm);
+}
+
+.dr-hero-badges div {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   4. Booking card that overlaps the hero
+   -------------------------------------------------------------------------- */
+
+.dr-booking {
+  position: relative;
+  z-index: 2;
+  margin-block-start: clamp(-6.5rem, -4rem - 4vw, -4rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 1px;
+  background: var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--rp-shadow-lg);
+}
+
+.dr-booking-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-4);
+  padding: var(--rp-space-6) var(--rp-space-5);
+  background: var(--rp-bg);
+}
+
+.dr-booking-cell .rp-icon {
+  color: var(--rp-primary);
+  flex: none;
+}
+
+.dr-booking-cell strong {
+  display: block;
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+}
+
+.dr-booking-cell span {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* The last cell is the call to action. */
+.dr-booking-cell--cta {
+  background: var(--rp-primary);
+  color: var(--rp-on-primary);
+  justify-content: center;
+}
+
+.dr-booking-cell--cta span {
+  color: inherit;
+  opacity: 0.8;
+}
+
+/* Without this the icon keeps --rp-primary and vanishes into the teal fill. */
+.dr-booking-cell--cta .rp-icon {
+  color: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   5. Specialty cards
+   -------------------------------------------------------------------------- */
+
+.dr-specialties {
+  --rp-grid-min: 240px;
+}
+
+.dr-specialty {
+  text-align: center;
+  padding: var(--rp-space-6) var(--rp-space-5);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  transition: transform 0.35s var(--rp-ease), box-shadow 0.35s var(--rp-ease),
+              border-color 0.35s var(--rp-ease);
+}
+
+.dr-specialty:hover {
+  transform: translateY(-6px);
+  border-color: var(--rp-primary);
+  box-shadow: var(--rp-shadow-lg);
+}
+
+.dr-specialty-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 66px;
+  block-size: 66px;
+  margin-inline: auto;
+  margin-block-end: var(--rp-space-4);
+  border-radius: 50%;
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+}
+
+.dr-specialty h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block-end: var(--rp-space-2);
+}
+
+.dr-specialty p {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+/* --------------------------------------------------------------------------
+   6. About
+   -------------------------------------------------------------------------- */
+
+.dr-about {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+}
+
+@media (max-width: 880px) {
+  .dr-about {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dr-about-media {
+  position: relative;
+  border-radius: var(--rp-radius-lg);
+  overflow: hidden;
+}
+
+/* Floating "years of experience" badge over the portrait. */
+.dr-badge {
+  position: absolute;
+  inset-block-end: var(--rp-space-5);
+  inset-inline-start: var(--rp-space-5);
+  padding: var(--rp-space-4) var(--rp-space-5);
+  border-radius: var(--rp-radius);
+  background: var(--rp-bg);
+  box-shadow: var(--rp-shadow-lg);
+  text-align: center;
+}
+
+.dr-badge strong {
+  display: block;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-2xl);
+  color: var(--rp-primary);
+  line-height: 1.1;
+}
+
+.dr-badge span {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   7. Procedure list
+   -------------------------------------------------------------------------- */
+
+.dr-list {
+  display: grid;
+  gap: var(--rp-space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+}
+
+.dr-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-3);
+  padding: var(--rp-space-4);
+  border-radius: var(--rp-radius);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+}
+
+.dr-list .rp-icon {
+  flex: none;
+  padding: 4px;
+  border-radius: 50%;
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+}
+
+/* --------------------------------------------------------------------------
+   8. Hours + location
+   -------------------------------------------------------------------------- */
+
+.dr-info {
+  display: grid;
+  gap: var(--rp-space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+.dr-card {
+  padding: var(--rp-space-6);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+}
+
+.dr-card h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-3);
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block-end: var(--rp-space-4);
+}
+
+.dr-card h3 .rp-icon {
+  color: var(--rp-primary);
+}
+
+.dr-hours {
+  display: grid;
+  gap: var(--rp-space-1);
+  font-size: var(--rp-fs-sm);
+}
+
+.dr-hours div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--rp-space-4);
+  padding-block: var(--rp-space-3);
+  border-block-end: 1px solid var(--rp-border);
+}
+
+.dr-hours div:last-child {
+  border-block-end: 0;
+}
+
+.dr-hours .is-closed {
+  color: var(--rp-danger);
+}
+
+/* Insurance logos. */
+.dr-insurers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3);
+}
+
+.dr-insurers span {
+  padding: 0.5em 1em;
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-surface);
+  border: 1px solid var(--rp-border);
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   9. Appointment form
+   -------------------------------------------------------------------------- */
+
+.dr-appointment {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-surface);
+}
+
+@media (max-width: 880px) {
+  .dr-appointment {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dr-appointment .rp-input,
+.dr-appointment .rp-textarea,
+.dr-appointment .rp-select {
+  background: var(--rp-bg);
+}

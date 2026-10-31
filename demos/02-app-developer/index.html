@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<!--
+  پورتفولیو باورسا Demo 02 · App Developer
+  Archetype D (app-shell, centred hero with device mockups), light-first.
+-->
+<html lang="fa" dir="rtl" data-theme-default="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>سارا کیانی | توسعه‌دهنده اپلیکیشن موبایل</title>
+  <meta name="description" content="طراحی و توسعه اپلیکیشن‌های iOS و اندروید با تمرکز بر سرعت، تجربه کاربری و انتشار پایدار در استورها.">
+  <meta name="theme-color" content="#5b5bd6">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="سارا کیانی | توسعه‌دهنده اپلیکیشن موبایل">
+  <meta property="og:description" content="از ایده تا انتشار در استور، در یک تیم یک‌نفره.">
+  <meta property="og:image" content="img/hero.jpg">
+
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+
+  <script>
+    (function () {
+      var DEFAULT = document.documentElement.getAttribute('data-theme-default') || 'light';
+      var stored = null;
+      try { stored = localStorage.getItem('rp-theme'); } catch (e) { /* private mode */ }
+      var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : DEFAULT);
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add('rp-js');
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../core/css/reset.css">
+  <link rel="stylesheet" href="../../core/css/core.css">
+  <link rel="stylesheet" href="../../core/css/components.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="../../core/css/utilities.css">
+</head>
+
+<body class="rp-demo--app-developer">
+
+  <!-- rp:sprite:start -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="rp-sprite" aria-hidden="true" hidden>
+  
+    <!-- ===== Interface ===== -->
+    <symbol id="menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="chevron-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="chevron-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol>
+    <symbol id="arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+    <symbol id="arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="arrow-up-right" viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></symbol>
+    <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+    <symbol id="external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-8 8"/><path d="M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></symbol>
+    <symbol id="download" viewBox="0 0 24 24"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol>
+    <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></symbol>
+    <symbol id="play" viewBox="0 0 24 24"><path d="M8 5.5l10 6.5-10 6.5z"/></symbol>
+  
+    <!-- ===== Theme ===== -->
+    <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></symbol>
+    <symbol id="moon" viewBox="0 0 24 24"><path d="M20 14.5A8.2 8.2 0 019.6 4 8.4 8.4 0 1020 14.5z"/></symbol>
+  
+    <!-- ===== Contact ===== -->
+    <symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7.5l7.2 5a1.4 1.4 0 001.6 0L20 7.5"/></symbol>
+    <symbol id="phone" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 006 6l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.5 5.7a2 2 0 012-2.2z"/></symbol>
+    <symbol id="map-pin" viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+    <symbol id="calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3.5v3M16 3.5v3"/></symbol>
+    <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="send" viewBox="0 0 24 24"><path d="M21 3.5L10.5 14M21 3.5l-6.5 17-4-7.5-7.5-4z"/></symbol>
+  
+    <!-- ===== Social ===== -->
+    <symbol id="github" viewBox="0 0 24 24"><path d="M9 19.5c-4.3 1.3-4.3-2.2-6-2.7m12 5.2v-3.4a3 3 0 00-.8-2.3c2.7-.3 5.5-1.3 5.5-5.9a4.6 4.6 0 00-1.3-3.2 4.3 4.3 0 00-.1-3.2s-1-.3-3.4 1.3a11.7 11.7 0 00-6 0C6.5 3.7 5.5 4 5.5 4a4.3 4.3 0 00-.1 3.2A4.6 4.6 0 004 10.4c0 4.6 2.8 5.6 5.5 5.9a3 3 0 00-.8 2.3V22"/></symbol>
+    <symbol id="linkedin" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V16M8 7.6v.1M12 16v-3.2a2 2 0 014 0V16"/></symbol>
+    <symbol id="twitter" viewBox="0 0 24 24"><path d="M4 4l7.2 9.4L4.4 20M20 4l-7 7.7L20 20h-3.6L4 4h3.7"/></symbol>
+    <symbol id="instagram" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><path d="M17 7v.1"/></symbol>
+    <symbol id="telegram" viewBox="0 0 24 24"><path d="M21 4L2.8 11.2l5.1 1.7L19 6.4l-8.3 8.2.4 5 2.7-3.6 4.3 3z"/></symbol>
+    <symbol id="whatsapp" viewBox="0 0 24 24"><path d="M3.5 20.5l1.3-4a8 8 0 113.2 3.1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5.6 0 1-.4 1-1v-.8l-2-.7-.8 1a5.6 5.6 0 01-2.2-2.2l1-.8-.7-2H10c-.6 0-1 .4-1 1z"/></symbol>
+    <symbol id="dribbble" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M5 8.5c5 .5 9.7-.6 12.5-3M3.8 14.5c4.8-2.6 10.3-1.7 13.8 1.8M9 3.8c3.6 4 5.6 9 6 16"/></symbol>
+    <symbol id="behance" viewBox="0 0 24 24"><path d="M3 6.5h5a2.5 2.5 0 010 5H3zM3 11.5h5.5a3 3 0 010 6H3z"/><path d="M14 13.5h7a3.2 3.2 0 00-6.4 0 3.2 3.2 0 005.7 2"/><path d="M15 6.5h5"/></symbol>
+  
+    <!-- ===== Professions & sections ===== -->
+    <symbol id="code" viewBox="0 0 24 24"><path d="M8.5 8L4 12l4.5 4M15.5 8L20 12l-4.5 4M13.5 5l-3 14"/></symbol>
+    <symbol id="terminal" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7 10l2.5 2L7 14M12.5 15h4"/></symbol>
+    <symbol id="layers" viewBox="0 0 24 24"><path d="M12 3l8.5 4.5L12 12 3.5 7.5z"/><path d="M3.5 12L12 16.5 20.5 12M3.5 16.5L12 21l8.5-4.5"/></symbol>
+    <symbol id="smartphone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.8"/><path d="M10.5 18.5h3"/></symbol>
+    <symbol id="monitor" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2.5"/><path d="M8.5 21h7M12 17v4"/></symbol>
+    <symbol id="palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 000 18c1.4 0 2-1 2-2s-.7-1.6-.7-2.4c0-.8.7-1.6 1.7-1.6H17a4 4 0 004-4c0-4.4-4-8-9-8z"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/></symbol>
+    <symbol id="pen" viewBox="0 0 24 24"><path d="M15.5 4.5l4 4L8 20H4v-4z"/><path d="M13.5 6.5l4 4"/></symbol>
+    <symbol id="book" viewBox="0 0 24 24"><path d="M4 4.5h6a3 3 0 013 3V20a2.5 2.5 0 00-2.5-2H4z"/><path d="M20 4.5h-6a3 3 0 00-3 3V20a2.5 2.5 0 012.5-2H20z"/></symbol>
+    <symbol id="scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M3.5 9l3.5-4 3.5 4"/><path d="M13.5 9L17 5l3.5 4"/><path d="M3.5 9a3.5 3.5 0 007 0M13.5 9a3.5 3.5 0 007 0"/></symbol>
+    <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l7 2.5v6c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5v-6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="stethoscope" viewBox="0 0 24 24"><path d="M6 3v5a4 4 0 008 0V3"/><path d="M10 15v-3M10 15a5 5 0 0010 0v-1.5"/><circle cx="20" cy="11" r="2"/></symbol>
+    <symbol id="heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.3A4.2 4.2 0 0112 8a4.2 4.2 0 017 2.7c0 4.9-7 9.3-7 9.3z"/></symbol>
+    <symbol id="activity" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 12 2.5-6h5"/></symbol>
+    <symbol id="chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><path d="M8 20v-6M12.5 20V9M17 20v-9"/></symbol>
+    <symbol id="trending" viewBox="0 0 24 24"><path d="M3 16.5l6-6 4 4 8-8"/><path d="M15 6.5h6v6"/></symbol>
+    <symbol id="target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="briefcase" viewBox="0 0 24 24"><rect x="3" y="7.5" width="18" height="12" rx="2.5"/><path d="M9 7.5V6a2 2 0 012-2h2a2 2 0 012 2v1.5M3 12.5h18"/></symbol>
+    <symbol id="users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M3 19a6 6 0 0112 0"/><path d="M16 5.3a3.4 3.4 0 010 6.4M17 19a6 6 0 00-1.6-4"/></symbol>
+    <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0115 0"/></symbol>
+    <symbol id="award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.5 5 2.5-1.5-7.5"/></symbol>
+    <symbol id="rocket" viewBox="0 0 24 24"><path d="M13 4c4 1 7 4 7 8l-4 4-5-5 2-7z"/><path d="M11 11L4.5 13 8 16.5 6 21l4.5-2 3.5 3.5"/><circle cx="15" cy="9" r="1.4"/></symbol>
+    <symbol id="lightbulb" viewBox="0 0 24 24"><path d="M9 17a6 6 0 116 0v2H9z"/><path d="M10 21.5h4"/></symbol>
+    <symbol id="film" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M8 4.5v15M16 4.5v15M3 9.5h5M16 9.5h5M3 14.5h5M16 14.5h5"/></symbol>
+    <symbol id="camera" viewBox="0 0 24 24"><path d="M4 7.5h3l1.5-2.5h7L17 7.5h3a1.5 1.5 0 011.5 1.5v9A1.5 1.5 0 0120 19.5H4A1.5 1.5 0 012.5 18V9A1.5 1.5 0 014 7.5z"/><circle cx="12" cy="13" r="3.6"/></symbol>
+    <symbol id="mic" viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0013 0M12 18v3.5"/></symbol>
+    <symbol id="star" viewBox="0 0 24 24"><path d="M12 3.5l2.7 5.6 6.1.9-4.4 4.3 1 6.2-5.4-2.9-5.4 2.9 1-6.2L3.2 10l6.1-.9z"/></symbol>
+    <symbol id="quote" viewBox="0 0 24 24"><path d="M9.5 6C6.5 7.5 5 10 5 13v5h6v-6H8c0-2 .8-3.5 2.5-4.5zM20 6c-3 1.5-4.5 4-4.5 7v5h6v-6h-3c0-2 .8-3.5 2.5-4.5z"/></symbol>
+    <symbol id="sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol>
+    <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5a13 13 0 010 17 13 13 0 010-17z"/></symbol>
+    <symbol id="settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 14a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7 1.1v.3a2 2 0 11-4 0v-.2a1.6 1.6 0 00-2.8-1.1l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 003.7 15H3.4a2 2 0 010-4h.2a1.6 1.6 0 001.1-2.7l-.1-.1a2 2 0 112.8-2.8l.1.1A1.6 1.6 0 0010 4.4V4a2 2 0 014 0v.2a1.6 1.6 0 002.7 1.1l.1-.1a2 2 0 112.8 2.8l-.1.1A1.6 1.6 0 0020.3 11h.3a2 2 0 010 4h-.2a1.6 1.6 0 00-1 .9z"/></symbol>
+    <symbol id="hand-wave" viewBox="0 0 24 24"><path d="M8.6 12.6V5.8a1.3 1.3 0 012.6 0v5.9"/><path d="M11.2 11.3V4.7a1.3 1.3 0 012.6 0v6.4"/><path d="M13.8 11.6V6.5a1.3 1.3 0 012.6 0v6.4"/><path d="M16.4 12.4c0-1.6 2.4-1.6 2.4.3 0 4.1-1.7 8-5.9 8-3 0-5.2-1.8-6.1-4.4l-1.2-3.4c-.4-1.3 1.4-2.1 2.1-.9l1.2 2.1"/><path d="M4.3 5.7l1.4.9M6.4 2.8l.5 1.6"/></symbol>
+    <symbol id="grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></symbol>
+  
+  </svg>
+  <!-- rp:sprite:end -->
+
+  <a class="rp-skip-link" href="#main">پرش به محتوای اصلی</a>
+
+  <header class="rp-header" data-rp-header>
+    <div class="rp-container rp-header-inner">
+
+      <a class="rp-brand" href="#hero">
+        <span class="rp-brand-mark" aria-hidden="true">
+          <svg class="rp-icon"><use href="#smartphone"></use></svg>
+        </span>
+        <span>سارا کیانی</span>
+      </a>
+
+      <nav class="rp-nav" id="primary-nav" data-rp-scrollspy aria-label="ناوبری اصلی">
+        <a class="rp-nav-link" href="#features">قابلیت‌ها</a>
+        <a class="rp-nav-link" href="#apps">اپلیکیشن‌ها</a>
+        <a class="rp-nav-link" href="#screens">اسکرین‌ها</a>
+        <a class="rp-nav-link" href="#about">درباره من</a>
+        <a class="rp-nav-link" href="#faq">پرسش‌ها</a>
+        <a class="rp-nav-link" href="#contact">تماس</a>
+      </nav>
+
+      <div class="rp-header-actions">
+        <button type="button" class="rp-icon-btn rp-theme-toggle" data-rp-theme-toggle aria-label="حالت تاریک">
+          <svg class="rp-icon rp-theme-toggle-light" aria-hidden="true"><use href="#moon"></use></svg>
+          <svg class="rp-icon rp-theme-toggle-dark" aria-hidden="true"><use href="#sun"></use></svg>
+        </button>
+        <a class="rp-btn rp-btn--primary rp-btn--sm rp-hide-sm" href="#contact">سفارش پروژه</a>
+        <button type="button" class="rp-nav-toggle" data-rp-nav-toggle aria-controls="primary-nav" aria-label="باز کردن منو">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ==================================================================
+         Hero centred, with three device mockups
+         ================================================================== -->
+    <section class="ad-hero" id="hero">
+      <div class="rp-container">
+
+        <span class="rp-chip rp-chip--primary rp-chip--status" data-rp-reveal>۴ اپلیکیشن منتشرشده در سال ۱۴۰۳</span>
+
+        <h1 class="ad-hero-title" data-rp-reveal>
+          اپلیکیشن‌هایی می‌سازم که کاربر هر روز بازشان می‌کند.
+        </h1>
+
+        <p class="ad-hero-lead" data-rp-reveal="80">
+          از طراحی جریان کاربری تا انتشار در کافه‌بازار و اپ‌استور همه‌ی مسیر را با هم می‌رویم.
+          تمرکز من روی سرعت اجرا، مصرف کم باتری و رابطی است که آموزش نمی‌خواهد.
+        </p>
+
+        <div class="ad-hero-actions" data-rp-reveal="140">
+          <a class="ad-store" href="#apps">
+            <svg class="rp-icon rp-icon--lg" aria-hidden="true"><use href="#download"></use></svg>
+            <span>
+              <small>دریافت از</small>
+              <strong>کافه‌بازار</strong>
+            </span>
+          </a>
+          <a class="ad-store" href="#apps">
+            <svg class="rp-icon rp-icon--lg" aria-hidden="true"><use href="#smartphone"></use></svg>
+            <span>
+              <small>موجود در</small>
+              <strong>اپ‌استور</strong>
+            </span>
+          </a>
+        </div>
+
+        <div class="ad-hero-device" data-rp-reveal="200">
+          <div class="ad-phone" aria-hidden="true">
+            <div class="ad-phone-screen"><img src="img/work-1.jpg" alt="" width="900" height="1200" loading="lazy"></div>
+          </div>
+          <div class="ad-phone is-lead">
+            <div class="ad-phone-screen">
+              <img src="img/hero.jpg" alt="نمای اپلیکیشن نمونه" width="900" height="1200">
+            </div>
+          </div>
+          <div class="ad-phone" aria-hidden="true">
+            <div class="ad-phone-screen"><img src="img/work-3.jpg" alt="" width="900" height="1200" loading="lazy"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Alternating feature rows
+         ================================================================== -->
+    <section class="rp-section" id="features">
+      <div class="rp-container">
+
+        <div class="rp-section-head rp-section-head--center">
+          <span class="rp-eyebrow">روش کار</span>
+          <h2 class="rp-section-title">از ایده تا نصب روی گوشی کاربر</h2>
+        </div>
+
+        <div class="ad-row" data-rp-reveal>
+          <div class="ad-row-visual">
+            <div class="ad-phone" style="--ad-phone-w: 250px" aria-hidden="true">
+              <div class="ad-phone-screen"><img src="img/work-5.jpg" alt="" width="900" height="1200" loading="lazy"></div>
+            </div>
+          </div>
+          <div>
+            <span class="rp-eyebrow">گام یک</span>
+            <h3 class="ad-row-title">طراحی جریان، پیش از نوشتن کد</h3>
+            <p class="rp-color-muted">
+              اول مسیر کاربر را روی کاغذ می‌کشیم؛ کدام صفحه به کدام صفحه می‌رود و کاربر در
+              کدام نقطه ممکن است رها کند. نمونه اولیه کلیک‌کردنی را قبل از شروع توسعه
+              تحویل می‌گیرید.
+            </p>
+            <ul class="ad-check-list" role="list">
+              <li><svg class="rp-icon"><use href="#check"></use></svg><span>نقشه کامل صفحات و حالت‌های خطا</span></li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg><span>نمونه اولیه تعاملی برای تست با کاربر واقعی</span></li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg><span>تخمین زمان و هزینه بر اساس همان نقشه</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ad-row" data-rp-reveal>
+          <div class="ad-row-visual">
+            <div class="ad-phone" style="--ad-phone-w: 250px" aria-hidden="true">
+              <div class="ad-phone-screen"><img src="img/work-2.jpg" alt="" width="900" height="1200" loading="lazy"></div>
+            </div>
+          </div>
+          <div>
+            <span class="rp-eyebrow">گام دو</span>
+            <h3 class="ad-row-title">توسعه با یک کدبیس، برای هر دو پلتفرم</h3>
+            <p class="rp-color-muted">
+              با فلاتر و ری‌اکت‌نیتیو یک کد می‌نویسیم و روی iOS و اندروید منتشر می‌کنیم؛
+              بدون اینکه حس کنید نسخه‌ی یکی از پلتفرم‌ها دست دوم است.
+            </p>
+            <ul class="ad-check-list" role="list">
+              <li><svg class="rp-icon"><use href="#check"></use></svg><span>پشتیبانی کامل راست‌به‌چپ و فونت فارسی</span></li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg><span>حالت آفلاین و همگام‌سازی خودکار</span></li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg><span>تست خودکار روی دستگاه‌های واقعی</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ad-row" data-rp-reveal>
+          <div class="ad-row-visual">
+            <div class="ad-phone" style="--ad-phone-w: 250px" aria-hidden="true">
+              <div class="ad-phone-screen"><img src="img/work-6.jpg" alt="" width="900" height="1200" loading="lazy"></div>
+            </div>
+          </div>
+          <div>
+            <span class="rp-eyebrow">گام سه</span>
+            <h3 class="ad-row-title">انتشار، اندازه‌گیری، به‌روزرسانی</h3>
+            <p class="rp-color-muted">
+              انتشار در استورها تمام کار نیست. بعد از آن است که می‌فهمیم کاربر کجا گیر
+              می‌کند. گزارش ماهانه رفتار کاربر و نقشه‌راه نسخه بعدی را با هم مرور می‌کنیم.
+            </p>
+            <ul class="ad-check-list" role="list">
+              <li><svg class="rp-icon"><use href="#check"></use></svg><span>راه‌اندازی آنالیتیکس و گزارش خطا</span></li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg><span>انتشار تدریجی برای کاهش ریسک</span></li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg><span>سه ماه پشتیبانی رایگان پس از انتشار</span></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Stats band
+         ================================================================== -->
+    <section class="rp-section rp-section--tight">
+      <div class="rp-container">
+        <div class="ad-band rp-stats" data-rp-reveal>
+          <div>
+            <div class="rp-stat-value"><span data-rp-counter="19">۱۹</span></div>
+            <div class="rp-stat-label">اپلیکیشن منتشرشده</div>
+          </div>
+          <div>
+            <div class="rp-stat-value"><span data-rp-counter="840">۸۴۰</span><span>هزار</span></div>
+            <div class="rp-stat-label">نصب فعال</div>
+          </div>
+          <div>
+            <div class="rp-stat-value"><span data-rp-counter="47">۴۷</span><span>/۴</span></div>
+            <div class="rp-stat-label">میانگین امتیاز استور</div>
+          </div>
+          <div>
+            <div class="rp-stat-value"><span data-rp-counter="6">۶</span></div>
+            <div class="rp-stat-label">سال تجربه موبایل</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Apps
+         ================================================================== -->
+    <section class="rp-section rp-section--alt" id="apps" data-rp-filter>
+      <div class="rp-container">
+
+        <div class="rp-section-head rp-section-head--center">
+          <span class="rp-eyebrow">اپلیکیشن‌ها</span>
+          <h2 class="rp-section-title">کارهایی که روی گوشی مردم زندگی می‌کنند</h2>
+        </div>
+
+        <div class="rp-filters rp-justify-center" role="group" aria-label="فیلتر اپلیکیشن‌ها">
+          <button type="button" class="rp-filter is-active" data-filter="all" aria-pressed="true">همه</button>
+          <button type="button" class="rp-filter" data-filter="ios" aria-pressed="false">iOS</button>
+          <button type="button" class="rp-filter" data-filter="android" aria-pressed="false">اندروید</button>
+          <button type="button" class="rp-filter" data-filter="cross" aria-pressed="false">چندسکویی</button>
+        </div>
+
+        <div class="rp-grid ad-apps">
+
+          <article class="ad-app-card rp-filter-item" data-category="cross ios" data-rp-reveal>
+            <div class="ad-app-icon"><img src="img/work-1.jpg" alt="" width="900" height="1200" loading="lazy"></div>
+            <h3 class="rp-card-title">هم‌قدم سلامت روزانه</h3>
+            <p class="rp-card-text">شمارش قدم، یادآور دارو و گزارش هفتگی؛ با مصرف باتری کمتر از یک درصد در روز.</p>
+            <div class="ad-app-meta"><span>Flutter</span><span>۱۲۰ هزار نصب</span></div>
+          </article>
+
+          <article class="ad-app-card rp-filter-item" data-category="android" data-rp-reveal="80">
+            <div class="ad-app-icon"><img src="img/work-2.jpg" alt="" width="900" height="1200" loading="lazy"></div>
+            <h3 class="rp-card-title">باربر مدیریت ناوگان</h3>
+            <p class="rp-card-text">ردیابی زنده ناوگان و تخصیص بار، با کارکرد کامل در مناطق بدون اینترنت پایدار.</p>
+            <div class="ad-app-meta"><span>Kotlin</span><span>۳۴ هزار نصب</span></div>
+          </article>
+
+          <article class="ad-app-card rp-filter-item" data-category="ios" data-rp-reveal="160">
+            <div class="ad-app-icon"><img src="img/work-3.jpg" alt="" width="900" height="1200" loading="lazy"></div>
+            <h3 class="rp-card-title">نُت‌بوک دفتر یادداشت</h3>
+            <p class="rp-card-text">یادداشت‌برداری سریع با همگام‌سازی رمزنگاری‌شده و ویجت صفحه قفل.</p>
+            <div class="ad-app-meta"><span>SwiftUI</span><span>۸۶ هزار نصب</span></div>
+          </article>
+
+          <article class="ad-app-card rp-filter-item" data-category="cross" data-rp-reveal>
+            <div class="ad-app-icon"><img src="img/work-4.jpg" alt="" width="900" height="1200" loading="lazy"></div>
+            <h3 class="rp-card-title">چرتکه حسابداری شخصی</h3>
+            <p class="rp-card-text">ثبت خودکار تراکنش از پیامک بانک و گزارش ماهانه، کاملاً روی دستگاه.</p>
+            <div class="ad-app-meta"><span>React Native</span><span>۲۱۰ هزار نصب</span></div>
+          </article>
+
+          <article class="ad-app-card rp-filter-item" data-category="android cross" data-rp-reveal="80">
+            <div class="ad-app-icon"><img src="img/work-5.jpg" alt="" width="900" height="1200" loading="lazy"></div>
+            <h3 class="rp-card-title">کلاسیک آموزش زبان</h3>
+            <p class="rp-card-text">درس‌های کوتاه با تکرار فاصله‌دار و حالت آفلاین کامل برای مسیر رفت‌وآمد.</p>
+            <div class="ad-app-meta"><span>Flutter</span><span>۳۹۰ هزار نصب</span></div>
+          </article>
+
+          <article class="ad-app-card rp-filter-item" data-category="ios cross" data-rp-reveal="160">
+            <div class="ad-app-icon"><img src="img/work-6.jpg" alt="" width="900" height="1200" loading="lazy"></div>
+            <h3 class="rp-card-title">سفره سفارش غذا</h3>
+            <p class="rp-card-text">سفارش سریع با پرداخت درون‌برنامه‌ای و پیگیری زنده پیک روی نقشه.</p>
+            <div class="ad-app-meta"><span>React Native</span><span>۱۵۰ هزار نصب</span></div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Screens slider
+         ================================================================== -->
+    <section class="rp-section" id="screens">
+      <div class="rp-container">
+        <div class="rp-section-head rp-section-head--center">
+          <span class="rp-eyebrow">اسکرین‌ها</span>
+          <h2 class="rp-section-title">نگاهی از نزدیک به رابط کاربری</h2>
+        </div>
+
+        <div class="rp-slider ad-screens" data-rp-slider>
+          <div class="rp-slider-track">
+            <div class="ad-phone"><div class="ad-phone-screen"><img src="img/work-1.jpg" alt="صفحه ورود" width="900" height="1200" loading="lazy"></div></div>
+            <div class="ad-phone"><div class="ad-phone-screen"><img src="img/work-2.jpg" alt="صفحه اصلی" width="900" height="1200" loading="lazy"></div></div>
+            <div class="ad-phone"><div class="ad-phone-screen"><img src="img/work-3.jpg" alt="صفحه جزئیات" width="900" height="1200" loading="lazy"></div></div>
+            <div class="ad-phone"><div class="ad-phone-screen"><img src="img/work-4.jpg" alt="صفحه پرداخت" width="900" height="1200" loading="lazy"></div></div>
+            <div class="ad-phone"><div class="ad-phone-screen"><img src="img/work-5.jpg" alt="صفحه پروفایل" width="900" height="1200" loading="lazy"></div></div>
+            <div class="ad-phone"><div class="ad-phone-screen"><img src="img/work-6.jpg" alt="صفحه تنظیمات" width="900" height="1200" loading="lazy"></div></div>
+          </div>
+
+          <div class="rp-slider-nav">
+            <button type="button" class="rp-icon-btn" data-rp-slider-prev aria-label="قبلی">
+              <svg class="rp-icon"><use href="#arrow-right"></use></svg>
+            </button>
+            <div class="rp-slider-dots"></div>
+            <button type="button" class="rp-icon-btn" data-rp-slider-next aria-label="بعدی">
+              <svg class="rp-icon"><use href="#arrow-left"></use></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         About
+         ================================================================== -->
+    <section class="rp-section rp-section--alt" id="about">
+      <div class="rp-container">
+        <div class="ad-row">
+
+          <div class="ad-row-visual" data-rp-reveal>
+            <img class="ad-portrait rp-radius-lg rp-shadow-lg" src="img/portrait.jpg"
+              alt="سارا کیانی، توسعه‌دهنده موبایل" width="900" height="1100" loading="lazy">
+          </div>
+
+          <div data-rp-reveal="100">
+            <span class="rp-eyebrow">درباره من</span>
+            <h2 class="rp-section-title">شش سال، یک تخصص</h2>
+            <p class="rp-color-muted rp-mbs-4">
+              کارم را با اندروید شروع کردم و بعد از دو سال به فلاتر مهاجرت کردم. از آن
+              زمان تقریباً همه‌ی پروژه‌هایم چندسکویی بوده‌اند. تیم‌های کوچک را دوست دارم؛
+              جایی که بشود مستقیم با کسی که تصمیم می‌گیرد حرف زد.
+            </p>
+            <p class="rp-color-muted rp-mbs-4">
+              بیرون از کد، مربی کارگاه‌های موبایل در دانشگاه هستم و هر ماه یک نوشته درباره
+              معماری اپلیکیشن منتشر می‌کنم.
+            </p>
+
+            <div class="rp-mbs-6">
+              <div class="rp-skill">
+                <div class="rp-skill-head"><span>فلاتر و دارت</span><span>۹۲٪</span></div>
+                <div class="rp-skill-track"><div class="rp-skill-fill" data-rp-skill="92"></div></div>
+              </div>
+              <div class="rp-skill">
+                <div class="rp-skill-head"><span>ری‌اکت‌نیتیو</span><span>۸۵٪</span></div>
+                <div class="rp-skill-track"><div class="rp-skill-fill" data-rp-skill="85"></div></div>
+              </div>
+              <div class="rp-skill">
+                <div class="rp-skill-head"><span>سوئیفت و کاتلین</span><span>۷۸٪</span></div>
+                <div class="rp-skill-track"><div class="rp-skill-fill" data-rp-skill="78"></div></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Testimonials
+         ================================================================== -->
+    <section class="rp-section">
+      <div class="rp-container">
+        <div class="rp-section-head rp-section-head--center">
+          <span class="rp-eyebrow">نظر مشتریان</span>
+          <h2 class="rp-section-title">تجربه کار با من</h2>
+        </div>
+
+        <div class="rp-grid" style="--rp-grid-min: 320px">
+
+          <article class="rp-quote" data-rp-reveal>
+            <svg class="rp-icon rp-icon--lg rp-color-primary"><use href="#quote"></use></svg>
+            <p class="rp-quote-text">«نسخه اول را در شش هفته منتشر کردیم. چیزی که سه شرکت دیگر گفته بودند شش ماه کار دارد.»</p>
+            <div class="rp-quote-foot">
+              <img class="rp-avatar" src="img/avatar-1.jpg" alt="" width="200" height="200" loading="lazy">
+              <div>
+                <div class="rp-quote-name">امیر دهقان</div>
+                <div class="rp-quote-role">بنیان‌گذار، هم‌قدم</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="rp-quote" data-rp-reveal="80">
+            <svg class="rp-icon rp-icon--lg rp-color-primary"><use href="#quote"></use></svg>
+            <p class="rp-quote-text">«رانندگان ما در جاده اینترنت ندارند. سارا کل اپ را طوری ساخت که آفلاین هم کار کند.»</p>
+            <div class="rp-quote-foot">
+              <img class="rp-avatar" src="img/avatar-2.jpg" alt="" width="200" height="200" loading="lazy">
+              <div>
+                <div class="rp-quote-name">نازنین شریفی</div>
+                <div class="rp-quote-role">مدیر عملیات، باربر</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="rp-quote" data-rp-reveal="160">
+            <svg class="rp-icon rp-icon--lg rp-color-primary"><use href="#quote"></use></svg>
+            <p class="rp-quote-text">«امتیاز اپ ما از ۳٫۲ به ۴٫۷ رسید. بیشتر نظرها درباره‌ی سرعت و روان بودن بود.»</p>
+            <div class="rp-quote-foot">
+              <img class="rp-avatar" src="img/avatar-3.jpg" alt="" width="200" height="200" loading="lazy">
+              <div>
+                <div class="rp-quote-name">رضا فتاحی</div>
+                <div class="rp-quote-role">مدیر محصول، سفره</div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         FAQ signature section for this demo
+         ================================================================== -->
+    <section class="rp-section rp-section--alt" id="faq">
+      <div class="rp-container rp-container--narrow">
+
+        <div class="rp-section-head rp-section-head--center">
+          <span class="rp-eyebrow">پرسش‌های پرتکرار</span>
+          <h2 class="rp-section-title">قبل از شروع، این‌ها را بدانید</h2>
+        </div>
+
+        <div data-rp-accordion>
+
+          <div class="rp-accordion-item is-open">
+            <button type="button" class="rp-accordion-trigger">
+              <span>یک اپلیکیشن معمولی چقدر طول می‌کشد؟</span>
+              <svg class="rp-icon"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="rp-accordion-panel" id="faq-1">
+              <div><div class="rp-accordion-body">
+                برای نسخه اول قابل انتشار، معمولاً بین شش تا ده هفته. این عدد بعد از
+                جلسه‌ی نقشه‌کشی و با دیدن فهرست دقیق صفحات، به یک بازه‌ی مطمئن تبدیل می‌شود.
+              </div></div>
+            </div>
+          </div>
+
+          <div class="rp-accordion-item">
+            <button type="button" class="rp-accordion-trigger">
+              <span>هزینه پروژه چطور محاسبه می‌شود؟</span>
+              <svg class="rp-icon"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="rp-accordion-panel" id="faq-2">
+              <div><div class="rp-accordion-body">
+                بر اساس دامنه‌ی کار، نه ساعت. بعد از نقشه‌کشی یک قیمت ثابت اعلام می‌کنم و
+                تا وقتی دامنه تغییر نکند، همان عدد می‌ماند. پرداخت در سه مرحله انجام می‌شود.
+              </div></div>
+            </div>
+          </div>
+
+          <div class="rp-accordion-item">
+            <button type="button" class="rp-accordion-trigger">
+              <span>طراحی رابط هم انجام می‌دهید؟</span>
+              <svg class="rp-icon"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="rp-accordion-panel" id="faq-3">
+              <div><div class="rp-accordion-body">
+                بله. اگر طراح دارید با او هماهنگ می‌شوم و اگر ندارید، طراحی رابط بخشی از
+                همان پروژه است. خروجی فیگما را هم تحویل می‌گیرید.
+              </div></div>
+            </div>
+          </div>
+
+          <div class="rp-accordion-item">
+            <button type="button" class="rp-accordion-trigger">
+              <span>بعد از تحویل، پشتیبانی چطور است؟</span>
+              <svg class="rp-icon"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="rp-accordion-panel" id="faq-4">
+              <div><div class="rp-accordion-body">
+                سه ماه رفع اشکال رایگان است. بعد از آن می‌توانید قرارداد نگهداری ماهانه
+                ببندید یا هر بار به‌صورت موردی سفارش دهید.
+              </div></div>
+            </div>
+          </div>
+
+          <div class="rp-accordion-item">
+            <button type="button" class="rp-accordion-trigger">
+              <span>کد نهایی متعلق به چه کسی است؟</span>
+              <svg class="rp-icon"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="rp-accordion-panel" id="faq-5">
+              <div><div class="rp-accordion-body">
+                کاملاً متعلق به شماست. مخزن کد از روز اول روی حساب خودتان است و من فقط
+                دسترسی مشارکت‌کننده دارم.
+              </div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Contact
+         ================================================================== -->
+    <section class="rp-section" id="contact">
+      <div class="rp-container">
+        <div class="ad-row">
+
+          <div data-rp-reveal>
+            <span class="rp-eyebrow">تماس</span>
+            <h2 class="rp-section-title">ایده‌تان را تعریف کنید</h2>
+            <p class="rp-color-muted rp-mbs-4 rp-mbe-6">
+              یک پیام کوتاه کافی است. اگر پروژه با تخصص من جور نباشد، صادقانه می‌گویم و
+              اگر بشناسم، کسی را معرفی می‌کنم.
+            </p>
+
+            <div class="rp-contact-item">
+              <span class="rp-contact-icon"><svg class="rp-icon"><use href="#mail"></use></svg></span>
+              <div>
+                <div class="rp-contact-label">ایمیل</div>
+                <a class="rp-contact-value rp-ltr" href="mailto:sara@apps.dev">sara@apps.dev</a>
+              </div>
+            </div>
+
+            <div class="rp-contact-item">
+              <span class="rp-contact-icon"><svg class="rp-icon"><use href="#telegram"></use></svg></span>
+              <div>
+                <div class="rp-contact-label">تلگرام</div>
+                <a class="rp-contact-value rp-ltr" href="#">@sarakiani</a>
+              </div>
+            </div>
+
+            <div class="rp-contact-item">
+              <span class="rp-contact-icon"><svg class="rp-icon"><use href="#map-pin"></use></svg></span>
+              <div>
+                <div class="rp-contact-label">موقعیت</div>
+                <div class="rp-contact-value">اصفهان دورکاری</div>
+              </div>
+            </div>
+          </div>
+
+          <form class="rp-form rp-p-6 rp-border rp-radius-lg" data-rp-form novalidate data-rp-reveal="100">
+            <div class="rp-form-row">
+              <div class="rp-field">
+                <label class="rp-label" for="ad-name">نام شما</label>
+                <input class="rp-input" id="ad-name" name="name" type="text" required minlength="3" placeholder="نام و نام خانوادگی" autocomplete="name">
+                <span class="rp-field-error" aria-live="polite"></span>
+              </div>
+              <div class="rp-field">
+                <label class="rp-label" for="ad-email">ایمیل</label>
+                <input class="rp-input rp-ltr" id="ad-email" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+                <span class="rp-field-error" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="rp-field">
+              <label class="rp-label" for="ad-platform">پلتفرم هدف</label>
+              <select class="rp-select" id="ad-platform" name="platform" required>
+                <option value="">انتخاب کنید…</option>
+                <option>اندروید</option>
+                <option>iOS</option>
+                <option>هر دو</option>
+                <option>هنوز مطمئن نیستم</option>
+              </select>
+              <span class="rp-field-error" aria-live="polite"></span>
+            </div>
+
+            <div class="rp-field">
+              <label class="rp-label" for="ad-message">توضیح ایده</label>
+              <textarea class="rp-textarea" id="ad-message" name="message" required minlength="20" placeholder="اپلیکیشن چه کاری برای کاربر انجام می‌دهد؟"></textarea>
+              <span class="rp-field-error" aria-live="polite"></span>
+            </div>
+
+            <p class="rp-form-status" role="status" aria-live="polite"></p>
+
+            <button class="rp-btn rp-btn--primary rp-btn--lg rp-btn--block" type="submit">
+              <svg class="rp-icon"><use href="#send"></use></svg>
+              ارسال درخواست
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Final CTA
+         ================================================================== -->
+    <section class="rp-section rp-section--tight">
+      <div class="rp-container">
+        <div class="ad-cta" data-rp-reveal>
+          <h2>ظرفیت پروژه بعدی از مهر آزاد می‌شود.</h2>
+          <p>اگر می‌خواهید نسخه اول اپلیکیشن‌تان تا پایان سال روی گوشی کاربران باشد، همین حالا وقت شروع است.</p>
+          <a class="rp-btn rp-btn--primary rp-btn--lg" href="#contact">رزرو یک جلسه مشاوره</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rp-footer">
+    <div class="rp-container">
+      <div class="rp-footer-grid">
+
+        <div>
+          <a class="rp-brand rp-mbe-3" href="#hero">
+            <span class="rp-brand-mark" aria-hidden="true"><svg class="rp-icon"><use href="#smartphone"></use></svg></span>
+            <span>سارا کیانی</span>
+          </a>
+          <p class="rp-fs-sm rp-color-muted rp-maxw-sm">
+            توسعه‌دهنده اپلیکیشن موبایل؛ از نقشه‌ی اولیه تا انتشار پایدار در استورها.
+          </p>
+        </div>
+
+        <nav aria-label="پیوندهای فوتر">
+          <h2 class="rp-fs-sm rp-fw-700 rp-mbe-3">پیمایش</h2>
+          <ul class="rp-stack rp-fs-sm rp-color-muted" role="list" style="--rp-gap: .5rem">
+            <li><a href="#features">روش کار</a></li>
+            <li><a href="#apps">اپلیکیشن‌ها</a></li>
+            <li><a href="#about">درباره من</a></li>
+            <li><a href="#faq">پرسش‌ها</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="تخصص‌ها">
+          <h2 class="rp-fs-sm rp-fw-700 rp-mbe-3">تخصص‌ها</h2>
+          <ul class="rp-stack rp-fs-sm rp-color-muted" role="list" style="--rp-gap: .5rem">
+            <li><a href="#features">توسعه فلاتر</a></li>
+            <li><a href="#features">ری‌اکت‌نیتیو</a></li>
+            <li><a href="#features">انتشار در استور</a></li>
+            <li><a href="#features">بهینه‌سازی کارایی</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <h2 class="rp-fs-sm rp-fw-700 rp-mbe-3">شبکه‌های اجتماعی</h2>
+          <div class="rp-socials">
+            <a class="rp-icon-btn" href="#" aria-label="گیت‌هاب"><svg class="rp-icon"><use href="#github"></use></svg></a>
+            <a class="rp-icon-btn" href="#" aria-label="لینکدین"><svg class="rp-icon"><use href="#linkedin"></use></svg></a>
+            <a class="rp-icon-btn" href="#" aria-label="تلگرام"><svg class="rp-icon"><use href="#telegram"></use></svg></a>
+            <a class="rp-icon-btn" href="#" aria-label="اینستاگرام"><svg class="rp-icon"><use href="#instagram"></use></svg></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="rp-footer-bottom">
+        <span>© <span data-rp-year="jalali">۱۴۰۴</span> سارا کیانی</span>
+        <span>ساخته‌شده با قالب پورتفولیو باورسا</span>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" class="rp-icon-btn rp-to-top" data-rp-to-top aria-label="بازگشت به بالا">
+    <svg class="rp-icon"><use href="#arrow-up"></use></svg>
+  </button>
+
+  <script src="../../core/js/core.js" defer></script>
+</body>
+
+</html>

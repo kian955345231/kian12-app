@@ -1,0 +1,590 @@
+/* ==========================================================================
+   Demo 14  Architect / Interior Designer
+   demos/14-architect/css/theme.css
+
+   Design rationale
+   ----------------
+   A drawing office rather than a gallery. The hero pairs the statement with
+   an actual floor plan built from CSS grid, the portfolio is stated first as
+   a plain index table and only then as photographs, and the palette is taken
+   from the materials themselves: deep pine, clay and bone. Layout archetype A
+   (two-column hero)  the same skeleton as demo 01 and demo 06  but the
+   right-hand column holds a drawing instead of a code panel or a bar chart.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--architect only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #2f7f66;
+  --rp-primary-strong: #25654f;
+  --rp-primary-soft: rgba(47, 127, 102, 0.1);
+  --rp-accent: #c49a72;
+  --rp-on-primary: #ffffff;
+  --rp-danger: #b4432c;
+
+  --rp-bg: #fffefb;
+  --rp-surface: #f2f1ec;
+  --rp-surface-2: #e5e3da;
+  --rp-text: #14201c;
+  --rp-text-soft: #3d4a45;
+  --rp-muted: #6f7a74;
+  --rp-border: #e2e1d8;
+  --rp-border-strong: #c6c5b8;
+
+  --rp-container: 1180px;
+  /* Drawing-office geometry: near-square corners, hairlines, no soft shadows. */
+  --rp-radius-sm: 2px;
+  --rp-radius: 4px;
+  --rp-radius-lg: 8px;
+  --rp-btn-radius: 4px;
+  --rp-shadow: 0 1px 2px rgba(20, 32, 28, 0.05), 0 10px 28px rgba(20, 32, 28, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #5fae93;
+  --rp-primary-strong: #7cc6ab;
+  --rp-primary-soft: rgba(95, 174, 147, 0.16);
+  --rp-accent: #cfa079;
+  --rp-on-primary: #0d1613;
+
+  --rp-bg: #101613;
+  --rp-surface: #16201b;
+  --rp-surface-2: #1e2a24;
+  --rp-text: #e9f0ec;
+  --rp-text-soft: #b9c6c0;
+  --rp-muted: #82918a;
+  --rp-border: #1e2a24;
+  --rp-border-strong: #304039;
+}
+
+/* --------------------------------------------------------------------------
+   3. Hero
+   -------------------------------------------------------------------------- */
+
+.ar-hero {
+  padding-block: clamp(3rem, 1.5rem + 6vw, 6rem) var(--rp-section-y);
+  border-block-end: 1px solid var(--rp-border);
+}
+
+.ar-hero-grid {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4rem);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+}
+
+@media (max-width: 940px) {
+  .ar-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ar-hero-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(1.9rem, 1.25rem + 2.7vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.22;
+  margin-block: var(--rp-space-4);
+}
+
+.ar-hero-lead {
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-text-soft);
+  line-height: var(--rp-lh-snug);
+  max-inline-size: 46ch;
+}
+
+.ar-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* --------------------------------------------------------------------------
+   4. Floor plan  the signature block, pure CSS
+   -------------------------------------------------------------------------- */
+
+.ar-plan {
+  padding: var(--rp-space-5);
+  border: 1px solid var(--rp-border-strong);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-bg);
+  box-shadow: var(--rp-shadow);
+}
+
+.ar-plan-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--rp-space-3);
+  margin-block-end: var(--rp-space-5);
+}
+
+.ar-plan-head strong {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  color: var(--rp-primary);
+}
+
+/* Six columns by four rows; each room is placed with an explicit grid area,
+   so the whole plan is one grid and never leaves a gap. In RTL the columns
+   mirror, which is what a Persian drawing wants. */
+.ar-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: 3px;
+  aspect-ratio: 6 / 4.6;
+  padding: 3px;
+  background: var(--rp-border-strong);
+  border: 2px solid var(--rp-text);
+  border-radius: var(--rp-radius-sm);
+}
+
+.ar-room {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--rp-space-2);
+  text-align: center;
+  background: var(--rp-surface);
+  min-inline-size: 0;
+}
+
+.ar-room b {
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  color: var(--rp-text);
+}
+
+.ar-room span {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+.ar-room--living  { grid-area: 1 / 1 / 3 / 4; background: var(--rp-primary-soft); }
+.ar-room--kitchen { grid-area: 1 / 4 / 2 / 7; }
+.ar-room--bath    { grid-area: 2 / 4 / 3 / 7; }
+.ar-room--bed     { grid-area: 3 / 1 / 5 / 4; background: var(--rp-primary-soft); }
+
+/* The terrace is outdoors, so it is hatched rather than filled. */
+.ar-room--terrace {
+  grid-area: 3 / 4 / 5 / 7;
+  background:
+    repeating-linear-gradient(45deg,
+      var(--rp-border) 0 2px,
+      transparent 2px 9px),
+    var(--rp-bg);
+}
+
+.ar-plan-scale {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-4);
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* A ruler: a rule with a tick at each end. */
+.ar-plan-scale i {
+  position: relative;
+  flex: 1;
+  block-size: 1px;
+  background: var(--rp-border-strong);
+}
+
+.ar-plan-scale i::before,
+.ar-plan-scale i::after {
+  content: '';
+  position: absolute;
+  inset-block-start: -4px;
+  inline-size: 1px;
+  block-size: 9px;
+  background: var(--rp-border-strong);
+}
+
+.ar-plan-scale i::before { inset-inline-start: 0; }
+.ar-plan-scale i::after  { inset-inline-end: 0; }
+
+/* --------------------------------------------------------------------------
+   5. KPI band
+   -------------------------------------------------------------------------- */
+
+.ar-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  border-block-end: 1px solid var(--rp-border);
+}
+
+.ar-kpi {
+  padding: var(--rp-space-6) var(--rp-space-5);
+  border-inline-end: 1px solid var(--rp-border);
+}
+
+.ar-kpi:last-child {
+  border-inline-end: 0;
+}
+
+.ar-kpi strong {
+  display: block;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-3xl);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+/* Direct child only: the animated counter is a <span> inside <strong>. */
+.ar-kpi > span {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.ar-kpi::before {
+  content: '';
+  display: block;
+  inline-size: 28px;
+  block-size: 2px;
+  margin-block-end: var(--rp-space-4);
+  background: var(--rp-accent);
+}
+
+/* --------------------------------------------------------------------------
+   6. Services  hairline rows
+   -------------------------------------------------------------------------- */
+
+.ar-services {
+  border-block-start: 1px solid var(--rp-border);
+}
+
+.ar-service {
+  display: grid;
+  gap: var(--rp-space-4);
+  grid-template-columns: 60px minmax(0, 1fr) minmax(0, 1.4fr) auto;
+  align-items: center;
+  padding-block: var(--rp-space-6);
+  border-block-end: 1px solid var(--rp-border);
+  transition: background-color 0.3s var(--rp-ease);
+}
+
+.ar-service:hover {
+  background: var(--rp-surface);
+}
+
+.ar-service-num {
+  font-size: var(--rp-fs-sm);
+  font-weight: 700;
+  color: var(--rp-primary);
+}
+
+.ar-service h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+}
+
+.ar-service p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.ar-service-meta {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+  .ar-service {
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+
+  .ar-service p,
+  .ar-service-meta {
+    grid-column: 2;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Project index table
+   -------------------------------------------------------------------------- */
+
+/* Wide content scrolls inside its own box rather than widening the page. */
+.ar-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  background: var(--rp-bg);
+}
+
+.ar-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--rp-fs-sm);
+  white-space: nowrap;
+}
+
+.ar-table th,
+.ar-table td {
+  padding: var(--rp-space-4) var(--rp-space-5);
+  text-align: start;
+  border-block-end: 1px solid var(--rp-border);
+}
+
+.ar-table thead th {
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  color: var(--rp-muted);
+  background: var(--rp-surface);
+}
+
+.ar-table tbody tr:last-child td {
+  border-block-end: 0;
+}
+
+.ar-table tbody tr {
+  transition: background-color 0.25s var(--rp-ease);
+}
+
+.ar-table tbody tr:hover {
+  background: var(--rp-surface);
+}
+
+/* The project name is the row's anchor, so it carries the weight. */
+.ar-table td:nth-child(2) {
+  font-weight: 600;
+  color: var(--rp-text);
+  white-space: normal;
+  min-inline-size: 14ch;
+}
+
+.ar-state {
+  display: inline-block;
+  padding: 2px var(--rp-space-3);
+  border-radius: var(--rp-radius-pill);
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+}
+
+.ar-state--done {
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+}
+
+.ar-state--live {
+  background: rgba(196, 154, 114, 0.18);
+  color: var(--rp-accent);
+}
+
+.ar-state--hold {
+  background: var(--rp-surface-2);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   8. Featured projects
+   -------------------------------------------------------------------------- */
+
+.ar-projects {
+  --rp-grid-min: 320px;
+}
+
+.ar-project {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  overflow: hidden;
+  background: var(--rp-bg);
+  transition: border-color 0.3s var(--rp-ease), box-shadow 0.3s var(--rp-ease);
+}
+
+.ar-project:hover {
+  border-color: var(--rp-primary);
+  box-shadow: var(--rp-shadow);
+}
+
+.ar-project-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--rp-surface);
+}
+
+.ar-project-media img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--rp-ease);
+}
+
+.ar-project:hover .ar-project-media img {
+  transform: scale(1.04);
+}
+
+.ar-project-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--rp-space-5);
+}
+
+.ar-project-kind {
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  color: var(--rp-primary);
+}
+
+.ar-project h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block: var(--rp-space-2) var(--rp-space-3);
+}
+
+.ar-project p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.ar-project-meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--rp-space-3);
+  margin-block-start: auto;
+  padding-block-start: var(--rp-space-4);
+  border-block-start: 1px solid var(--rp-border);
+}
+
+.ar-project-meta b {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-accent);
+}
+
+.ar-project-meta span {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   9. Material palette
+   -------------------------------------------------------------------------- */
+
+.ar-materials {
+  display: grid;
+  gap: var(--rp-space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+}
+
+.ar-material {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rp-space-2);
+  padding: var(--rp-space-4);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  background: var(--rp-bg);
+}
+
+/* Each swatch takes its colour from an inline --swatch, so the palette is
+   data in the markup rather than six near-identical rules here. */
+.ar-swatch {
+  block-size: 68px;
+  border-radius: var(--rp-radius-sm);
+  background: var(--swatch, var(--rp-surface-2));
+  box-shadow: inset 0 0 0 1px rgba(20, 32, 28, 0.12);
+}
+
+.ar-material b {
+  font-size: var(--rp-fs-sm);
+  font-weight: 700;
+}
+
+.ar-material i {
+  font-style: normal;
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   10. Phases
+   -------------------------------------------------------------------------- */
+
+.ar-phases {
+  display: grid;
+  gap: var(--rp-space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+}
+
+.ar-phase {
+  padding: var(--rp-space-6);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  border-block-start: 3px solid var(--rp-primary);
+  border-radius: var(--rp-radius);
+}
+
+.ar-phase-num {
+  font-size: var(--rp-fs-sm);
+  font-weight: 700;
+  color: var(--rp-primary);
+}
+
+.ar-phase h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block: var(--rp-space-2) var(--rp-space-3);
+}
+
+.ar-phase p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   11. Split layout  about and contact
+   -------------------------------------------------------------------------- */
+
+.ar-split {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  /* minmax(0, …) so a photograph cannot widen the column past the viewport. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+/* minmax(0, …) here too: a plain 1fr keeps its auto minimum, so a wide form
+   row inside the panel would push the whole page sideways. */
+@media (max-width: 880px) {
+  .ar-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ar-portrait {
+  inline-size: 100%;
+  max-inline-size: 420px;
+  aspect-ratio: 4 / 5;
+  block-size: auto;
+  object-fit: cover;
+}
+
+.ar-panel {
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  background: var(--rp-bg);
+}

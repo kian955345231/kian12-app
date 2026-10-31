@@ -1,0 +1,133 @@
+/* ==========================================================================
+   Bavarsa Portfolio  core/css/reset.css
+   A small, opinionated reset. Loaded first, before core.css.
+   Contains NO design decisions and NO demo-specific rules.
+   ========================================================================== */
+
+/* Border-box everywhere so widths are predictable. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margins; spacing is always explicit in this template. */
+* {
+  margin: 0;
+}
+
+html {
+  /* Prevent iOS text auto-inflation on orientation change. */
+  -webkit-text-size-adjust: 100%;
+  /* Anchor links glide instead of jumping (disabled for reduced-motion below). */
+  scroll-behavior: smooth;
+  /* Sticky headers must not cover the section an anchor lands on. */
+  scroll-padding-block-start: var(--rp-scroll-offset, 96px);
+}
+
+body {
+  min-block-size: 100vh;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Full-bleed decorations must never create a horizontal scrollbar in RTL. */
+  overflow-x: hidden;
+}
+
+/* Media defaults to block so it never sits on a text baseline. */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+/* Form controls do not inherit typography by default  make them. */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Long Persian words and URLs must not overflow their container. */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+figcaption {
+  overflow-wrap: break-word;
+}
+
+/* Headings inherit weight/size from core.css typography, not the UA. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  /* RTL: buttons must align with the writing direction, not the UA default. */
+  text-align: start;
+}
+
+table {
+  border-collapse: collapse;
+  inline-size: 100%;
+}
+
+/* Consistent, always-visible keyboard focus. Mouse clicks stay clean. */
+:focus-visible {
+  outline: 2px solid var(--rp-primary, currentColor);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Alpine-style cloak hook  used by demos to hide JS-controlled nodes pre-boot. */
+[hidden],
+[data-rp-cloak] {
+  display: none !important;
+}
+
+/* Honour the OS "reduce motion" setting across the whole template. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

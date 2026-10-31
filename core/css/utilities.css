@@ -1,0 +1,128 @@
+/* ==========================================================================
+   Bavarsa Portfolio  core/css/utilities.css
+   Single-purpose helpers. Loaded LAST so they win over components.
+   All spacing helpers use the token scale; all directions are logical.
+   ========================================================================== */
+
+/* --- Display ------------------------------------------------------------- */
+.rp-hidden { display: none !important; }
+.rp-block { display: block; }
+.rp-inline-block { display: inline-block; }
+.rp-flex { display: flex; }
+.rp-inline-flex { display: inline-flex; }
+.rp-grid-d { display: grid; }
+
+/* --- Flex / grid --------------------------------------------------------- */
+.rp-items-start { align-items: flex-start; }
+.rp-items-center { align-items: center; }
+.rp-items-end { align-items: flex-end; }
+.rp-justify-start { justify-content: flex-start; }
+.rp-justify-center { justify-content: center; }
+.rp-justify-between { justify-content: space-between; }
+.rp-justify-end { justify-content: flex-end; }
+.rp-wrap { flex-wrap: wrap; }
+.rp-col { flex-direction: column; }
+.rp-flex-1 { flex: 1; }
+
+.rp-gap-1 { gap: var(--rp-space-1); }
+.rp-gap-2 { gap: var(--rp-space-2); }
+.rp-gap-3 { gap: var(--rp-space-3); }
+.rp-gap-4 { gap: var(--rp-space-4); }
+.rp-gap-5 { gap: var(--rp-space-5); }
+.rp-gap-6 { gap: var(--rp-space-6); }
+.rp-gap-7 { gap: var(--rp-space-7); }
+
+/* --- Margin (block = vertical, inline = horizontal, RTL-safe) ------------ */
+.rp-mbs-0 { margin-block-start: 0; }
+.rp-mbs-2 { margin-block-start: var(--rp-space-2); }
+.rp-mbs-3 { margin-block-start: var(--rp-space-3); }
+.rp-mbs-4 { margin-block-start: var(--rp-space-4); }
+.rp-mbs-5 { margin-block-start: var(--rp-space-5); }
+.rp-mbs-6 { margin-block-start: var(--rp-space-6); }
+.rp-mbs-7 { margin-block-start: var(--rp-space-7); }
+
+.rp-mbe-2 { margin-block-end: var(--rp-space-2); }
+.rp-mbe-3 { margin-block-end: var(--rp-space-3); }
+.rp-mbe-4 { margin-block-end: var(--rp-space-4); }
+.rp-mbe-5 { margin-block-end: var(--rp-space-5); }
+.rp-mbe-6 { margin-block-end: var(--rp-space-6); }
+.rp-mbe-7 { margin-block-end: var(--rp-space-7); }
+
+.rp-mi-auto { margin-inline: auto; }
+.rp-mis-auto { margin-inline-start: auto; }
+.rp-mie-auto { margin-inline-end: auto; }
+
+/* --- Padding ------------------------------------------------------------- */
+.rp-p-4 { padding: var(--rp-space-4); }
+.rp-p-5 { padding: var(--rp-space-5); }
+.rp-p-6 { padding: var(--rp-space-6); }
+.rp-pb-6 { padding-block: var(--rp-space-6); }
+.rp-pb-7 { padding-block: var(--rp-space-7); }
+
+/* --- Text ---------------------------------------------------------------- */
+.rp-text-start { text-align: start; }
+.rp-text-center { text-align: center; }
+.rp-text-end { text-align: end; }
+
+.rp-fs-xs { font-size: var(--rp-fs-xs); }
+.rp-fs-sm { font-size: var(--rp-fs-sm); }
+.rp-fs-base { font-size: var(--rp-fs-base); }
+.rp-fs-lg { font-size: var(--rp-fs-lg); }
+.rp-fs-xl { font-size: var(--rp-fs-xl); }
+.rp-fs-2xl { font-size: var(--rp-fs-2xl); }
+.rp-fs-3xl { font-size: var(--rp-fs-3xl); }
+.rp-fs-4xl { font-size: var(--rp-fs-4xl); }
+.rp-fs-5xl { font-size: var(--rp-fs-5xl); }
+
+.rp-fw-400 { font-weight: 400; }
+.rp-fw-500 { font-weight: 500; }
+.rp-fw-600 { font-weight: 600; }
+.rp-fw-700 { font-weight: 700; }
+.rp-fw-800 { font-weight: 800; }
+
+.rp-color-primary { color: var(--rp-primary); }
+.rp-color-accent { color: var(--rp-accent); }
+.rp-color-muted { color: var(--rp-muted); }
+.rp-color-text { color: var(--rp-text); }
+
+/* Clamp a paragraph to N lines. */
+.rp-clamp-2,
+.rp-clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.rp-clamp-2 { -webkit-line-clamp: 2; }
+.rp-clamp-3 { -webkit-line-clamp: 3; }
+
+/* --- Surface / shape ----------------------------------------------------- */
+.rp-bg-surface { background: var(--rp-surface); }
+.rp-bg-surface-2 { background: var(--rp-surface-2); }
+.rp-bg-primary { background: var(--rp-primary); color: var(--rp-on-primary); }
+.rp-radius { border-radius: var(--rp-radius); }
+.rp-radius-lg { border-radius: var(--rp-radius-lg); }
+.rp-radius-pill { border-radius: var(--rp-radius-pill); }
+.rp-border { border: 1px solid var(--rp-border); }
+.rp-shadow { box-shadow: var(--rp-shadow); }
+.rp-shadow-lg { box-shadow: var(--rp-shadow-lg); }
+.rp-overflow-hidden { overflow: hidden; }
+.rp-relative { position: relative; }
+
+/* --- Sizing -------------------------------------------------------------- */
+.rp-w-full { inline-size: 100%; }
+.rp-maxw-prose { max-inline-size: 62ch; }
+.rp-maxw-sm { max-inline-size: 420px; }
+.rp-maxw-md { max-inline-size: 620px; }
+
+/* --- Responsive visibility ---------------------------------------------- */
+@media (max-width: 640px) {
+  .rp-hide-sm { display: none !important; }
+}
+
+@media (max-width: 900px) {
+  .rp-hide-md { display: none !important; }
+}
+
+@media (min-width: 901px) {
+  .rp-show-md-only { display: none !important; }
+}

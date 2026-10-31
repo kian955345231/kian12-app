@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 52" width="180" height="52" role="img" aria-label="لوگوی نمونه">
+  <g fill="none" color="#e11d48">
+    <path d="M10 40V12l16 16 16-16v28" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="58" y="14" width="58.8" height="8" rx="4" fill="currentColor" opacity="0.85"/>
+    <rect x="58" y="27" width="72.5" height="8" rx="4" fill="currentColor" opacity="0.57"/>
+    <rect x="58" y="40" width="44" height="8" rx="4" fill="currentColor" opacity="0.29"/>
+  </g>
+</svg>

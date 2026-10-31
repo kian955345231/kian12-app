@@ -1,0 +1,423 @@
+/* ==========================================================================
+   Demo 01  Web Developer  ·  demos/01-web-developer/css/theme.css
+
+   Design rationale
+   ----------------
+   Dark-first, terminal-adjacent. Ink navy base with an electric green accent
+   and a cyan secondary  the palette of a code editor, not a brochure. Layout
+   archetype A: a two-column hero with a live-looking code panel, plus a
+   sticky top bar and a fixed vertical social rail on the inline-start edge.
+
+   ISOLATION CONTRACT
+   Everything in this file is scoped to :root (token values only) or to
+   .rp-demo--web-developer. Nothing here can reach another demo.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Token overrides  light mode
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #22c55e;
+  --rp-primary-strong: #16a34a;
+  --rp-primary-soft: rgba(34, 197, 94, 0.13);
+  --rp-accent: #0891b2;
+  --rp-on-primary: #04140b;
+  --rp-danger: #e11d48;
+
+  --rp-bg: #ffffff;
+  --rp-surface: #f2f6f4;
+  --rp-surface-2: #e6ede9;
+  --rp-text: #0a1018;
+  --rp-text-soft: #2e3a48;
+  --rp-muted: #64748b;
+  --rp-border: #dfe6e2;
+  --rp-border-strong: #c2cfc8;
+
+  --rp-container: 1200px;
+  --rp-radius: 14px;
+  --rp-radius-lg: 20px;
+  --rp-btn-radius: 10px; /* squarer buttons read as "developer tool" */
+}
+
+/* --------------------------------------------------------------------------
+   2. Token overrides  dark mode (the mode this demo is designed in)
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #3ddc84;
+  --rp-primary-strong: #2bc46f;
+  --rp-primary-soft: rgba(61, 220, 132, 0.14);
+  --rp-accent: #22d3ee;
+  --rp-on-primary: #04140b;
+
+  --rp-bg: #070a12;
+  --rp-surface: #0d1220;
+  --rp-surface-2: #141c2e;
+  --rp-text: #eef4fb;
+  --rp-text-soft: #b9c6d8;
+  --rp-muted: #7d8ba3;
+  --rp-border: #1c2438;
+  --rp-border-strong: #2c3752;
+  --rp-shadow-lg: 0 18px 60px rgba(0, 0, 0, 0.65);
+}
+
+/* --------------------------------------------------------------------------
+   3. Page-level atmosphere
+   -------------------------------------------------------------------------- */
+
+.rp-demo--web-developer {
+  /* Faint grid  the graph-paper feel of a code editor background. */
+  background-image:
+    linear-gradient(var(--rp-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rp-border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Mask the grid so it only shows faintly behind content. */
+.rp-demo--web-developer::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(120% 80% at 50% 0%, transparent 0%, var(--rp-bg) 72%);
+  pointer-events: none;
+}
+
+/* Monospace numerals and Latin words feel native to this profession. */
+.rp-demo--web-developer .rp-eyebrow,
+.rp-demo--web-developer .rp-chip,
+.rp-demo--web-developer .rp-stat-value {
+  font-family: var(--rp-font-mono);
+}
+
+/* --------------------------------------------------------------------------
+   4. Vertical social rail (desktop only)
+   -------------------------------------------------------------------------- */
+
+.wd-rail {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline-start: var(--rp-space-5);
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--rp-space-4);
+}
+
+.wd-rail a {
+  color: var(--rp-muted);
+  transition: color 0.25s var(--rp-ease), transform 0.25s var(--rp-ease);
+}
+
+.wd-rail a:hover {
+  color: var(--rp-primary);
+  transform: translateY(-3px);
+}
+
+/* The line that anchors the rail to the bottom edge. */
+.wd-rail::after {
+  content: '';
+  inline-size: 1px;
+  block-size: 90px;
+  background: linear-gradient(var(--rp-border-strong), transparent);
+}
+
+@media (max-width: 1240px) {
+  .wd-rail {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Hero  archetype A, two columns
+   -------------------------------------------------------------------------- */
+
+.wd-hero {
+  padding-block: clamp(3rem, 1rem + 8vw, 7rem) var(--rp-section-y);
+}
+
+.wd-hero-grid {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+  align-items: center;
+  grid-template-columns: 1.05fr 0.95fr;
+}
+
+@media (max-width: 980px) {
+  .wd-hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.wd-hero-title {
+  font-family: var(--rp-font-display);
+  /* Slightly below the global 4xl: Persian display type sets very wide, and
+     the two-column hero needs the headline to land in three lines, not four. */
+  font-size: clamp(1.9rem, 1.25rem + 2.6vw, 3.35rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  margin-block: var(--rp-space-4) var(--rp-space-4);
+}
+
+.wd-hero-title span {
+  color: var(--rp-primary);
+}
+
+.wd-hero-lead {
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-text-soft);
+  max-inline-size: 52ch;
+  line-height: var(--rp-lh-snug);
+}
+
+.wd-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+.wd-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--rp-space-4);
+  margin-block-start: var(--rp-space-7);
+  padding-block-start: var(--rp-space-5);
+  border-block-start: 1px solid var(--rp-border);
+}
+
+/* --- Code panel ---------------------------------------------------------- */
+
+.wd-code {
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-surface);
+  box-shadow: var(--rp-shadow-lg);
+  overflow: hidden;
+}
+
+.wd-code-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  padding: var(--rp-space-3) var(--rp-space-4);
+  background: var(--rp-surface-2);
+  border-block-end: 1px solid var(--rp-border);
+}
+
+.wd-code-dot {
+  inline-size: 11px;
+  block-size: 11px;
+  border-radius: 50%;
+  background: var(--rp-border-strong);
+}
+
+.wd-code-dot:nth-child(1) { background: #ff5f57; }
+.wd-code-dot:nth-child(2) { background: #febc2e; }
+.wd-code-dot:nth-child(3) { background: #28c840; }
+
+.wd-code-file {
+  margin-inline-start: auto;
+  font-family: var(--rp-font-mono);
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+  direction: ltr;
+}
+
+/* The code body is Latin and must stay LTR inside the RTL page. */
+.wd-code-body {
+  direction: ltr;
+  text-align: left;
+  font-family: var(--rp-font-mono);
+  font-size: clamp(0.72rem, 0.62rem + 0.4vw, 0.88rem);
+  line-height: 1.9;
+  padding: var(--rp-space-5);
+  margin: 0;
+  overflow-x: auto;
+  color: var(--rp-text-soft);
+  counter-reset: line;
+}
+
+.wd-code-body .ln {
+  display: block;
+  white-space: pre;
+}
+
+/* Gutter line numbers, generated in CSS so the markup stays clean. */
+.wd-code-body .ln::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  inline-size: 2ch;
+  margin-inline-end: 1.6ch;
+  color: var(--rp-muted);
+  opacity: 0.5;
+  text-align: right;
+}
+
+.wd-code-body .kw { color: #c084fc; }
+.wd-code-body .fn { color: var(--rp-accent); }
+.wd-code-body .st { color: var(--rp-primary); }
+.wd-code-body .cm { color: var(--rp-muted); font-style: italic; }
+.wd-code-body .nu { color: #fbbf24; }
+
+/* Blinking caret at the end of the snippet. */
+.wd-caret {
+  display: inline-block;
+  inline-size: 8px;
+  block-size: 1.05em;
+  vertical-align: -0.18em;
+  background: var(--rp-primary);
+  animation: wd-blink 1.1s steps(2, start) infinite;
+}
+
+@keyframes wd-blink {
+  50% { opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   6. Contribution grid (signature section)
+   -------------------------------------------------------------------------- */
+
+.wd-contrib {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 4px;
+  overflow-x: auto;
+  padding-block-end: var(--rp-space-2);
+  scrollbar-width: thin;
+}
+
+.wd-contrib i {
+  inline-size: 13px;
+  block-size: 13px;
+  border-radius: 3px;
+  background: var(--rp-surface-2);
+}
+
+/* Four intensity levels, set by demo.js via data-level. */
+.wd-contrib i[data-level='1'] { background: color-mix(in srgb, var(--rp-primary) 30%, var(--rp-surface-2)); }
+.wd-contrib i[data-level='2'] { background: color-mix(in srgb, var(--rp-primary) 55%, var(--rp-surface-2)); }
+.wd-contrib i[data-level='3'] { background: color-mix(in srgb, var(--rp-primary) 78%, var(--rp-surface-2)); }
+.wd-contrib i[data-level='4'] { background: var(--rp-primary); }
+
+.wd-contrib-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  justify-content: flex-end;
+  margin-block-start: var(--rp-space-3);
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+.wd-contrib-legend i {
+  inline-size: 12px;
+  block-size: 12px;
+  border-radius: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Stack chips
+   -------------------------------------------------------------------------- */
+
+.wd-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-2);
+}
+
+.wd-stack .rp-chip {
+  direction: ltr;
+  transition: border-color 0.25s var(--rp-ease), color 0.25s var(--rp-ease),
+              transform 0.25s var(--rp-ease);
+}
+
+.wd-stack .rp-chip:hover {
+  color: var(--rp-primary);
+  border-color: var(--rp-primary);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   8. Portfolio cards  terminal-style overlay
+   -------------------------------------------------------------------------- */
+
+.wd-work {
+  --rp-grid-min: 320px;
+}
+
+.wd-work-card .rp-card-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--rp-bg) 0%, transparent 48%);
+  opacity: 0.6;
+}
+
+.wd-work-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-2);
+  font-family: var(--rp-font-mono);
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+  direction: ltr;
+}
+
+.wd-work-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  font-weight: 700;
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-primary);
+}
+
+.wd-work-link .rp-icon {
+  transition: transform 0.25s var(--rp-ease);
+}
+
+/* In RTL the arrow should travel toward the inline-end (left). */
+.wd-work-link:hover .rp-icon {
+  transform: translateX(-4px);
+}
+
+/* --------------------------------------------------------------------------
+   9. Contact block
+   -------------------------------------------------------------------------- */
+
+.wd-contact-grid {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: start;
+}
+
+@media (max-width: 880px) {
+  .wd-contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.wd-contact-panel {
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-surface);
+}
+
+/* --------------------------------------------------------------------------
+   10. Footer tweak  monospace signature line
+   -------------------------------------------------------------------------- */
+
+.rp-demo--web-developer .rp-footer-bottom {
+  font-family: var(--rp-font-mono);
+  font-size: var(--rp-fs-xs);
+}

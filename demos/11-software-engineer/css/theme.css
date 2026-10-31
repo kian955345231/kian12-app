@@ -1,0 +1,613 @@
+/* ==========================================================================
+   Demo 11  Software Engineer  ·  demos/11-software-engineer/css/theme.css
+
+   Design rationale
+   ----------------
+   The page is built to read like an internal engineering document rather
+   than a portfolio: a mono meta line at the top, a datasheet strip of
+   numbers, a CSS-only architecture diagram and repository cards. Layout
+   archetype B (editorial, symmetric column) but technical instead of
+   institutional, so it shares nothing visually with demo 04 or demo 08 
+   and unlike demo 01 it is light, quiet and typographic rather than a dark
+   code editor.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--software-engineer only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #2563eb;
+  --rp-primary-strong: #1d4ed8;
+  --rp-primary-soft: rgba(37, 99, 235, 0.1);
+  --rp-accent: #a855f7;
+  --rp-on-primary: #ffffff;
+  --rp-danger: #dc2626;
+
+  --rp-bg: #ffffff;
+  --rp-surface: #f1f5f9;
+  --rp-surface-2: #e2e8f0;
+  --rp-text: #0b1220;
+  --rp-text-soft: #33415a;
+  --rp-muted: #64748b;
+  --rp-border: #e2e8f0;
+  --rp-border-strong: #c3cddb;
+
+  --rp-container: 1120px;
+  /* Small radii: this is a document, not an app shell. */
+  --rp-radius-sm: 4px;
+  --rp-radius: 6px;
+  --rp-radius-lg: 10px;
+  --rp-btn-radius: 6px;
+  --rp-shadow: 0 1px 2px rgba(11, 18, 32, 0.05), 0 10px 26px rgba(11, 18, 32, 0.05);
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #60a5fa;
+  --rp-primary-strong: #93c5fd;
+  --rp-primary-soft: rgba(96, 165, 250, 0.16);
+  --rp-accent: #c084fc;
+  --rp-on-primary: #0b1220;
+
+  --rp-bg: #0b1220;
+  --rp-surface: #101a2c;
+  --rp-surface-2: #172236;
+  --rp-text: #e8eefb;
+  --rp-text-soft: #b7c4dc;
+  --rp-muted: #7f8ea8;
+  --rp-border: #1c2941;
+  --rp-border-strong: #2c3d5c;
+}
+
+/* --------------------------------------------------------------------------
+   3. Hero  a document header
+   -------------------------------------------------------------------------- */
+
+.se-hero {
+  padding-block: clamp(2.5rem, 1.5rem + 4vw, 4.5rem) clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+}
+
+/* Mono strip of document metadata above the title. */
+.se-doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rp-space-4);
+  padding-block-end: var(--rp-space-5);
+  margin-block-end: var(--rp-space-7);
+  border-block-end: 1px solid var(--rp-border);
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+.se-doc-tag {
+  font-family: var(--rp-font-mono);
+  padding: 2px var(--rp-space-3);
+  border: 1px solid var(--rp-primary);
+  border-radius: var(--rp-radius-sm);
+  color: var(--rp-primary);
+  font-weight: 700;
+}
+
+.se-hero-body {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4rem);
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .se-hero-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.se-hero-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(1.9rem, 1.2rem + 2.9vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  margin-block: var(--rp-space-4);
+  max-inline-size: 20ch;
+}
+
+.se-hero-lead {
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-text-soft);
+  line-height: var(--rp-lh-snug);
+  max-inline-size: 54ch;
+}
+
+.se-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* --- Stack list ----------------------------------------------------------- */
+
+.se-stack {
+  padding: var(--rp-space-5);
+  border: 1px solid var(--rp-border);
+  border-inline-start: 3px solid var(--rp-primary);
+  border-radius: var(--rp-radius);
+  background: var(--rp-surface);
+}
+
+.se-stack-title {
+  font-size: var(--rp-fs-sm);
+  font-weight: 700;
+  color: var(--rp-muted);
+  margin-block-end: var(--rp-space-4);
+}
+
+.se-stack-list > div + div {
+  margin-block-start: var(--rp-space-4);
+  padding-block-start: var(--rp-space-4);
+  border-block-start: 1px dashed var(--rp-border);
+}
+
+.se-stack-list dt {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+  margin-block-end: var(--rp-space-1);
+}
+
+.se-stack-list dd {
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+  color: var(--rp-text);
+}
+
+/* --------------------------------------------------------------------------
+   4. Spec sheet
+   -------------------------------------------------------------------------- */
+
+.se-spec {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  overflow: hidden;
+  background: var(--rp-bg);
+}
+
+.se-spec-cell {
+  padding: var(--rp-space-5) var(--rp-space-6);
+  border-inline-end: 1px solid var(--rp-border);
+}
+
+.se-spec-cell:last-child {
+  border-inline-end: 0;
+}
+
+@media (max-width: 700px) {
+  .se-spec-cell {
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--rp-border);
+  }
+
+  .se-spec-cell:last-child {
+    border-block-end: 0;
+  }
+}
+
+.se-spec-key {
+  display: block;
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  color: var(--rp-primary);
+  margin-block-end: var(--rp-space-2);
+}
+
+.se-spec-cell strong {
+  display: block;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-2xl);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.se-spec-note {
+  display: block;
+  margin-block-start: var(--rp-space-1);
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   5. Domains  hairline list, no cards
+   -------------------------------------------------------------------------- */
+
+.se-domains {
+  border-block-start: 1px solid var(--rp-border);
+}
+
+.se-domain {
+  display: grid;
+  gap: var(--rp-space-4);
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  padding-block: var(--rp-space-5);
+  border-block-end: 1px solid var(--rp-border);
+  transition: background-color 0.3s var(--rp-ease);
+}
+
+.se-domain:hover {
+  background: var(--rp-surface);
+}
+
+.se-domain-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 42px;
+  block-size: 42px;
+  border-radius: var(--rp-radius-sm);
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+}
+
+.se-domain h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+}
+
+.se-domain p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.se-domain-tag {
+  font-size: var(--rp-fs-xs);
+  padding: 3px var(--rp-space-3);
+  border: 1px solid var(--rp-border-strong);
+  border-radius: var(--rp-radius-pill);
+  color: var(--rp-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .se-domain {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .se-domain-tag {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Architecture diagram  pure CSS, no images
+   -------------------------------------------------------------------------- */
+
+.se-arch {
+  display: grid;
+  gap: var(--rp-space-6);
+}
+
+.se-arch-layer {
+  position: relative;
+  padding: var(--rp-space-5);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  background: var(--rp-bg);
+}
+
+/* Connector between two layers: a short vertical line plus an arrow head. */
+.se-arch-layer + .se-arch-layer::before {
+  content: '';
+  position: absolute;
+  inset-block-start: calc(var(--rp-space-6) * -1);
+  inset-inline-start: 50%;
+  inline-size: 2px;
+  block-size: var(--rp-space-6);
+  background: var(--rp-border-strong);
+}
+
+/* Arrow head as a clipped triangle rather than two rotated borders: a
+   border pair would flip with the writing direction and point sideways. */
+.se-arch-layer + .se-arch-layer::after {
+  content: '';
+  position: absolute;
+  inset-block-start: -6px;
+  inset-inline-start: calc(50% - 6px);
+  inline-size: 12px;
+  block-size: 9px;
+  background: var(--rp-border-strong);
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+.se-arch-label {
+  display: block;
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  color: var(--rp-muted);
+  margin-block-end: var(--rp-space-4);
+}
+
+.se-arch-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--rp-space-3);
+}
+
+.se-node {
+  padding: var(--rp-space-3) var(--rp-space-4);
+  border: 1px solid var(--rp-border-strong);
+  border-radius: var(--rp-radius-sm);
+  background: var(--rp-surface);
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+}
+
+.se-node--primary {
+  border-color: var(--rp-primary);
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+}
+
+.se-node--accent {
+  border-color: var(--rp-accent);
+  color: var(--rp-accent);
+  background: transparent;
+  border-style: dashed;
+}
+
+.se-arch-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+  max-inline-size: 70ch;
+}
+
+.se-arch-note .rp-icon {
+  flex: none;
+  color: var(--rp-primary);
+  margin-block-start: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Engineering dossiers
+   -------------------------------------------------------------------------- */
+
+.se-dossiers {
+  --rp-grid-min: 320px;
+}
+
+.se-dossier {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  overflow: hidden;
+  background: var(--rp-bg);
+  transition: border-color 0.3s var(--rp-ease), box-shadow 0.3s var(--rp-ease);
+}
+
+.se-dossier:hover {
+  border-color: var(--rp-primary);
+  box-shadow: var(--rp-shadow);
+}
+
+.se-dossier-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--rp-surface);
+}
+
+.se-dossier-media img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  /* Desaturated by default so six photographs do not fight the diagram. */
+  filter: grayscale(0.35);
+  transition: transform 0.6s var(--rp-ease), filter 0.6s var(--rp-ease);
+}
+
+.se-dossier:hover .se-dossier-media img {
+  transform: scale(1.04);
+  filter: grayscale(0);
+}
+
+.se-dossier-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--rp-space-5);
+}
+
+.se-dossier-kind {
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  color: var(--rp-primary);
+}
+
+.se-dossier h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block: var(--rp-space-2) var(--rp-space-3);
+}
+
+.se-dossier p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.se-dossier-metric {
+  display: flex;
+  align-items: baseline;
+  gap: var(--rp-space-2);
+  margin-block-start: auto;
+  padding-block-start: var(--rp-space-4);
+  border-block-start: 1px dashed var(--rp-border);
+}
+
+.se-dossier-metric strong {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  color: var(--rp-primary);
+}
+
+.se-dossier-metric span {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   8. Repository cards
+   -------------------------------------------------------------------------- */
+
+.se-repos {
+  --rp-grid-min: 280px;
+}
+
+.se-repo {
+  padding: var(--rp-space-5);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  background: var(--rp-bg);
+  transition: border-color 0.3s var(--rp-ease);
+}
+
+.se-repo:hover {
+  border-color: var(--rp-primary);
+}
+
+.se-repo-head {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-3);
+  margin-block-end: var(--rp-space-3);
+}
+
+.se-repo-head h3 {
+  font-family: var(--rp-font-mono);
+  font-size: var(--rp-fs-base);
+  font-weight: 700;
+  color: var(--rp-primary);
+}
+
+.se-repo-link {
+  margin-inline-start: auto;
+  color: var(--rp-muted);
+  transition: color 0.3s var(--rp-ease), transform 0.3s var(--rp-ease);
+}
+
+.se-repo:hover .se-repo-link {
+  color: var(--rp-primary);
+  transform: translateY(-2px);
+}
+
+.se-repo p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.se-repo-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rp-space-4);
+  margin-block-start: var(--rp-space-5);
+  padding-block-start: var(--rp-space-4);
+  border-block-start: 1px solid var(--rp-border);
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+.se-repo-foot span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-1);
+}
+
+.se-repo-foot .rp-icon {
+  inline-size: 1em;
+  block-size: 1em;
+}
+
+/* Language dot  the colour is the only decoration each repo gets. */
+.se-lang::before {
+  content: '';
+  inline-size: 9px;
+  block-size: 9px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.se-lang--go { color: #00add8; }
+.se-lang--rust { color: #c6603f; }
+.se-lang--py { color: #3b7fbe; }
+
+/* --------------------------------------------------------------------------
+   9. Client logo row  static, deliberately calm
+   -------------------------------------------------------------------------- */
+
+.se-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+  color: var(--rp-muted);
+}
+
+.se-logos img {
+  opacity: 0.55;
+  transition: opacity 0.3s var(--rp-ease);
+}
+
+.se-logos img:hover {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   10. Split layout  about and contact
+   -------------------------------------------------------------------------- */
+
+.se-split {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  /* minmax(0, …) so a photograph cannot widen the column past the viewport. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+/* minmax(0, …) here too: a plain 1fr keeps its auto minimum, so a wide
+   form row inside the panel would push the whole page sideways. */
+@media (max-width: 880px) {
+  .se-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.se-portrait {
+  inline-size: 100%;
+  max-inline-size: 420px;
+  aspect-ratio: 4 / 5;
+  block-size: auto;
+  object-fit: cover;
+}
+
+.se-panel {
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  background: var(--rp-bg);
+}

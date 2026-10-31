@@ -1,0 +1,1082 @@
+/* ==========================================================================
+   Bavarsa Portfolio  core/css/components.css
+   Shared, token-driven UI components used by every demo.
+
+   Same rules as core.css: no demo-specific selectors, tokens only, logical
+   properties only. A demo restyles a component by overriding tokens or by
+   writing `.rp-demo--x .rp-btn { ... }` inside its OWN theme.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Icons (SVG sprite)
+   Usage: <svg class="rp-icon"><use href="../../core/assets/icons/sprite.svg#mail"></use></svg>
+   -------------------------------------------------------------------------- */
+
+.rp-icon {
+  inline-size: var(--rp-icon-size, 1.25em);
+  block-size: var(--rp-icon-size, 1.25em);
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rp-icon--lg {
+  --rp-icon-size: 1.75em;
+}
+
+/* Icons are mirrored in RTL only when they encode direction. */
+.rp-icon--flip {
+  transform: scaleX(-1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Buttons
+   -------------------------------------------------------------------------- */
+
+.rp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rp-space-2);
+  padding-block: 0.7em;
+  padding-inline: 1.5em;
+  font-size: var(--rp-fs-base);
+  font-weight: 700;
+  line-height: 1.2;
+  border-radius: var(--rp-btn-radius, var(--rp-radius-pill));
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.25s var(--rp-ease), color 0.25s var(--rp-ease),
+              border-color 0.25s var(--rp-ease), transform 0.25s var(--rp-ease),
+              box-shadow 0.25s var(--rp-ease);
+}
+
+.rp-btn:hover {
+  transform: translateY(-2px);
+}
+
+.rp-btn:active {
+  transform: translateY(0);
+}
+
+.rp-btn--primary {
+  background: var(--rp-primary);
+  color: var(--rp-on-primary);
+  box-shadow: var(--rp-shadow);
+}
+
+.rp-btn--primary:hover {
+  background: var(--rp-primary-strong);
+  box-shadow: var(--rp-shadow-lg);
+}
+
+.rp-btn--outline {
+  border-color: var(--rp-border-strong);
+  color: var(--rp-text);
+  background: transparent;
+}
+
+.rp-btn--outline:hover {
+  border-color: var(--rp-primary);
+  color: var(--rp-primary);
+  background: var(--rp-primary-soft);
+}
+
+.rp-btn--ghost {
+  color: var(--rp-text);
+  background: var(--rp-surface-2);
+}
+
+.rp-btn--ghost:hover {
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+}
+
+.rp-btn--accent {
+  background: var(--rp-accent);
+  color: var(--rp-on-accent, #ffffff);
+}
+
+.rp-btn--sm {
+  font-size: var(--rp-fs-sm);
+  padding-block: 0.55em;
+  padding-inline: 1.1em;
+}
+
+.rp-btn--lg {
+  font-size: var(--rp-fs-lg);
+  padding-block: 0.85em;
+  padding-inline: 2em;
+}
+
+.rp-btn--block {
+  inline-size: 100%;
+}
+
+/* Circular icon-only button (theme toggle, social links, slider arrows). */
+.rp-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 42px;
+  block-size: 42px;
+  border-radius: var(--rp-radius-pill);
+  border: 1px solid var(--rp-border);
+  background: var(--rp-bg);
+  color: var(--rp-text);
+  transition: background-color 0.25s var(--rp-ease), color 0.25s var(--rp-ease),
+              border-color 0.25s var(--rp-ease);
+}
+
+.rp-icon-btn:hover {
+  background: var(--rp-primary);
+  border-color: var(--rp-primary);
+  color: var(--rp-on-primary);
+}
+
+.rp-icon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.rp-icon-btn:disabled:hover {
+  background: var(--rp-bg);
+  border-color: var(--rp-border);
+  color: var(--rp-text);
+}
+
+/* --------------------------------------------------------------------------
+   3. Header + navigation
+   -------------------------------------------------------------------------- */
+
+.rp-header {
+  position: sticky;
+  inset-block-start: 0;
+  /* Above .rp-drawer-backdrop, so the mobile drawer inside it is never dimmed. */
+  z-index: 200;
+  border-block-end: 1px solid transparent;
+  transition: border-color 0.3s var(--rp-ease);
+}
+
+/* The translucent blur lives on a pseudo-element on purpose: backdrop-filter
+   turns its element into the containing block for fixed-position descendants,
+   which would trap the mobile drawer inside the header bar. */
+.rp-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--rp-bg) 82%, transparent);
+  backdrop-filter: blur(14px);
+  transition: background-color 0.3s var(--rp-ease);
+}
+
+/* core.js adds .is-stuck once the page scrolls past the header. */
+.rp-header.is-stuck {
+  border-block-end-color: var(--rp-border);
+  box-shadow: var(--rp-shadow);
+}
+
+.rp-header-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-4);
+  min-block-size: var(--rp-header-h);
+}
+
+.rp-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 800;
+  color: var(--rp-text);
+  /* Pushes everything after it to the far inline-end. */
+  margin-inline-end: auto;
+}
+
+.rp-brand-mark {
+  display: grid;
+  place-items: center;
+  inline-size: 38px;
+  block-size: 38px;
+  border-radius: var(--rp-radius-sm);
+  background: var(--rp-primary);
+  color: var(--rp-on-primary);
+}
+
+.rp-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-5);
+}
+
+.rp-nav-link {
+  position: relative;
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+  color: var(--rp-muted);
+  padding-block: var(--rp-space-2);
+  transition: color 0.25s var(--rp-ease);
+}
+
+.rp-nav-link::after {
+  content: '';
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inline-size: 0;
+  block-size: 2px;
+  background: var(--rp-primary);
+  border-radius: 2px;
+  transition: inline-size 0.3s var(--rp-ease);
+}
+
+.rp-nav-link:hover,
+.rp-nav-link.is-active {
+  color: var(--rp-text);
+}
+
+.rp-nav-link.is-active::after {
+  inline-size: 100%;
+}
+
+.rp-header-actions {
+  position: relative;
+  /* Keeps the theme toggle and the hamburger clickable over the open drawer. */
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-3);
+}
+
+/* Hamburger  three bars that morph into an X when expanded. */
+.rp-nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  inline-size: 42px;
+  block-size: 42px;
+  padding-inline: 10px;
+  border-radius: var(--rp-radius-sm);
+  border: 1px solid var(--rp-border);
+}
+
+.rp-nav-toggle span {
+  display: block;
+  block-size: 2px;
+  inline-size: 100%;
+  background: var(--rp-text);
+  border-radius: 2px;
+  transition: transform 0.3s var(--rp-ease), opacity 0.2s var(--rp-ease);
+}
+
+.rp-nav-toggle[aria-expanded='true'] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.rp-nav-toggle[aria-expanded='true'] span:nth-child(2) {
+  opacity: 0;
+}
+
+.rp-nav-toggle[aria-expanded='true'] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile drawer. Slides in from the inline-start edge (right in RTL). */
+.rp-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  /* Under the header (200) and over the back-to-top button (90). */
+  z-index: 150;
+  background: rgba(6, 9, 15, 0.5);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--rp-ease);
+}
+
+.rp-drawer-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 900px) {
+  .rp-nav-toggle {
+    display: flex;
+  }
+
+  .rp-nav {
+    position: fixed;
+    /* Inside the header's stacking context: over the brand, under the actions. */
+    z-index: 1;
+    inset-block: 0;
+    inset-inline-start: 0;
+    inline-size: min(320px, 84vw);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: var(--rp-space-2);
+    padding: calc(var(--rp-header-h) + var(--rp-space-5)) var(--rp-space-5) var(--rp-space-5);
+    background: var(--rp-bg);
+    border-inline-end: 1px solid var(--rp-border);
+    /* Off-canvas toward the inline-start edge, direction-agnostic. */
+    transform: translateX(var(--rp-drawer-hidden, -105%));
+    transition: transform 0.35s var(--rp-ease);
+    overflow-y: auto;
+  }
+
+  /* In RTL the drawer's start edge is the right side, so flip the offset. */
+  [dir='rtl'] .rp-nav {
+    --rp-drawer-hidden: 105%;
+  }
+
+  .rp-nav.is-open {
+    transform: translateX(0);
+  }
+
+  .rp-nav-link {
+    font-size: var(--rp-fs-lg);
+    padding-block: var(--rp-space-3);
+    border-block-end: 1px solid var(--rp-border);
+  }
+
+  .rp-nav-link::after {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Theme toggle  shows the icon of the mode you would switch TO
+   -------------------------------------------------------------------------- */
+
+.rp-theme-toggle .rp-theme-toggle-dark,
+:root[data-theme='dark'] .rp-theme-toggle .rp-theme-toggle-light {
+  display: none;
+}
+
+:root[data-theme='dark'] .rp-theme-toggle .rp-theme-toggle-dark {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   5. Cards
+   -------------------------------------------------------------------------- */
+
+.rp-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  overflow: hidden;
+  transition: transform 0.35s var(--rp-ease), box-shadow 0.35s var(--rp-ease),
+              border-color 0.35s var(--rp-ease);
+}
+
+.rp-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--rp-primary);
+  box-shadow: var(--rp-shadow-lg);
+}
+
+.rp-card--flat:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.rp-card-media {
+  position: relative;
+  aspect-ratio: var(--rp-card-ratio, 4 / 3);
+  overflow: hidden;
+  background: var(--rp-surface-2);
+}
+
+.rp-card-media img,
+.rp-card-media svg {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--rp-ease);
+}
+
+.rp-card:hover .rp-card-media img,
+.rp-card:hover .rp-card-media svg {
+  transform: scale(1.05);
+}
+
+.rp-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rp-space-3);
+  padding: var(--rp-space-5);
+  flex: 1;
+}
+
+.rp-card-title {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+  line-height: var(--rp-lh-snug);
+  color: var(--rp-text);
+}
+
+.rp-card-text {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+/* Pushes a link/CTA to the bottom of an uneven card row. */
+.rp-card-foot {
+  margin-block-start: auto;
+  padding-block-start: var(--rp-space-2);
+}
+
+/* Service / feature card with a leading icon tile. */
+.rp-feature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rp-space-3);
+  padding: var(--rp-space-6);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  transition: transform 0.35s var(--rp-ease), border-color 0.35s var(--rp-ease),
+              box-shadow 0.35s var(--rp-ease);
+}
+
+.rp-feature:hover {
+  transform: translateY(-5px);
+  border-color: var(--rp-primary);
+  box-shadow: var(--rp-shadow-lg);
+}
+
+.rp-feature-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 52px;
+  block-size: 52px;
+  border-radius: var(--rp-radius);
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+}
+
+.rp-feature-title {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  color: var(--rp-text);
+}
+
+.rp-feature-text {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+/* --------------------------------------------------------------------------
+   6. Chips, badges, tags
+   -------------------------------------------------------------------------- */
+
+.rp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  padding-block: 0.35em;
+  padding-inline: 0.9em;
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-surface-2);
+  color: var(--rp-text-soft);
+  border: 1px solid var(--rp-border);
+}
+
+.rp-chip--primary {
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+  border-color: transparent;
+}
+
+/* Small pulsing "available for work" dot. */
+.rp-chip--status::before {
+  content: '';
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: var(--rp-accent);
+  animation: rp-pulse 2s var(--rp-ease) infinite;
+}
+
+@keyframes rp-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.8); }
+}
+
+/* --------------------------------------------------------------------------
+   7. Stats / counters
+   -------------------------------------------------------------------------- */
+
+.rp-stats {
+  display: grid;
+  gap: var(--rp-space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+}
+
+.rp-stat-value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.1em;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-3xl);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--rp-primary);
+}
+
+.rp-stat-label {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   8. Skill bars
+   -------------------------------------------------------------------------- */
+
+.rp-skill + .rp-skill {
+  margin-block-start: var(--rp-space-4);
+}
+
+.rp-skill-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--rp-space-3);
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+  margin-block-end: var(--rp-space-2);
+}
+
+.rp-skill-track {
+  block-size: 8px;
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-surface-2);
+  overflow: hidden;
+}
+
+.rp-skill-fill {
+  block-size: 100%;
+  inline-size: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--rp-primary), var(--rp-accent));
+  transition: inline-size 1.2s var(--rp-ease);
+}
+
+/* core.js sets --rp-skill-value then adds .is-filled when scrolled into view. */
+.rp-skill-fill.is-filled {
+  inline-size: var(--rp-skill-value, 0%);
+}
+
+/* --------------------------------------------------------------------------
+   9. Filter tabs (portfolio)
+   -------------------------------------------------------------------------- */
+
+.rp-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-2);
+  margin-block-end: var(--rp-space-6);
+}
+
+.rp-filter {
+  padding-block: 0.5em;
+  padding-inline: 1.1em;
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+  color: var(--rp-muted);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-pill);
+  background: transparent;
+  transition: all 0.25s var(--rp-ease);
+}
+
+.rp-filter:hover {
+  color: var(--rp-text);
+  border-color: var(--rp-border-strong);
+}
+
+.rp-filter.is-active {
+  background: var(--rp-primary);
+  border-color: var(--rp-primary);
+  color: var(--rp-on-primary);
+}
+
+/* Filtered-out grid items fade and collapse. */
+.rp-filter-item {
+  transition: opacity 0.3s var(--rp-ease), transform 0.3s var(--rp-ease);
+}
+
+.rp-filter-item.is-hidden {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   10. Slider (testimonials)  CSS scroll-snap, JS only drives dots/arrows
+   -------------------------------------------------------------------------- */
+
+.rp-slider {
+  position: relative;
+}
+
+.rp-slider-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--rp-slide-size, min(420px, 88vw));
+  gap: var(--rp-space-5);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-block-end: var(--rp-space-3);
+  /* Hide the scrollbar; navigation is via dots and arrows. */
+  scrollbar-width: none;
+}
+
+.rp-slider-track::-webkit-scrollbar {
+  display: none;
+}
+
+.rp-slider-track > * {
+  scroll-snap-align: start;
+}
+
+.rp-slider-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-5);
+}
+
+.rp-slider-dots {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+}
+
+.rp-dot {
+  inline-size: 9px;
+  block-size: 9px;
+  border-radius: 50%;
+  background: var(--rp-border-strong);
+  transition: all 0.25s var(--rp-ease);
+}
+
+.rp-dot.is-active {
+  inline-size: 28px;
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-primary);
+}
+
+/* Testimonial card */
+.rp-quote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rp-space-4);
+  padding: var(--rp-space-6);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  block-size: 100%;
+}
+
+.rp-quote-text {
+  font-size: var(--rp-fs-lg);
+  line-height: var(--rp-lh-snug);
+  color: var(--rp-text-soft);
+}
+
+.rp-quote-foot {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-3);
+  margin-block-start: auto;
+}
+
+.rp-avatar {
+  inline-size: var(--rp-avatar-size, 48px);
+  block-size: var(--rp-avatar-size, 48px);
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--rp-surface-2);
+  flex: none;
+}
+
+.rp-quote-name {
+  font-weight: 700;
+  color: var(--rp-text);
+}
+
+.rp-quote-role {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+.rp-stars {
+  display: flex;
+  gap: 2px;
+  color: #f5b301;
+}
+
+.rp-stars .rp-icon {
+  fill: currentColor;
+  stroke: none;
+  --rp-icon-size: 1em;
+}
+
+/* --------------------------------------------------------------------------
+   11. Accordion (FAQ)
+   -------------------------------------------------------------------------- */
+
+.rp-accordion-item {
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  background: var(--rp-bg);
+  overflow: hidden;
+}
+
+.rp-accordion-item + .rp-accordion-item {
+  margin-block-start: var(--rp-space-3);
+}
+
+.rp-accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rp-space-4);
+  inline-size: 100%;
+  padding: var(--rp-space-4) var(--rp-space-5);
+  font-weight: 700;
+  color: var(--rp-text);
+  transition: color 0.2s var(--rp-ease);
+}
+
+.rp-accordion-trigger:hover {
+  color: var(--rp-primary);
+}
+
+.rp-accordion-trigger .rp-icon {
+  transition: transform 0.3s var(--rp-ease);
+}
+
+.rp-accordion-trigger[aria-expanded='true'] .rp-icon {
+  transform: rotate(180deg);
+}
+
+/* Animated open/close via grid-template-rows 0fr -> 1fr. */
+.rp-accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s var(--rp-ease);
+}
+
+.rp-accordion-panel > div {
+  overflow: hidden;
+}
+
+.rp-accordion-item.is-open .rp-accordion-panel {
+  grid-template-rows: 1fr;
+}
+
+.rp-accordion-body {
+  padding: 0 var(--rp-space-5) var(--rp-space-5);
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+/* --------------------------------------------------------------------------
+   12. Timeline
+   -------------------------------------------------------------------------- */
+
+.rp-timeline {
+  position: relative;
+  padding-inline-start: var(--rp-space-6);
+}
+
+.rp-timeline::before {
+  content: '';
+  position: absolute;
+  inset-block: 6px 0;
+  inset-inline-start: 5px;
+  inline-size: 2px;
+  background: linear-gradient(var(--rp-primary), transparent);
+}
+
+.rp-timeline-item {
+  position: relative;
+  padding-block-end: var(--rp-space-6);
+}
+
+.rp-timeline-item::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-start: calc(-1 * var(--rp-space-6) + 1px);
+  inline-size: 12px;
+  block-size: 12px;
+  border-radius: 50%;
+  background: var(--rp-primary);
+  box-shadow: 0 0 0 4px var(--rp-primary-soft);
+}
+
+.rp-timeline-date {
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  color: var(--rp-primary);
+}
+
+.rp-timeline-title {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block: var(--rp-space-1) var(--rp-space-2);
+}
+
+.rp-timeline-text {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+/* --------------------------------------------------------------------------
+   13. Forms
+   -------------------------------------------------------------------------- */
+
+/* An explicit minmax(0, …) column: the implicit `auto` column would take its
+   size from the widest row's min-content and overflow the form's own padding
+   box on a narrow screen. */
+.rp-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--rp-space-4);
+}
+
+.rp-form-row {
+  display: grid;
+  gap: var(--rp-space-4);
+  min-inline-size: 0;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+}
+
+/* min-inline-size: 0 here and on the controls below: form elements carry an
+   intrinsic minimum width, which would otherwise set the row's min-content
+   size and push a narrow single-column layout past the viewport. */
+.rp-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rp-space-2);
+  min-inline-size: 0;
+}
+
+.rp-label {
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+  color: var(--rp-text-soft);
+}
+
+.rp-input,
+.rp-textarea,
+.rp-select {
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding-block: 0.75em;
+  padding-inline: 1em;
+  font-size: var(--rp-fs-base);
+  color: var(--rp-text);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  transition: border-color 0.2s var(--rp-ease), box-shadow 0.2s var(--rp-ease);
+}
+
+.rp-input::placeholder,
+.rp-textarea::placeholder {
+  color: var(--rp-muted);
+  opacity: 0.75;
+}
+
+.rp-input:focus,
+.rp-textarea:focus,
+.rp-select:focus {
+  outline: none;
+  border-color: var(--rp-primary);
+  box-shadow: 0 0 0 4px var(--rp-primary-soft);
+}
+
+.rp-textarea {
+  min-block-size: 150px;
+  resize: vertical;
+}
+
+/* Invalid state is applied by core.js, never by the browser default. */
+.rp-field.is-invalid .rp-input,
+.rp-field.is-invalid .rp-textarea {
+  border-color: var(--rp-danger, #e03e52);
+}
+
+.rp-field-error {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-danger, #e03e52);
+  min-block-size: 1em;
+}
+
+/* Submit feedback banner. */
+.rp-form-status {
+  padding: var(--rp-space-3) var(--rp-space-4);
+  border-radius: var(--rp-radius);
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+}
+
+.rp-form-status--success {
+  background: color-mix(in srgb, var(--rp-accent) 16%, transparent);
+  color: var(--rp-accent);
+}
+
+.rp-form-status--error {
+  background: color-mix(in srgb, var(--rp-danger, #e03e52) 14%, transparent);
+  color: var(--rp-danger, #e03e52);
+}
+
+/* --------------------------------------------------------------------------
+   14. Contact info list
+   -------------------------------------------------------------------------- */
+
+.rp-contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-3);
+}
+
+.rp-contact-item + .rp-contact-item {
+  margin-block-start: var(--rp-space-4);
+}
+
+.rp-contact-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  flex: none;
+  border-radius: var(--rp-radius);
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+}
+
+.rp-contact-label {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+.rp-contact-value {
+  font-weight: 700;
+  color: var(--rp-text);
+}
+
+/* --------------------------------------------------------------------------
+   15. Footer
+   -------------------------------------------------------------------------- */
+
+.rp-footer {
+  background: var(--rp-surface);
+  border-block-start: 1px solid var(--rp-border);
+  padding-block: var(--rp-space-7);
+}
+
+.rp-footer-grid {
+  display: grid;
+  gap: var(--rp-space-6);
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  align-items: start;
+}
+
+.rp-footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+  padding-block-start: var(--rp-space-5);
+  border-block-start: 1px solid var(--rp-border);
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.rp-socials {
+  display: flex;
+  gap: var(--rp-space-2);
+}
+
+/* --------------------------------------------------------------------------
+   16. Back-to-top button
+   -------------------------------------------------------------------------- */
+
+.rp-to-top {
+  position: fixed;
+  inset-block-end: var(--rp-space-5);
+  inset-inline-end: var(--rp-space-5);
+  z-index: 90;
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity 0.3s var(--rp-ease), transform 0.3s var(--rp-ease);
+}
+
+.rp-to-top.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* --------------------------------------------------------------------------
+   17. Marquee (logo / keyword strip)
+   -------------------------------------------------------------------------- */
+
+.rp-marquee {
+  display: flex;
+  overflow: hidden;
+  gap: var(--rp-space-6);
+  /* Fade both inline edges. */
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.rp-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-6);
+  flex: none;
+  min-inline-size: 100%;
+  animation: rp-marquee var(--rp-marquee-dur, 30s) linear infinite;
+}
+
+.rp-marquee:hover .rp-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes rp-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* In RTL the track must travel the other way to read naturally. */
+[dir='rtl'] .rp-marquee-track {
+  animation-name: rp-marquee-rtl;
+}
+
+@keyframes rp-marquee-rtl {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}

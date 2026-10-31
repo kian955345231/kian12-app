@@ -1,0 +1,516 @@
+/* ==========================================================================
+   Demo 12  Digital Marketing Specialist
+   demos/12-digital-marketing-specialist/css/theme.css
+
+   Design rationale
+   ----------------
+   Loud, warm and number-first. A full-bleed hero under a magenta scrim, a
+   results band that overlaps it, and a CSS-only conversion funnel as the
+   signature block. Layout archetype C  the same skeleton as demo 05 and
+   demo 10  but where the doctor is calm daylight and the actor is a dark
+   theatre, this one is a campaign poster: saturated magenta, a yellow
+   signal colour and generous rounding.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--digital-marketing-specialist only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #c026d3;
+  --rp-primary-strong: #a21caf;
+  --rp-primary-soft: rgba(192, 38, 211, 0.1);
+  --rp-accent: #eab308;
+  --rp-on-primary: #ffffff;
+  --rp-danger: #dc2626;
+
+  --rp-bg: #ffffff;
+  --rp-surface: #fdf4ff;
+  --rp-surface-2: #f7e4fb;
+  --rp-text: #241033;
+  --rp-text-soft: #4a3057;
+  --rp-muted: #7c6488;
+  --rp-border: #f0dcf5;
+  --rp-border-strong: #ddbde6;
+
+  --rp-container: 1200px;
+  --rp-radius: 16px;
+  --rp-radius-lg: 26px;
+  --rp-btn-radius: 999px;
+  --rp-shadow: 0 2px 6px rgba(36, 16, 51, 0.05), 0 16px 40px rgba(36, 16, 51, 0.08);
+  --rp-shadow-lg: 0 24px 60px rgba(36, 16, 51, 0.18);
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #e879f9;
+  --rp-primary-strong: #f0abfc;
+  --rp-primary-soft: rgba(232, 121, 249, 0.16);
+  --rp-accent: #fde047;
+  --rp-on-primary: #22102e;
+
+  --rp-bg: #150a1e;
+  --rp-surface: #1e0f2b;
+  --rp-surface-2: #2a1739;
+  --rp-text: #f7ecfb;
+  --rp-text-soft: #d5c0e0;
+  --rp-muted: #9c86a9;
+  --rp-border: #2c1a3b;
+  --rp-border-strong: #442a56;
+}
+
+/* --------------------------------------------------------------------------
+   3. Full-bleed hero
+   -------------------------------------------------------------------------- */
+
+.dm-hero {
+  position: relative;
+  isolation: isolate;
+  /* Extra bottom padding leaves room for the overlapping results band. */
+  padding-block: clamp(3.5rem, 2rem + 7vw, 7rem) clamp(7rem, 4rem + 10vw, 12rem);
+  overflow: hidden;
+  color: #fff;
+}
+
+.dm-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.dm-hero-bg img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* Magenta scrim: keeps the headline legible and stamps the brand colour
+   on to whatever photograph the buyer drops in. */
+.dm-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to bottom, rgba(36, 16, 51, 0.55), rgba(36, 16, 51, 0.92)),
+    linear-gradient(to left, transparent 25%, var(--rp-primary-strong) 125%);
+  opacity: 0.95;
+}
+
+.dm-hero-inner {
+  max-inline-size: 44rem;
+}
+
+.dm-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  padding: var(--rp-space-2) var(--rp-space-4);
+  border-radius: var(--rp-radius-pill);
+  background: rgba(255, 255, 255, 0.16);
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+}
+
+.dm-hero-tag .rp-icon {
+  color: var(--rp-accent);
+}
+
+.dm-hero-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(2.1rem, 1.2rem + 4vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.18;
+  margin-block: var(--rp-space-4);
+}
+
+.dm-hero-lead {
+  font-size: var(--rp-fs-lg);
+  line-height: var(--rp-lh-snug);
+  opacity: 0.9;
+  max-inline-size: 52ch;
+}
+
+.dm-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* Hero buttons sit on a dark scrim, so they need their own treatment. */
+.dm-hero .rp-btn--outline {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.dm-hero .rp-btn--outline:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: #fff;
+  color: #fff;
+}
+
+.dm-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-5);
+  margin-block-start: var(--rp-space-7);
+  padding-block-start: var(--rp-space-5);
+  border-block-start: 1px solid rgba(255, 255, 255, 0.22);
+  font-size: var(--rp-fs-sm);
+}
+
+.dm-hero-badges div {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+}
+
+.dm-hero-badges .rp-icon {
+  color: var(--rp-accent);
+}
+
+/* --------------------------------------------------------------------------
+   4. Results band  overlaps the hero
+   -------------------------------------------------------------------------- */
+
+.dm-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  gap: var(--rp-space-5);
+  margin-block-start: clamp(-6rem, -3rem - 5vw, -3rem);
+  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-bg);
+  box-shadow: var(--rp-shadow-lg);
+  position: relative;
+  z-index: 2;
+}
+
+.dm-result {
+  padding-inline: var(--rp-space-4);
+  border-inline-end: 1px solid var(--rp-border);
+}
+
+.dm-result:last-child {
+  border-inline-end: 0;
+}
+
+@media (max-width: 780px) {
+  .dm-result {
+    border-inline-end: 0;
+  }
+}
+
+.dm-result strong {
+  display: block;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-3xl);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--rp-primary);
+}
+
+/* Direct child only: the animated counter lives in a <span> inside <strong>
+   and must keep the display size. */
+.dm-result > span {
+  display: block;
+  margin-block-start: var(--rp-space-1);
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   5. Channels
+   -------------------------------------------------------------------------- */
+
+.dm-channels {
+  --rp-grid-min: 300px;
+}
+
+.dm-channel {
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius);
+  background: var(--rp-bg);
+  transition: transform 0.35s var(--rp-ease), box-shadow 0.35s var(--rp-ease),
+              border-color 0.35s var(--rp-ease);
+}
+
+.dm-channel:hover {
+  transform: translateY(-4px);
+  border-color: var(--rp-primary);
+  box-shadow: var(--rp-shadow);
+}
+
+.dm-channel-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 52px;
+  block-size: 52px;
+  margin-block-end: var(--rp-space-4);
+  border-radius: var(--rp-radius);
+  background: linear-gradient(135deg, var(--rp-primary), var(--rp-primary-strong));
+  color: var(--rp-on-primary);
+}
+
+.dm-channel h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+  margin-block-end: var(--rp-space-2);
+}
+
+.dm-channel p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.dm-channel-list {
+  margin-block-start: var(--rp-space-5);
+  padding-block-start: var(--rp-space-4);
+  border-block-start: 1px solid var(--rp-border);
+  display: grid;
+  gap: var(--rp-space-2);
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-text-soft);
+}
+
+.dm-channel-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+}
+
+.dm-channel-list .rp-icon {
+  flex: none;
+  inline-size: 1em;
+  block-size: 1em;
+  color: var(--rp-primary);
+}
+
+/* --------------------------------------------------------------------------
+   6. Conversion funnel  pure CSS, no chart library
+   -------------------------------------------------------------------------- */
+
+.dm-funnel-grid {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4rem);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .dm-funnel-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.dm-funnel-note {
+  display: flex;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+  padding: var(--rp-space-4) var(--rp-space-5);
+  border-inline-start: 3px solid var(--rp-accent);
+  border-radius: var(--rp-radius-sm);
+  background: var(--rp-bg);
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-text-soft);
+}
+
+.dm-funnel-note .rp-icon {
+  flex: none;
+  color: var(--rp-accent);
+  margin-block-start: 3px;
+}
+
+.dm-funnel {
+  display: grid;
+  gap: var(--rp-space-3);
+}
+
+.dm-stage {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-4);
+}
+
+/* Each bar's width comes from --w, so the shape is data, not decoration. */
+.dm-stage-bar {
+  display: flex;
+  align-items: center;
+  inline-size: var(--w, 100%);
+  min-inline-size: 0;
+  padding: var(--rp-space-4) var(--rp-space-5);
+  border-radius: var(--rp-radius-pill);
+  background: linear-gradient(to left, var(--rp-primary), var(--rp-primary-strong));
+  color: var(--rp-on-primary);
+  font-size: var(--rp-fs-sm);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: inline-size 0.9s var(--rp-ease);
+}
+
+.dm-stage-bar span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* The last stage is the one that pays for everything else. */
+.dm-stage--win .dm-stage-bar {
+  background: linear-gradient(to left, var(--rp-accent), #f59e0b);
+  color: #3b2600;
+}
+
+.dm-stage b {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  white-space: nowrap;
+}
+
+.dm-stage--win b {
+  color: var(--rp-primary);
+}
+
+@media (max-width: 560px) {
+  .dm-stage {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--rp-space-1);
+  }
+
+  .dm-stage b {
+    padding-inline-start: var(--rp-space-5);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Campaigns
+   -------------------------------------------------------------------------- */
+
+.dm-campaigns {
+  --rp-grid-min: 320px;
+}
+
+.dm-campaign {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--rp-radius-lg);
+  overflow: hidden;
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  transition: transform 0.35s var(--rp-ease), box-shadow 0.35s var(--rp-ease);
+}
+
+.dm-campaign:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--rp-shadow);
+}
+
+.dm-campaign-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.dm-campaign-media img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--rp-ease);
+}
+
+.dm-campaign:hover .dm-campaign-media img {
+  transform: scale(1.05);
+}
+
+/* The headline number, stamped on the photograph. */
+.dm-campaign-metric {
+  position: absolute;
+  inset-block-end: var(--rp-space-4);
+  inset-inline-start: var(--rp-space-4);
+  padding: var(--rp-space-2) var(--rp-space-4);
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-accent);
+  color: #3b2600;
+  font-family: var(--rp-font-display);
+  font-weight: 800;
+  font-size: var(--rp-fs-lg);
+}
+
+.dm-campaign-body {
+  padding: var(--rp-space-5) var(--rp-space-6) var(--rp-space-6);
+}
+
+.dm-campaign-kind {
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  color: var(--rp-primary);
+}
+
+.dm-campaign h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+  margin-block: var(--rp-space-2) var(--rp-space-3);
+}
+
+.dm-campaign p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   8. Split layout  about and contact
+   -------------------------------------------------------------------------- */
+
+.dm-split {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  /* minmax(0, …) so a photograph cannot widen the column past the viewport. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+/* minmax(0, …) here too: a plain 1fr keeps its auto minimum, so a wide
+   form row inside the panel would push the whole page sideways. */
+@media (max-width: 880px) {
+  .dm-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.dm-portrait {
+  inline-size: 100%;
+  max-inline-size: 440px;
+  aspect-ratio: 4 / 5;
+  block-size: auto;
+  object-fit: cover;
+}
+
+.dm-panel {
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-surface);
+}
+
+/* --------------------------------------------------------------------------
+   9. Marquee tuning  the logo row reads as a brand strip, not a banner
+   -------------------------------------------------------------------------- */
+
+.rp-demo--digital-marketing-specialist .rp-marquee-track img {
+  opacity: 0.6;
+  transition: opacity 0.3s var(--rp-ease);
+}
+
+.rp-demo--digital-marketing-specialist .rp-marquee-track img:hover {
+  opacity: 1;
+}

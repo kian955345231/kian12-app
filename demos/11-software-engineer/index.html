@@ -1,0 +1,954 @@
+{% load static %}
+<!DOCTYPE html>
+<!--
+  پورتفولیو باورسا Demo 11 · Software Engineer
+  Archetype B, document-led (spec sheet, architecture diagram, repo cards), light-first.
+-->
+<html lang="fa" dir="rtl" data-theme-default="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>بهنام آذری | مهندس نرم‌افزار ارشد</title>
+  <meta name="description" content="مهندس نرم‌افزار ارشد؛ طراحی و نگهداری سرویس‌های بک‌اند پرترافیک، سیستم‌های توزیع‌شده و زیرساخت داده  با سند، آزمون و اندازه‌گیری.">
+  <meta name="theme-color" content="#0b1220">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="بهنام آذری | مهندس نرم‌افزار ارشد">
+  <meta property="og:description" content="سیستم‌هایی که ساعت سه بامداد کسی را بیدار نمی‌کنند.">
+  <meta property="og:image" content="img/hero.jpg">
+
+  <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+
+  <script>
+    (function () {
+      var DEFAULT = document.documentElement.getAttribute('data-theme-default') || 'light';
+      var stored = null;
+      try { stored = localStorage.getItem('rp-theme'); } catch (e) { /* private mode */ }
+      var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : DEFAULT);
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add('rp-js');
+    })();
+  </script>
+
+ {% load static %}
+
+<link rel="stylesheet" href="{% static 'core/css/reset.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/core.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/components.css' %}">
+<link rel="stylesheet" href="{% static 'css/theme.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/utilities.css' %}">
+</head>
+
+<body class="rp-demo--software-engineer">
+
+  <!-- rp:sprite:start -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="rp-sprite" aria-hidden="true" hidden>
+  
+    <!-- ===== Interface ===== -->
+    <symbol id="menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="chevron-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="chevron-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol>
+    <symbol id="arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+    <symbol id="arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="arrow-up-right" viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></symbol>
+    <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+    <symbol id="external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-8 8"/><path d="M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></symbol>
+    <symbol id="download" viewBox="0 0 24 24"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol>
+    <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></symbol>
+    <symbol id="play" viewBox="0 0 24 24"><path d="M8 5.5l10 6.5-10 6.5z"/></symbol>
+  
+    <!-- ===== Theme ===== -->
+    <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></symbol>
+    <symbol id="moon" viewBox="0 0 24 24"><path d="M20 14.5A8.2 8.2 0 019.6 4 8.4 8.4 0 1020 14.5z"/></symbol>
+  
+    <!-- ===== Contact ===== -->
+    <symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7.5l7.2 5a1.4 1.4 0 001.6 0L20 7.5"/></symbol>
+    <symbol id="phone" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 006 6l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.5 5.7a2 2 0 012-2.2z"/></symbol>
+    <symbol id="map-pin" viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+    <symbol id="calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3.5v3M16 3.5v3"/></symbol>
+    <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="send" viewBox="0 0 24 24"><path d="M21 3.5L10.5 14M21 3.5l-6.5 17-4-7.5-7.5-4z"/></symbol>
+  
+    <!-- ===== Social ===== -->
+    <symbol id="github" viewBox="0 0 24 24"><path d="M9 19.5c-4.3 1.3-4.3-2.2-6-2.7m12 5.2v-3.4a3 3 0 00-.8-2.3c2.7-.3 5.5-1.3 5.5-5.9a4.6 4.6 0 00-1.3-3.2 4.3 4.3 0 00-.1-3.2s-1-.3-3.4 1.3a11.7 11.7 0 00-6 0C6.5 3.7 5.5 4 5.5 4a4.3 4.3 0 00-.1 3.2A4.6 4.6 0 004 10.4c0 4.6 2.8 5.6 5.5 5.9a3 3 0 00-.8 2.3V22"/></symbol>
+    <symbol id="linkedin" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V16M8 7.6v.1M12 16v-3.2a2 2 0 014 0V16"/></symbol>
+    <symbol id="twitter" viewBox="0 0 24 24"><path d="M4 4l7.2 9.4L4.4 20M20 4l-7 7.7L20 20h-3.6L4 4h3.7"/></symbol>
+    <symbol id="instagram" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><path d="M17 7v.1"/></symbol>
+    <symbol id="telegram" viewBox="0 0 24 24"><path d="M21 4L2.8 11.2l5.1 1.7L19 6.4l-8.3 8.2.4 5 2.7-3.6 4.3 3z"/></symbol>
+    <symbol id="whatsapp" viewBox="0 0 24 24"><path d="M3.5 20.5l1.3-4a8 8 0 113.2 3.1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5.6 0 1-.4 1-1v-.8l-2-.7-.8 1a5.6 5.6 0 01-2.2-2.2l1-.8-.7-2H10c-.6 0-1 .4-1 1z"/></symbol>
+    <symbol id="dribbble" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M5 8.5c5 .5 9.7-.6 12.5-3M3.8 14.5c4.8-2.6 10.3-1.7 13.8 1.8M9 3.8c3.6 4 5.6 9 6 16"/></symbol>
+    <symbol id="behance" viewBox="0 0 24 24"><path d="M3 6.5h5a2.5 2.5 0 010 5H3zM3 11.5h5.5a3 3 0 010 6H3z"/><path d="M14 13.5h7a3.2 3.2 0 00-6.4 0 3.2 3.2 0 005.7 2"/><path d="M15 6.5h5"/></symbol>
+  
+    <!-- ===== Professions & sections ===== -->
+    <symbol id="code" viewBox="0 0 24 24"><path d="M8.5 8L4 12l4.5 4M15.5 8L20 12l-4.5 4M13.5 5l-3 14"/></symbol>
+    <symbol id="terminal" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7 10l2.5 2L7 14M12.5 15h4"/></symbol>
+    <symbol id="layers" viewBox="0 0 24 24"><path d="M12 3l8.5 4.5L12 12 3.5 7.5z"/><path d="M3.5 12L12 16.5 20.5 12M3.5 16.5L12 21l8.5-4.5"/></symbol>
+    <symbol id="smartphone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.8"/><path d="M10.5 18.5h3"/></symbol>
+    <symbol id="monitor" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2.5"/><path d="M8.5 21h7M12 17v4"/></symbol>
+    <symbol id="palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 000 18c1.4 0 2-1 2-2s-.7-1.6-.7-2.4c0-.8.7-1.6 1.7-1.6H17a4 4 0 004-4c0-4.4-4-8-9-8z"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/></symbol>
+    <symbol id="pen" viewBox="0 0 24 24"><path d="M15.5 4.5l4 4L8 20H4v-4z"/><path d="M13.5 6.5l4 4"/></symbol>
+    <symbol id="book" viewBox="0 0 24 24"><path d="M4 4.5h6a3 3 0 013 3V20a2.5 2.5 0 00-2.5-2H4z"/><path d="M20 4.5h-6a3 3 0 00-3 3V20a2.5 2.5 0 012.5-2H20z"/></symbol>
+    <symbol id="scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M3.5 9l3.5-4 3.5 4"/><path d="M13.5 9L17 5l3.5 4"/><path d="M3.5 9a3.5 3.5 0 007 0M13.5 9a3.5 3.5 0 007 0"/></symbol>
+    <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l7 2.5v6c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5v-6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="stethoscope" viewBox="0 0 24 24"><path d="M6 3v5a4 4 0 008 0V3"/><path d="M10 15v-3M10 15a5 5 0 0010 0v-1.5"/><circle cx="20" cy="11" r="2"/></symbol>
+    <symbol id="heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.3A4.2 4.2 0 0112 8a4.2 4.2 0 017 2.7c0 4.9-7 9.3-7 9.3z"/></symbol>
+    <symbol id="activity" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 12 2.5-6h5"/></symbol>
+    <symbol id="chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><path d="M8 20v-6M12.5 20V9M17 20v-9"/></symbol>
+    <symbol id="trending" viewBox="0 0 24 24"><path d="M3 16.5l6-6 4 4 8-8"/><path d="M15 6.5h6v6"/></symbol>
+    <symbol id="target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="briefcase" viewBox="0 0 24 24"><rect x="3" y="7.5" width="18" height="12" rx="2.5"/><path d="M9 7.5V6a2 2 0 012-2h2a2 2 0 012 2v1.5M3 12.5h18"/></symbol>
+    <symbol id="users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M3 19a6 6 0 0112 0"/><path d="M16 5.3a3.4 3.4 0 010 6.4M17 19a6 6 0 00-1.6-4"/></symbol>
+    <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0115 0"/></symbol>
+    <symbol id="award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.5 5 2.5-1.5-7.5"/></symbol>
+    <symbol id="rocket" viewBox="0 0 24 24"><path d="M13 4c4 1 7 4 7 8l-4 4-5-5 2-7z"/><path d="M11 11L4.5 13 8 16.5 6 21l4.5-2 3.5 3.5"/><circle cx="15" cy="9" r="1.4"/></symbol>
+    <symbol id="lightbulb" viewBox="0 0 24 24"><path d="M9 17a6 6 0 116 0v2H9z"/><path d="M10 21.5h4"/></symbol>
+    <symbol id="film" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M8 4.5v15M16 4.5v15M3 9.5h5M16 9.5h5M3 14.5h5M16 14.5h5"/></symbol>
+    <symbol id="camera" viewBox="0 0 24 24"><path d="M4 7.5h3l1.5-2.5h7L17 7.5h3a1.5 1.5 0 011.5 1.5v9A1.5 1.5 0 0120 19.5H4A1.5 1.5 0 012.5 18V9A1.5 1.5 0 014 7.5z"/><circle cx="12" cy="13" r="3.6"/></symbol>
+    <symbol id="mic" viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0013 0M12 18v3.5"/></symbol>
+    <symbol id="star" viewBox="0 0 24 24"><path d="M12 3.5l2.7 5.6 6.1.9-4.4 4.3 1 6.2-5.4-2.9-5.4 2.9 1-6.2L3.2 10l6.1-.9z"/></symbol>
+    <symbol id="quote" viewBox="0 0 24 24"><path d="M9.5 6C6.5 7.5 5 10 5 13v5h6v-6H8c0-2 .8-3.5 2.5-4.5zM20 6c-3 1.5-4.5 4-4.5 7v5h6v-6h-3c0-2 .8-3.5 2.5-4.5z"/></symbol>
+    <symbol id="sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol>
+    <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5a13 13 0 010 17 13 13 0 010-17z"/></symbol>
+    <symbol id="settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 14a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7 1.1v.3a2 2 0 11-4 0v-.2a1.6 1.6 0 00-2.8-1.1l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 003.7 15H3.4a2 2 0 010-4h.2a1.6 1.6 0 001.1-2.7l-.1-.1a2 2 0 112.8-2.8l.1.1A1.6 1.6 0 0010 4.4V4a2 2 0 014 0v.2a1.6 1.6 0 002.7 1.1l.1-.1a2 2 0 112.8 2.8l-.1.1A1.6 1.6 0 0020.3 11h.3a2 2 0 010 4h-.2a1.6 1.6 0 00-1 .9z"/></symbol>
+    <symbol id="hand-wave" viewBox="0 0 24 24"><path d="M8.6 12.6V5.8a1.3 1.3 0 012.6 0v5.9"/><path d="M11.2 11.3V4.7a1.3 1.3 0 012.6 0v6.4"/><path d="M13.8 11.6V6.5a1.3 1.3 0 012.6 0v6.4"/><path d="M16.4 12.4c0-1.6 2.4-1.6 2.4.3 0 4.1-1.7 8-5.9 8-3 0-5.2-1.8-6.1-4.4l-1.2-3.4c-.4-1.3 1.4-2.1 2.1-.9l1.2 2.1"/><path d="M4.3 5.7l1.4.9M6.4 2.8l.5 1.6"/></symbol>
+    <symbol id="grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></symbol>
+  
+  </svg>
+  <!-- rp:sprite:end -->
+
+  <a class="rp-skip-link" href="#main">پرش به محتوای اصلی</a>
+
+  <header class="rp-header" data-rp-header>
+    <div class="rp-container rp-header-inner">
+
+      <a class="rp-brand" href="#hero">
+        <span class="rp-brand-mark" aria-hidden="true">
+          <svg class="rp-icon"><use href="#layers"></use></svg>
+        </span>
+        <span>بهنام آذری</span>
+      </a>
+
+      <nav class="rp-nav" id="primary-nav" data-rp-scrollspy aria-label="ناوبری اصلی">
+        <a class="rp-nav-link" href="#domains">تخصص‌ها</a>
+        <a class="rp-nav-link" href="#architecture">معماری</a>
+        <a class="rp-nav-link" href="#dossiers">پرونده‌ها</a>
+        <a class="rp-nav-link" href="#open-source">متن‌باز</a>
+        <a class="rp-nav-link" href="#experience">سوابق</a>
+        <a class="rp-nav-link" href="#contact">تماس</a>
+      </nav>
+
+      <div class="rp-header-actions">
+        <button type="button" class="rp-icon-btn rp-theme-toggle" data-rp-theme-toggle aria-label="حالت تاریک">
+          <svg class="rp-icon rp-theme-toggle-light" aria-hidden="true"><use href="#moon"></use></svg>
+          <svg class="rp-icon rp-theme-toggle-dark" aria-hidden="true"><use href="#sun"></use></svg>
+        </button>
+        <a class="rp-btn rp-btn--primary rp-btn--sm rp-hide-sm" href="#contact">شروع گفت‌وگو</a>
+        <button type="button" class="rp-nav-toggle" data-rp-nav-toggle aria-controls="primary-nav" aria-label="باز کردن منو">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ==================================================================
+         Hero  a document header, not a banner
+         ================================================================== -->
+    <section class="se-hero" id="hero">
+      <div class="rp-container">
+
+        <!-- Mono meta line: reads like the header of an internal design doc. -->
+        <div class="se-doc-meta" data-rp-reveal>
+          <span class="se-doc-tag">RFC-۰۰۱</span>
+          <span>وضعیت: پذیرش پروژه از اردیبهشت</span>
+          <span>آخرین بازبینی: امسال</span>
+        </div>
+
+        <div class="se-hero-body">
+          <div data-rp-reveal="80">
+            <span class="rp-eyebrow">مهندس نرم‌افزار ارشد · بک‌اند و سیستم‌های توزیع‌شده</span>
+
+            <h1 class="se-hero-title">
+              سیستم‌هایی می‌سازم که ساعت سه بامداد کسی را بیدار نمی‌کنند.
+            </h1>
+
+            <p class="se-hero-lead">
+              نُه سال است روی سرویس‌های بک‌اندی کار می‌کنم که اگر بخوابند، کسب‌وکار
+              می‌خوابد. کارم فقط نوشتن کد نیست؛ نوشتن سندی است که شش ماه بعد، مهندس
+              بعدی بتواند بدون تماس با من ادامه‌اش بدهد.
+            </p>
+
+            <div class="se-hero-actions">
+              <a class="rp-btn rp-btn--primary rp-btn--lg" href="#dossiers">
+                پرونده‌های مهندسی
+                <svg class="rp-icon" aria-hidden="true"><use href="#arrow-left"></use></svg>
+              </a>
+              <a class="rp-btn rp-btn--outline rp-btn--lg" href="#contact">
+                <svg class="rp-icon" aria-hidden="true"><use href="#download"></use></svg>
+                دریافت رزومه
+              </a>
+            </div>
+          </div>
+
+          <!-- Stack list: the one place the demo names technologies. -->
+          <aside class="se-stack" data-rp-reveal="160">
+            <h2 class="se-stack-title">استک روزمره</h2>
+            <dl class="se-stack-list">
+              <div><dt>زبان</dt><dd class="rp-ltr">Go · Python · TypeScript</dd></div>
+              <div><dt>داده</dt><dd class="rp-ltr">PostgreSQL · Redis · Kafka</dd></div>
+              <div><dt>زیرساخت</dt><dd class="rp-ltr">Kubernetes · Terraform</dd></div>
+              <div><dt>پایش</dt><dd class="rp-ltr">Prometheus · Grafana · OTel</dd></div>
+            </dl>
+          </aside>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Spec sheet  four numbers, stated like a datasheet
+         ================================================================== -->
+    <div class="rp-container">
+      <div class="se-spec">
+        <div class="se-spec-cell">
+          <span class="se-spec-key">تجربه</span>
+          <strong><span data-rp-counter="9">۹</span> سال</strong>
+          <span class="se-spec-note">از استارتاپ چهارنفره تا بانک</span>
+        </div>
+        <div class="se-spec-cell">
+          <span class="se-spec-key">اوج ترافیک</span>
+          <strong><span data-rp-counter="12">۱۲</span> هزار</strong>
+          <span class="se-spec-note">درخواست بر ثانیه، سرویس پرداخت</span>
+        </div>
+        <div class="se-spec-cell">
+          <span class="se-spec-key">دسترس‌پذیری</span>
+          <strong>۹۹٫۹۸٪</strong>
+          <span class="se-spec-note">میانگین دوازده ماه گذشته</span>
+        </div>
+        <div class="se-spec-cell">
+          <span class="se-spec-key">متن‌باز</span>
+          <strong><span data-rp-counter="41">۴۱</span> مخزن</strong>
+          <span class="se-spec-note">کتابخانه، ابزار و نمونه‌کد</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================================
+         Domains
+         ================================================================== -->
+    <section class="rp-section" id="domains">
+      <div class="rp-container">
+
+        <div class="rp-section-head">
+          <span class="rp-eyebrow">تخصص‌ها</span>
+          <h2 class="rp-section-title">شش مسئله‌ای که بلدم حل کنم</h2>
+          <p class="rp-section-lead">
+            بیرون از این فهرست هم کار کرده‌ام، اما این‌ها جایی است که می‌توانم بدون
+            آزمون‌وخطا به نتیجه برسم.
+          </p>
+        </div>
+
+        <div class="se-domains">
+
+          <article class="se-domain" data-rp-reveal>
+            <span class="se-domain-icon"><svg class="rp-icon"><use href="#layers"></use></svg></span>
+            <div>
+              <h3>طراحی سرویس‌های توزیع‌شده</h3>
+              <p>شکستن یک تک‌پارچه‌ی بزرگ به سرویس‌هایی با مرز روشن، بدون اینکه پیچیدگی از کد به شبکه منتقل شود.</p>
+            </div>
+            <span class="se-domain-tag rp-ltr">Go · gRPC</span>
+          </article>
+
+          <article class="se-domain" data-rp-reveal>
+            <span class="se-domain-icon"><svg class="rp-icon"><use href="#activity"></use></svg></span>
+            <div>
+              <h3>کارایی و تأخیر</h3>
+              <p>پیدا کردن گلوگاه واقعی با پروفایلینگ و ردیابی توزیع‌شده  نه با حدس زدن و بازنویسی کورکورانه.</p>
+            </div>
+            <span class="se-domain-tag rp-ltr">pprof · OTel</span>
+          </article>
+
+          <article class="se-domain" data-rp-reveal>
+            <span class="se-domain-icon"><svg class="rp-icon"><use href="#grid"></use></svg></span>
+            <div>
+              <h3>مدل‌سازی و مهاجرت داده</h3>
+              <p>طراحی شِما، پارتیشن‌بندی و مهاجرت‌های بدون قطعی روی جدول‌هایی که صدها میلیون سطر دارند.</p>
+            </div>
+            <span class="se-domain-tag rp-ltr">PostgreSQL</span>
+          </article>
+
+          <article class="se-domain" data-rp-reveal>
+            <span class="se-domain-icon"><svg class="rp-icon"><use href="#shield"></use></svg></span>
+            <div>
+              <h3>پایداری و بازیابی</h3>
+              <p>بودجه‌ی خطا، آزمون بار، برنامه‌ی رویداد و پس‌مرگی بدون سرزنش؛ تا خرابی بعدی ارزان‌تر تمام شود.</p>
+            </div>
+            <span class="se-domain-tag rp-ltr">SLO · SRE</span>
+          </article>
+
+          <article class="se-domain" data-rp-reveal>
+            <span class="se-domain-icon"><svg class="rp-icon"><use href="#settings"></use></svg></span>
+            <div>
+              <h3>خط لوله‌ی تحویل</h3>
+              <p>ساخت مسیر انتشار خودکار با آزمون، بازگشت سریع و انتشار تدریجی؛ استقرار باید کسل‌کننده باشد.</p>
+            </div>
+            <span class="se-domain-tag rp-ltr">CI/CD · K8s</span>
+          </article>
+
+          <article class="se-domain" data-rp-reveal>
+            <span class="se-domain-icon"><svg class="rp-icon"><use href="#users"></use></svg></span>
+            <div>
+              <h3>راهبری فنی تیم</h3>
+              <p>بازبینی کد، سند طراحی و منتورینگ مهندسان جوان‌تر؛ بخش بزرگی از کیفیت، در گفت‌وگو ساخته می‌شود.</p>
+            </div>
+            <span class="se-domain-tag rp-ltr">Design Docs</span>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Architecture diagram  CSS only, no images, no library
+         ================================================================== -->
+    <section class="rp-section rp-section--alt" id="architecture">
+      <div class="rp-container">
+
+        <div class="rp-section-head">
+          <span class="rp-eyebrow">نمودار معماری</span>
+          <h2 class="rp-section-title">شکل معمول سیستمی که تحویل می‌دهم</h2>
+          <p class="rp-section-lead">
+            هر پروژه جزئیات خودش را دارد، اما لایه‌بندی تقریباً همیشه همین است: مرز
+            روشن، وابستگی یک‌طرفه و مسیر داده‌ی قابل ردیابی.
+          </p>
+        </div>
+
+        <div class="se-arch" role="img"
+          aria-label="نمودار معماری چهار لایه: کلاینت‌ها، دروازه، سرویس‌های دامنه و لایه داده">
+
+          <div class="se-arch-layer" data-rp-reveal>
+            <span class="se-arch-label">لایه ۱ · کلاینت</span>
+            <div class="se-arch-nodes">
+              <span class="se-node">وب</span>
+              <span class="se-node">اپ موبایل</span>
+              <span class="se-node">مشتری سازمانی</span>
+            </div>
+          </div>
+
+          <div class="se-arch-layer" data-rp-reveal="80">
+            <span class="se-arch-label">لایه ۲ · دروازه</span>
+            <div class="se-arch-nodes">
+              <span class="se-node se-node--primary">دروازه API</span>
+              <span class="se-node">احراز هویت</span>
+              <span class="se-node">محدودسازی نرخ</span>
+            </div>
+          </div>
+
+          <div class="se-arch-layer" data-rp-reveal="160">
+            <span class="se-arch-label">لایه ۳ · سرویس‌های دامنه</span>
+            <div class="se-arch-nodes">
+              <span class="se-node se-node--primary">سفارش</span>
+              <span class="se-node se-node--primary">پرداخت</span>
+              <span class="se-node se-node--primary">موجودی</span>
+              <span class="se-node se-node--accent">صف رویداد</span>
+            </div>
+          </div>
+
+          <div class="se-arch-layer" data-rp-reveal="240">
+            <span class="se-arch-label">لایه ۴ · داده و پایش</span>
+            <div class="se-arch-nodes">
+              <span class="se-node">پایگاه داده اصلی</span>
+              <span class="se-node">کش</span>
+              <span class="se-node">انبار تحلیلی</span>
+              <span class="se-node se-node--accent">سنجه و لاگ</span>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="se-arch-note" data-rp-reveal>
+          <svg class="rp-icon"><use href="#check"></use></svg>
+          هر لایه فقط با لایه‌ی پایین‌تر حرف می‌زند. هر سرویس پایگاه داده‌ی خودش را
+          دارد و هیچ سرویسی جدول سرویس دیگر را مستقیم نمی‌خواند.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Engineering dossiers
+         ================================================================== -->
+    <section class="rp-section" id="dossiers">
+      <div class="rp-container">
+
+        <div class="rp-section-head">
+          <span class="rp-eyebrow">پرونده‌ها</span>
+          <h2 class="rp-section-title">شش پروژه، با عددی که بعدش ماند</h2>
+          <p class="rp-section-lead">
+            نام کارفرماها طبق قرارداد محرمانه است؛ مسئله، تصمیم و نتیجه واقعی‌اند.
+          </p>
+        </div>
+
+        <div class="rp-grid se-dossiers">
+
+          <article class="se-dossier" data-rp-reveal>
+            <div class="se-dossier-media">
+              <img src="{% static 'img/work-1.jpg' %}" alt="پرونده مهندسی بازطراحی سرویس پرداخت" width="1200" height="900" loading="lazy">
+            </div>
+            <div class="se-dossier-body">
+              <span class="se-dossier-kind">سیستم پرداخت · فین‌تک</span>
+              <h3>پرداختی که در جمعه‌ی فروش نمی‌افتاد</h3>
+              <p>
+                سرویس پرداخت در اوج فروش قفل می‌شد. تراکنش‌ها را از قفل خوش‌بینانه به
+                صف رویداد با تضمین یک‌بار پردازش منتقل کردیم.
+              </p>
+              <div class="se-dossier-metric"><strong>−۷۳٪</strong><span>کاهش خطای اوج بار</span></div>
+            </div>
+          </article>
+
+          <article class="se-dossier" data-rp-reveal="80">
+            <div class="se-dossier-media">
+              <img src="{% static 'img/work-2.jpg' %}" alt="پرونده مهندسی مهاجرت پایگاه داده" width="1200" height="900" loading="lazy">
+            </div>
+            <div class="se-dossier-body">
+              <span class="se-dossier-kind">پایگاه داده · خرده‌فروشی</span>
+              <h3>مهاجرت ۴۰۰ میلیون سطر، بدون قطعی</h3>
+              <p>
+                جدول سفارش‌ها به مرز خودش رسیده بود. پارتیشن‌بندی زمانی و نوشتن دوگانه
+                در شش هفته و بدون یک دقیقه قطعی اعلام‌شده انجام شد.
+              </p>
+              <div class="se-dossier-metric"><strong>۰ دقیقه</strong><span>قطعی برنامه‌ریزی‌نشده</span></div>
+            </div>
+          </article>
+
+          <article class="se-dossier" data-rp-reveal="160">
+            <div class="se-dossier-media">
+              <img src="{% static 'img/work-3.jpg' %}" alt="پرونده مهندسی کاهش هزینه زیرساخت" width="1200" height="900" loading="lazy">
+            </div>
+            <div class="se-dossier-body">
+              <span class="se-dossier-kind">زیرساخت · سامانه ابری</span>
+              <h3>صورت‌حساب ابری که دو برابر شده بود</h3>
+              <p>
+                هیچ‌کس نمی‌دانست هزینه از کجاست. برچسب‌گذاری منابع، اندازه‌گذاری دوباره‌ی
+                پادها و حذف نودهای بی‌کار، مسئله را حل کرد.
+              </p>
+              <div class="se-dossier-metric"><strong>−۴۱٪</strong><span>کاهش هزینه ماهانه</span></div>
+            </div>
+          </article>
+
+          <article class="se-dossier" data-rp-reveal>
+            <div class="se-dossier-media">
+              <img src="{% static 'img/work-4.jpg' %}" alt="پرونده مهندسی جست‌وجوی محصول" width="1200" height="900" loading="lazy">
+            </div>
+            <div class="se-dossier-body">
+              <span class="se-dossier-kind">جست‌وجو · بازارگاه</span>
+              <h3>جست‌وجویی که نتیجه‌ی درست را دیر می‌آورد</h3>
+              <p>
+                نمایه‌سازی هم‌زمان با نوشتن، تأخیر را بالا برده بود. نمایه‌ساز به مصرف‌کننده‌ی
+                رویداد تبدیل شد و مسیر خواندن سبک ماند.
+              </p>
+              <div class="se-dossier-metric"><strong>۸۵ میلی‌ثانیه</strong><span>تأخیر صدک نودونهم</span></div>
+            </div>
+          </article>
+
+          <article class="se-dossier" data-rp-reveal="80">
+            <div class="se-dossier-media">
+              <img src="{% static 'img/work-5.jpg' %}" alt="پرونده مهندسی خط لوله تحویل" width="1200" height="900" loading="lazy">
+            </div>
+            <div class="se-dossier-body">
+              <span class="se-dossier-kind">تحویل · تیم ۲۴ نفره</span>
+              <h3>انتشاری که دیگر شب جمعه نبود</h3>
+              <p>
+                انتشار دستی و ترسناک بود، پس ماهی یک‌بار انجام می‌شد. خط لوله‌ی خودکار با
+                انتشار تدریجی و بازگشت یک‌کلیکی ساخته شد.
+              </p>
+              <div class="se-dossier-metric"><strong>۳۱ بار</strong><span>انتشار در هفته</span></div>
+            </div>
+          </article>
+
+          <article class="se-dossier" data-rp-reveal="160">
+            <div class="se-dossier-media">
+              <img src="{% static 'img/work-6.jpg' %}" alt="پرونده مهندسی پایش و هشدار" width="1200" height="900" loading="lazy">
+            </div>
+            <div class="se-dossier-body">
+              <span class="se-dossier-kind">پایش · سامانه لجستیک</span>
+              <h3>هشدارهایی که کسی جدی نمی‌گرفت</h3>
+              <p>
+                شبی چهل هشدار می‌آمد و همه بی‌صدا می‌شدند. هشدارها بر پایه‌ی بودجه‌ی خطا
+                بازنویسی شد: کمتر، اما هر کدام قابل اقدام.
+              </p>
+              <div class="se-dossier-metric"><strong>−۸۸٪</strong><span>کاهش هشدار شبانه</span></div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Open source
+         ================================================================== -->
+    <section class="rp-section rp-section--alt" id="open-source">
+      <div class="rp-container">
+
+        <div class="rp-section-head">
+          <span class="rp-eyebrow">متن‌باز</span>
+          <h2 class="rp-section-title">چیزهایی که ساختم و رهایشان کردم</h2>
+          <p class="rp-section-lead">
+            ابزارهای کوچکی که از دل پروژه‌های واقعی بیرون آمده‌اند و حالا تیم‌های دیگر
+            هم از آن‌ها استفاده می‌کنند.
+          </p>
+        </div>
+
+        <div class="rp-grid se-repos">
+
+          <article class="se-repo" data-rp-reveal>
+            <div class="se-repo-head">
+              <svg class="rp-icon"><use href="#github"></use></svg>
+              <h3 class="rp-ltr">migrate-safe</h3>
+              <a class="se-repo-link" href="#" aria-label="مشاهده مخزن migrate-safe">
+                <svg class="rp-icon"><use href="#arrow-up-right"></use></svg>
+              </a>
+            </div>
+            <p>مهاجرت شِما با نوشتن دوگانه و بازگشت خودکار، برای جدول‌هایی که نمی‌شود قفلشان کرد.</p>
+            <div class="se-repo-foot">
+              <span class="se-lang se-lang--go">Go</span>
+              <span><svg class="rp-icon"><use href="#star"></use></svg> ۲٫۴ هزار</span>
+              <span>لایسنس MIT</span>
+            </div>
+          </article>
+
+          <article class="se-repo" data-rp-reveal="80">
+            <div class="se-repo-head">
+              <svg class="rp-icon"><use href="#github"></use></svg>
+              <h3 class="rp-ltr">slo-kit</h3>
+              <a class="se-repo-link" href="#" aria-label="مشاهده مخزن slo-kit">
+                <svg class="rp-icon"><use href="#arrow-up-right"></use></svg>
+              </a>
+            </div>
+            <p>تعریف بودجه‌ی خطا به‌صورت پیکربندی و تولید خودکار داشبورد و قواعد هشدار.</p>
+            <div class="se-repo-foot">
+              <span class="se-lang se-lang--go">Go</span>
+              <span><svg class="rp-icon"><use href="#star"></use></svg> ۱٫۱ هزار</span>
+              <span>لایسنس Apache</span>
+            </div>
+          </article>
+
+          <article class="se-repo" data-rp-reveal="160">
+            <div class="se-repo-head">
+              <svg class="rp-icon"><use href="#github"></use></svg>
+              <h3 class="rp-ltr">rtl-logfmt</h3>
+              <a class="se-repo-link" href="#" aria-label="مشاهده مخزن rtl-logfmt">
+                <svg class="rp-icon"><use href="#arrow-up-right"></use></svg>
+              </a>
+            </div>
+            <p>نمایشگر لاگ خط فرمان با پشتیبانی درست از متن راست‌به‌چپ و ارقام فارسی.</p>
+            <div class="se-repo-foot">
+              <span class="se-lang se-lang--rust">Rust</span>
+              <span><svg class="rp-icon"><use href="#star"></use></svg> ۶۴۰</span>
+              <span>لایسنس MIT</span>
+            </div>
+          </article>
+
+          <article class="se-repo" data-rp-reveal="240">
+            <div class="se-repo-head">
+              <svg class="rp-icon"><use href="#github"></use></svg>
+              <h3 class="rp-ltr">queue-lab</h3>
+              <a class="se-repo-link" href="#" aria-label="مشاهده مخزن queue-lab">
+                <svg class="rp-icon"><use href="#arrow-up-right"></use></svg>
+              </a>
+            </div>
+            <p>محیط آزمایشی برای مقایسه‌ی الگوهای صف و رفتارشان زیر بار و خرابی شبکه.</p>
+            <div class="se-repo-foot">
+              <span class="se-lang se-lang--py">Python</span>
+              <span><svg class="rp-icon"><use href="#star"></use></svg> ۳۸۲</span>
+              <span>لایسنس MIT</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Experience timeline
+         ================================================================== -->
+    <section class="rp-section" id="experience">
+      <div class="rp-container rp-container--narrow">
+
+        <div class="rp-section-head">
+          <span class="rp-eyebrow">سوابق</span>
+          <h2 class="rp-section-title">مسیر کاری</h2>
+        </div>
+
+        <div class="rp-timeline">
+
+          <div class="rp-timeline-item" data-rp-reveal>
+            <div class="rp-timeline-date">۱۴۰۲  اکنون</div>
+            <h3 class="rp-timeline-title">مهندس نرم‌افزار ارشد · گروه پرداخت</h3>
+            <p class="rp-timeline-text">
+              مالک فنی سرویس تسویه؛ طراحی معماری رویدادمحور، راهبری چهار مهندس و
+              بازنویسی مسیر بحرانی تراکنش.
+            </p>
+          </div>
+
+          <div class="rp-timeline-item" data-rp-reveal="80">
+            <div class="rp-timeline-date">۱۳۹۹  ۱۴۰۲</div>
+            <h3 class="rp-timeline-title">مهندس بک‌اند · بازارگاه آنلاین</h3>
+            <p class="rp-timeline-text">
+              شکستن تک‌پارچه به هفت سرویس، ساخت خط لوله‌ی انتشار و پایه‌گذاری فرهنگ
+              سند طراحی پیش از کدنویسی.
+            </p>
+          </div>
+
+          <div class="rp-timeline-item" data-rp-reveal="160">
+            <div class="rp-timeline-date">۱۳۹۷  ۱۳۹۹</div>
+            <h3 class="rp-timeline-title">مهندس نرم‌افزار · استارتاپ لجستیک</h3>
+            <p class="rp-timeline-text">
+              تیم چهارنفره بودیم و همه‌کار می‌کردیم: از API تا استقرار. جایی که یاد
+              گرفتم ساده نگه داشتن، خودش یک مهارت است.
+            </p>
+          </div>
+
+          <div class="rp-timeline-item" data-rp-reveal="240">
+            <div class="rp-timeline-date">۱۳۹۵  ۱۳۹۷</div>
+            <h3 class="rp-timeline-title">کارشناسی ارشد مهندسی نرم‌افزار</h3>
+            <p class="rp-timeline-text">
+              پایان‌نامه درباره‌ی هماهنگی داده در سیستم‌های توزیع‌شده؛ همان موضوعی که
+              هنوز نان‌آورم است.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Client logos  a quiet, static row (no animation on purpose)
+         ================================================================== -->
+    <section class="rp-section rp-section--tight">
+      <div class="rp-container">
+        <p class="rp-fs-sm rp-color-muted rp-text-center rp-mbe-5">تیم‌هایی که با آن‌ها کار کرده‌ام</p>
+        <div class="se-logos">
+          <img src="{% static 'img/logo-1.svg' %}" alt="" width="180" height="52">
+          <img src="{% static 'img/logo-2.svg' %}" alt="" width="180" height="52">
+          <img src="{% static 'img/logo-3.svg' %}" alt="" width="180" height="52">
+          <img src="{% static 'img/logo-4.svg' %}" alt="" width="180" height="52">
+          <img src="{% static 'img/logo-5.svg' %}" alt="" width="180" height="52">
+          <img src="{% static 'img/logo-6.svg' %}" alt="" width="180" height="52">
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         About
+         ================================================================== -->
+    <section class="rp-section rp-section--alt" id="about">
+      <div class="rp-container">
+        <div class="se-split">
+
+          <div data-rp-reveal>
+            <img class="se-portrait rp-radius" src="{% static 'img/portrait.jpg' %}" alt="بهنام آذری، مهندس نرم‌افزار"
+              width="900" height="1100" loading="lazy">
+          </div>
+
+          <div data-rp-reveal="100">
+            <span class="rp-eyebrow">درباره من</span>
+            <h2 class="rp-section-title">بهنام آذری</h2>
+            <p class="rp-color-muted rp-mbs-4">
+              با یک اسکریپت خط فرمان برای مرتب کردن فایل‌های دانشگاه شروع شد و به
+              سرویس‌هایی رسید که هر شب میلیون‌ها تراکنش را جابه‌جا می‌کنند. در این
+              مسیر یاد گرفتم که سخت‌ترین بخش مهندسی، انتخاب چیزی است که نباید ساخت.
+            </p>
+            <p class="rp-color-muted rp-mbs-4">
+              روزهای زوج مهندسی می‌کنم و روزهای فرد سند می‌نویسم. اگر تیمی دارید که
+              روی مقیاس یا پایداری گیر کرده، معمولاً می‌توانم در دو هفته بگویم مسئله
+              کجاست.
+            </p>
+
+            <div class="rp-mbs-6">
+              <div class="rp-skill">
+                <div class="rp-skill-head"><span>سیستم‌های توزیع‌شده</span><span>۹۴٪</span></div>
+                <div class="rp-skill-track"><div class="rp-skill-fill" data-rp-skill="94"></div></div>
+              </div>
+              <div class="rp-skill">
+                <div class="rp-skill-head"><span>پایگاه داده و مدل‌سازی</span><span>۹۰٪</span></div>
+                <div class="rp-skill-track"><div class="rp-skill-fill" data-rp-skill="90"></div></div>
+              </div>
+              <div class="rp-skill">
+                <div class="rp-skill-head"><span>زیرساخت و کوبرنتیز</span><span>۸۵٪</span></div>
+                <div class="rp-skill-track"><div class="rp-skill-fill" data-rp-skill="85"></div></div>
+              </div>
+              <div class="rp-skill">
+                <div class="rp-skill-head"><span>راهبری فنی و منتورینگ</span><span>۸۸٪</span></div>
+                <div class="rp-skill-track"><div class="rp-skill-fill" data-rp-skill="88"></div></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Peer reviews
+         ================================================================== -->
+    <section class="rp-section">
+      <div class="rp-container">
+
+        <div class="rp-section-head rp-section-head--center rp-mi-auto">
+          <span class="rp-eyebrow">بازخورد همکاران</span>
+          <h2 class="rp-section-title">آدم‌هایی که با من کد بازبینی کرده‌اند</h2>
+        </div>
+
+        <div class="rp-slider" data-rp-slider>
+          <div class="rp-slider-track">
+
+            <article class="rp-quote">
+              <div class="rp-stars" aria-label="امتیاز ۵ از ۵">
+                <svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg>
+              </div>
+              <p class="rp-quote-text">«سند طراحی‌اش را خواندم و نصف سؤال‌هایم قبل از پرسیدن جواب داده شده بود. کم پیش می‌آید.»</p>
+              <div class="rp-quote-foot">
+                <img class="rp-avatar" src="{% static 'img/avatar-1.jpg' %}" alt="" width="200" height="200" loading="lazy">
+                <div><div class="rp-quote-name">نگار م.</div><div class="rp-quote-role">مدیر فنی، گروه پرداخت</div></div>
+              </div>
+            </article>
+
+            <article class="rp-quote">
+              <div class="rp-stars" aria-label="امتیاز ۵ از ۵">
+                <svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg>
+              </div>
+              <p class="rp-quote-text">«مهاجرت پایگاه داده را بدون یک دقیقه قطعی برد جلو. تیم عملیات حتی متوجه شبِ انتقال نشد.»</p>
+              <div class="rp-quote-foot">
+                <img class="rp-avatar" src="{% static 'img/avatar-2.jpg' %}" alt="" width="200" height="200" loading="lazy">
+                <div><div class="rp-quote-name">سعید ط.</div><div class="rp-quote-role">مدیر محصول، بازارگاه</div></div>
+              </div>
+            </article>
+
+            <article class="rp-quote">
+              <div class="rp-stars" aria-label="امتیاز ۵ از ۵">
+                <svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg>
+              </div>
+              <p class="rp-quote-text">«بازبینی کدش سخت‌گیرانه است ولی هیچ‌وقت شخصی نیست. بعد از شش ماه، کد تیم قابل‌تشخیص بهتر شد.»</p>
+              <div class="rp-quote-foot">
+                <img class="rp-avatar" src="{% static 'img/avatar-3.jpg' %}" alt="" width="200" height="200" loading="lazy">
+                <div><div class="rp-quote-name">آرزو ک.</div><div class="rp-quote-role">مهندس بک‌اند</div></div>
+              </div>
+            </article>
+
+            <article class="rp-quote">
+              <div class="rp-stars" aria-label="امتیاز ۵ از ۵">
+                <svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg>
+              </div>
+              <p class="rp-quote-text">«هزینه‌ی ابری‌مان را نصف کرد و هیچ سرویسی کندتر نشد. گزارشش هم یک صفحه بود، نه سی صفحه.»</p>
+              <div class="rp-quote-foot">
+                <img class="rp-avatar" src="{% static 'img/avatar-4.jpg' %}" alt="" width="200" height="200" loading="lazy">
+                <div><div class="rp-quote-name">رامین ف.</div><div class="rp-quote-role">مدیر زیرساخت</div></div>
+              </div>
+            </article>
+
+          </div>
+
+          <div class="rp-slider-nav">
+            <button type="button" class="rp-icon-btn" data-rp-slider-prev aria-label="قبلی"><svg class="rp-icon"><use href="#arrow-right"></use></svg></button>
+            <div class="rp-slider-dots"></div>
+            <button type="button" class="rp-icon-btn" data-rp-slider-next aria-label="بعدی"><svg class="rp-icon"><use href="#arrow-left"></use></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Contact
+         ================================================================== -->
+    <section class="rp-section rp-section--alt" id="contact">
+      <div class="rp-container">
+
+        <div class="rp-section-head">
+          <span class="rp-eyebrow">تماس</span>
+          <h2 class="rp-section-title">شرح مسئله را بفرستید</h2>
+          <p class="rp-section-lead">
+            هرچه مسئله دقیق‌تر نوشته شود، جواب من هم دقیق‌تر است. معمولاً ظرف دو
+            روز کاری پاسخ می‌دهم.
+          </p>
+        </div>
+
+        <div class="se-split">
+
+          <div class="se-panel" data-rp-reveal>
+            <h3 class="rp-fs-lg rp-fw-700 rp-mbe-5">راه‌های ارتباط</h3>
+
+            <div class="rp-contact-item">
+              <span class="rp-contact-icon"><svg class="rp-icon"><use href="#mail"></use></svg></span>
+              <div>
+                <div class="rp-contact-label">ایمیل</div>
+                <a class="rp-contact-value rp-ltr" href="mailto:b@azari.dev">b@azari.dev</a>
+              </div>
+            </div>
+
+            <div class="rp-contact-item">
+              <span class="rp-contact-icon"><svg class="rp-icon"><use href="#github"></use></svg></span>
+              <div>
+                <div class="rp-contact-label">گیت‌هاب</div>
+                <a class="rp-contact-value rp-ltr" href="#">github.com/behnam-azari</a>
+              </div>
+            </div>
+
+            <div class="rp-contact-item">
+              <span class="rp-contact-icon"><svg class="rp-icon"><use href="#linkedin"></use></svg></span>
+              <div>
+                <div class="rp-contact-label">لینکدین</div>
+                <a class="rp-contact-value rp-ltr" href="#">in/behnam-azari</a>
+              </div>
+            </div>
+
+            <div class="rp-contact-item">
+              <span class="rp-contact-icon"><svg class="rp-icon"><use href="#map-pin"></use></svg></span>
+              <div>
+                <div class="rp-contact-label">موقعیت</div>
+                <div class="rp-contact-value">تهران · دورکاری با اختلاف ساعت تا +۴</div>
+              </div>
+            </div>
+          </div>
+
+          <form class="se-panel rp-form" data-rp-form novalidate data-rp-reveal="100" method="POST" action="/contact/submit/"> {% csrf_token %}
+            <div class="rp-form-row">
+              <div class="rp-field">
+                <label class="rp-label" for="se-name">نام</label>
+                <input class="rp-input" id="se-name" name="name" type="text" required minlength="3" placeholder="نام و نام خانوادگی" autocomplete="name">
+                <span class="rp-field-error" aria-live="polite"></span>
+              </div>
+              <div class="rp-field">
+                <label class="rp-label" for="se-email">ایمیل</label>
+                <input class="rp-input rp-ltr" id="se-email" name="email" type="email" required placeholder="you@company.com" autocomplete="email">
+                <span class="rp-field-error" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="rp-form-row">
+              <div class="rp-field">
+                <label class="rp-label" for="se-kind">نوع همکاری</label>
+                <select class="rp-select" id="se-kind" name="kind" required>
+                  <option value="">انتخاب کنید…</option>
+                  <option>استخدام تمام‌وقت</option>
+                  <option>قرارداد پروژه‌ای</option>
+                  <option>بازبینی معماری</option>
+                  <option>منتورینگ تیم</option>
+                </select>
+                <span class="rp-field-error" aria-live="polite"></span>
+              </div>
+              <div class="rp-field">
+                <label class="rp-label" for="se-scale">مقیاس فعلی</label>
+                <select class="rp-select" id="se-scale" name="scale" required>
+                  <option value="">انتخاب کنید…</option>
+                  <option>پیش از انتشار</option>
+                  <option>زیر ۱۰۰ درخواست بر ثانیه</option>
+                  <option>۱۰۰ تا ۲۰۰۰ درخواست بر ثانیه</option>
+                  <option>بیش از ۲۰۰۰ درخواست بر ثانیه</option>
+                </select>
+                <span class="rp-field-error" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="rp-field">
+              <label class="rp-label" for="se-message">شرح مسئله</label>
+              <textarea class="rp-textarea" id="se-message" name="message" required minlength="20" placeholder="چه چیزی کار نمی‌کند، از کِی، و چه چیزهایی را قبلاً امتحان کرده‌اید؟"></textarea>
+              <span class="rp-field-error" aria-live="polite"></span>
+            </div>
+
+           {% if messages %}
+    {% for message in messages %}
+        <p class="rp-form-status rp-form-status--{{ message.tags }}"
+           role="status"
+           aria-live="polite">
+            {{ message }}
+        </p>
+    {% endfor %}
+{% else %}
+    <p class="rp-form-status" role="status" aria-live="polite"></p>
+{% endif %}
+
+            <button class="rp-btn rp-btn--primary rp-btn--lg rp-btn--block" type="submit">
+              <svg class="rp-icon"><use href="#send"></use></svg>
+              ارسال پیام
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rp-footer">
+    <div class="rp-container">
+      <div class="rp-footer-grid">
+
+        <div>
+          <a class="rp-brand rp-mbe-3" href="#hero">
+            <span class="rp-brand-mark" aria-hidden="true"><svg class="rp-icon"><use href="#layers"></use></svg></span>
+            <span>بهنام آذری</span>
+          </a>
+          <p class="rp-fs-sm rp-color-muted rp-maxw-sm">
+            مهندس نرم‌افزار ارشد؛ سرویس‌های بک‌اند پرترافیک، سیستم‌های توزیع‌شده و
+            زیرساختی که مستند باشد.
+          </p>
+        </div>
+
+        <nav aria-label="پیوندهای فوتر">
+          <h2 class="rp-fs-sm rp-fw-700 rp-mbe-3">پیمایش</h2>
+          <ul class="rp-stack rp-fs-sm rp-color-muted" role="list" style="--rp-gap: .5rem">
+            <li><a href="#domains">تخصص‌ها</a></li>
+            <li><a href="#architecture">معماری</a></li>
+            <li><a href="#dossiers">پرونده‌ها</a></li>
+            <li><a href="#experience">سوابق</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="متن‌باز">
+          <h2 class="rp-fs-sm rp-fw-700 rp-mbe-3">مخازن</h2>
+          <ul class="rp-stack rp-fs-sm rp-color-muted rp-ltr" role="list" style="--rp-gap: .5rem">
+            <li><a href="#open-source">migrate-safe</a></li>
+            <li><a href="#open-source">slo-kit</a></li>
+            <li><a href="#open-source">rtl-logfmt</a></li>
+            <li><a href="#open-source">queue-lab</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <h2 class="rp-fs-sm rp-fw-700 rp-mbe-3">در دسترس</h2>
+          <p class="rp-fs-sm rp-color-muted rp-mbe-4">
+            پذیرش یک پروژه‌ی جدید در هر فصل؛ برای بازبینی معماری زودتر وقت هست.
+          </p>
+          <div class="rp-socials">
+            <a class="rp-icon-btn" href="#" aria-label="گیت‌هاب"><svg class="rp-icon"><use href="#github"></use></svg></a>
+            <a class="rp-icon-btn" href="#" aria-label="لینکدین"><svg class="rp-icon"><use href="#linkedin"></use></svg></a>
+            <a class="rp-icon-btn" href="#" aria-label="ایمیل"><svg class="rp-icon"><use href="#mail"></use></svg></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="rp-footer-bottom">
+        <span>© <span data-rp-year="jalali">۱۴۰۴</span> بهنام آذری</span>
+        <span>ساخته‌شده با قالب پورتفولیو باورسا</span>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" class="rp-icon-btn rp-to-top" data-rp-to-top aria-label="بازگشت به بالا">
+    <svg class="rp-icon"><use href="#arrow-up"></use></svg>
+  </button>
+
+  <script src="{% static 'core/js/core.js' %}" defer></script>
+</body>
+
+</html>

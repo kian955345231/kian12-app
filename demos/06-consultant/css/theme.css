@@ -1,0 +1,446 @@
+/* ==========================================================================
+   Demo 06  Consultant  ·  demos/06-consultant/css/theme.css
+
+   Design rationale
+   ----------------
+   Serious and results-forward. Graphite ink with a single amber signal
+   colour, tight rhythm and data everywhere: a KPI band, a numbered
+   engagement process and case studies stated as figures. Layout archetype A
+   (two-column hero) but data-led rather than code-led, so it reads nothing
+   like demo 01 despite sharing the skeleton.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--consultant only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #d97706;
+  --rp-primary-strong: #b45f04;
+  --rp-primary-soft: rgba(217, 119, 6, 0.11);
+  --rp-accent: #0284c7;
+  --rp-on-primary: #ffffff;
+  --rp-danger: #dc2626;
+
+  --rp-bg: #ffffff;
+  --rp-surface: #f4f5f7;
+  --rp-surface-2: #e8eaee;
+  --rp-text: #171a1f;
+  --rp-text-soft: #383e47;
+  --rp-muted: #6a7180;
+  --rp-border: #e2e5ea;
+  --rp-border-strong: #c5cad3;
+
+  --rp-container: 1150px;
+  --rp-radius: 8px;
+  --rp-radius-lg: 12px;
+  --rp-btn-radius: 8px;
+  --rp-shadow: 0 1px 2px rgba(23, 26, 31, 0.05), 0 8px 24px rgba(23, 26, 31, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #f59e0b;
+  --rp-primary-strong: #fbbf24;
+  --rp-primary-soft: rgba(245, 158, 11, 0.15);
+  --rp-accent: #38bdf8;
+  --rp-on-primary: #17130a;
+
+  --rp-bg: #101216;
+  --rp-surface: #171a20;
+  --rp-surface-2: #20242c;
+  --rp-text: #f1f3f6;
+  --rp-text-soft: #c3c8d1;
+  --rp-muted: #868d9b;
+  --rp-border: #242932;
+  --rp-border-strong: #363d49;
+}
+
+/* --------------------------------------------------------------------------
+   3. Hero
+   -------------------------------------------------------------------------- */
+
+.cs-hero {
+  padding-block: clamp(3rem, 1.5rem + 6vw, 6rem) var(--rp-section-y);
+  border-block-end: 1px solid var(--rp-border);
+}
+
+.cs-hero-grid {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4rem);
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+}
+
+@media (max-width: 940px) {
+  .cs-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.cs-hero-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(1.9rem, 1.25rem + 2.7vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.24;
+  margin-block: var(--rp-space-4);
+}
+
+/* Amber rule marking the hero copy as the lead statement. */
+.cs-hero-lead {
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-text-soft);
+  line-height: var(--rp-lh-snug);
+  padding-inline-start: var(--rp-space-4);
+  border-inline-start: 3px solid var(--rp-primary);
+}
+
+.cs-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* --- Result chart card in the hero ---------------------------------------- */
+
+.cs-chart-card {
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-bg);
+  box-shadow: var(--rp-shadow);
+}
+
+.cs-chart-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--rp-space-3);
+  margin-block-end: var(--rp-space-5);
+}
+
+.cs-chart-head strong {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-2xl);
+  color: var(--rp-primary);
+}
+
+/* Pure-CSS column chart. Each bar's height comes from --h.
+
+   The columns must STRETCH to the chart's height: a percentage block-size
+   only resolves against a definite containing block, so letting the columns
+   shrink to their label would collapse every bar to zero. Each column is a
+   two-row grid  a flexible plot area plus the auto-height month label  so
+   --h is a share of the plot area alone and a 100% bar still leaves its
+   label readable underneath. */
+.cs-chart {
+  display: flex;
+  align-items: stretch;
+  gap: var(--rp-space-3);
+  block-size: 190px;
+}
+
+.cs-chart div {
+  flex: 1;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--rp-space-2);
+  text-align: center;
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+.cs-chart i {
+  display: block;
+  /* Sit on the baseline of the plot area and grow upwards. */
+  align-self: end;
+  block-size: var(--h, 40%);
+  border-radius: 6px 6px 0 0;
+  background: var(--rp-surface-2);
+  transition: block-size 0.8s var(--rp-ease);
+}
+
+/* The final two columns are the "after" state. */
+.cs-chart div:nth-last-child(-n+2) i {
+  background: linear-gradient(var(--rp-primary), var(--rp-primary-strong));
+}
+
+/* --------------------------------------------------------------------------
+   4. KPI band
+   -------------------------------------------------------------------------- */
+
+.cs-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  border-block-end: 1px solid var(--rp-border);
+}
+
+.cs-kpi {
+  padding: var(--rp-space-6) var(--rp-space-5);
+  border-inline-end: 1px solid var(--rp-border);
+}
+
+.cs-kpi:last-child {
+  border-inline-end: 0;
+}
+
+.cs-kpi strong {
+  display: block;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-3xl);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--rp-text);
+}
+
+/* Direct child only: the animated counter sits in a <span> inside <strong>,
+   and a descendant selector here would shrink the figure itself. */
+.cs-kpi > span {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+/* Small amber marker above each KPI. */
+.cs-kpi::before {
+  content: '';
+  display: block;
+  inline-size: 28px;
+  block-size: 3px;
+  margin-block-end: var(--rp-space-4);
+  background: var(--rp-primary);
+}
+
+/* --------------------------------------------------------------------------
+   5. Services table-style list
+   -------------------------------------------------------------------------- */
+
+.cs-services {
+  border-block-start: 1px solid var(--rp-border);
+}
+
+.cs-service {
+  display: grid;
+  gap: var(--rp-space-4);
+  grid-template-columns: 60px 1fr 1.4fr auto;
+  align-items: center;
+  padding-block: var(--rp-space-6);
+  border-block-end: 1px solid var(--rp-border);
+  transition: background-color 0.3s var(--rp-ease);
+}
+
+.cs-service:hover {
+  background: var(--rp-surface);
+}
+
+.cs-service-num {
+  font-family: var(--rp-font-mono);
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-primary);
+  font-weight: 700;
+}
+
+.cs-service h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+}
+
+.cs-service p {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+.cs-service .rp-icon {
+  color: var(--rp-muted);
+  transition: transform 0.3s var(--rp-ease), color 0.3s var(--rp-ease);
+}
+
+.cs-service:hover .rp-icon {
+  color: var(--rp-primary);
+  transform: translateX(-6px);
+}
+
+@media (max-width: 820px) {
+  .cs-service {
+    grid-template-columns: 40px 1fr;
+  }
+
+  .cs-service p {
+    grid-column: 2;
+  }
+
+  .cs-service .rp-icon {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Engagement process  numbered steps in a row
+   -------------------------------------------------------------------------- */
+
+.cs-steps {
+  display: grid;
+  gap: var(--rp-space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+}
+
+.cs-step {
+  padding: var(--rp-space-6);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  border-block-start: 3px solid var(--rp-primary);
+  border-radius: var(--rp-radius);
+}
+
+.cs-step-num {
+  font-family: var(--rp-font-mono);
+  font-size: var(--rp-fs-sm);
+  font-weight: 700;
+  color: var(--rp-primary);
+  letter-spacing: 0.1em;
+}
+
+.cs-step h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block: var(--rp-space-2) var(--rp-space-3);
+}
+
+.cs-step p {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+/* --------------------------------------------------------------------------
+   7. Case studies
+   -------------------------------------------------------------------------- */
+
+.cs-cases {
+  --rp-grid-min: 320px;
+}
+
+.cs-case {
+  display: flex;
+  flex-direction: column;
+  padding: var(--rp-space-6);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  transition: border-color 0.3s var(--rp-ease), box-shadow 0.3s var(--rp-ease);
+}
+
+.cs-case:hover {
+  border-color: var(--rp-primary);
+  box-shadow: var(--rp-shadow);
+}
+
+.cs-case-sector {
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--rp-primary);
+}
+
+.cs-case h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+  margin-block: var(--rp-space-2) var(--rp-space-3);
+}
+
+.cs-case p {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+.cs-case-metric {
+  display: flex;
+  align-items: baseline;
+  gap: var(--rp-space-2);
+  margin-block-start: auto;
+  padding-block-start: var(--rp-space-5);
+  margin-block-start: var(--rp-space-5);
+  border-block-start: 1px solid var(--rp-border);
+}
+
+.cs-case-metric strong {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-2xl);
+  color: var(--rp-primary);
+}
+
+.cs-case-metric span {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   8. Quote block  a single large testimonial
+   -------------------------------------------------------------------------- */
+
+.cs-feature-quote {
+  padding: clamp(2rem, 1rem + 4vw, 4rem);
+  background: var(--rp-text);
+  color: var(--rp-bg);
+  border-radius: var(--rp-radius-lg);
+  text-align: center;
+}
+
+.cs-feature-quote blockquote {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-2xl);
+  font-weight: 700;
+  line-height: 1.55;
+  max-inline-size: 44ch;
+  margin-inline: auto;
+}
+
+.cs-feature-quote figcaption {
+  margin-block-start: var(--rp-space-5);
+  font-size: var(--rp-fs-sm);
+  opacity: 0.75;
+}
+
+/* --------------------------------------------------------------------------
+   9. Contact
+   -------------------------------------------------------------------------- */
+
+.cs-contact {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  /* minmax(0, …) so a photograph cannot widen the column past the viewport. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+/* The about photograph: fluid, capped, and cropped to a stable box. */
+.cs-portrait {
+  inline-size: 100%;
+  max-inline-size: 420px;
+  aspect-ratio: 4 / 5;
+  block-size: auto;
+  object-fit: cover;
+}
+
+/* minmax(0, …) rather than a bare 1fr: 1fr keeps its auto minimum, so the
+   contact panel's form row would push the whole page sideways below ~360px. */
+@media (max-width: 880px) {
+  .cs-contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.cs-panel {
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-surface);
+}

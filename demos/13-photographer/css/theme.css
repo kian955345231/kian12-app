@@ -1,0 +1,534 @@
+/* ==========================================================================
+   Demo 13  Photographer  ·  demos/13-photographer/css/theme.css
+
+   Design rationale
+   ----------------
+   The photographs are the product, so the interface gets out of their way:
+   a near-monochrome palette, hairline borders, almost no corner radius and a
+   single warm sepia as the only brand colour. Layout archetype E (bento) 
+   the same skeleton as demo 03 and demo 07  but where the designer's bento
+   is colourful and the entrepreneur's is heavy and saturated, this one is a
+   picture frame: one large image tile plus three quiet text tiles, and a
+   ragged gallery grid below it.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--photographer only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #8c6239;
+  --rp-primary-strong: #6f4c2a;
+  --rp-primary-soft: rgba(140, 98, 57, 0.1);
+  --rp-accent: #a8a29e;
+  --rp-on-primary: #ffffff;
+  --rp-danger: #b91c1c;
+
+  --rp-bg: #ffffff;
+  --rp-surface: #f5f2ed;
+  --rp-surface-2: #e9e4dc;
+  --rp-text: #171310;
+  --rp-text-soft: #4a423b;
+  --rp-muted: #7d746b;
+  --rp-border: #e6e0d7;
+  --rp-border-strong: #cdc4b7;
+
+  --rp-container: 1240px;
+  /* Gallery furniture: square corners, no shadows, everything hairline. */
+  --rp-radius-sm: 2px;
+  --rp-radius: 3px;
+  --rp-radius-lg: 6px;
+  --rp-btn-radius: 2px;
+  --rp-shadow: 0 1px 2px rgba(23, 19, 16, 0.05);
+  --rp-shadow-lg: 0 12px 40px rgba(23, 19, 16, 0.14);
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #c9975f;
+  --rp-primary-strong: #dcb082;
+  --rp-primary-soft: rgba(201, 151, 95, 0.16);
+  --rp-accent: #a8a29e;
+  --rp-on-primary: #1a1410;
+
+  --rp-bg: #131110;
+  --rp-surface: #1b1816;
+  --rp-surface-2: #262220;
+  --rp-text: #f3efe9;
+  --rp-text-soft: #cfc6bb;
+  --rp-muted: #928879;
+  --rp-border: #262220;
+  --rp-border-strong: #3a342f;
+}
+
+/* --------------------------------------------------------------------------
+   3. Hero bento
+   -------------------------------------------------------------------------- */
+
+.ph-hero {
+  padding-block: clamp(2rem, 1rem + 3vw, 3.5rem) var(--rp-section-y);
+}
+
+.ph-bento {
+  display: grid;
+  gap: var(--rp-space-4);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.ph-tile {
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  padding: var(--rp-space-6);
+}
+
+/* The one tile that is a photograph, not a text block. */
+.ph-tile--frame {
+  position: relative;
+  grid-column: span 5;
+  grid-row: span 2;
+  min-block-size: 26rem;
+  padding: 0;
+  overflow: hidden;
+  background: var(--rp-surface);
+}
+
+.ph-tile--frame img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.ph-tile--frame figcaption {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  padding: var(--rp-space-6) var(--rp-space-5) var(--rp-space-5);
+  background: linear-gradient(transparent, rgba(10, 8, 7, 0.82));
+  color: #fff;
+  font-size: var(--rp-fs-xs);
+  letter-spacing: 0.02em;
+}
+
+.ph-tile--say {
+  grid-column: span 7;
+  border: 0;
+  padding-inline: 0;
+}
+
+.ph-tile--note {
+  grid-column: span 4;
+  background: var(--rp-surface);
+}
+
+.ph-tile--note .rp-icon {
+  color: var(--rp-primary);
+}
+
+.ph-tile--note strong {
+  display: block;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block: var(--rp-space-3) var(--rp-space-2);
+}
+
+.ph-tile--note p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.ph-tile--num {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--rp-text);
+  border-color: var(--rp-text);
+  color: var(--rp-bg);
+}
+
+.ph-tile--num strong {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-3xl);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+/* Direct child only: the animated counter is a <span> inside <strong>. */
+.ph-tile--num > span {
+  margin-block-start: var(--rp-space-2);
+  font-size: var(--rp-fs-xs);
+  opacity: 0.72;
+}
+
+@media (max-width: 940px) {
+  .ph-tile--frame,
+  .ph-tile--say {
+    grid-column: span 12;
+  }
+
+  .ph-tile--frame {
+    grid-row: span 1;
+    min-block-size: 20rem;
+  }
+
+  .ph-tile--note {
+    grid-column: span 7;
+  }
+
+  .ph-tile--num {
+    grid-column: span 5;
+  }
+}
+
+@media (max-width: 640px) {
+  .ph-tile--note,
+  .ph-tile--num {
+    grid-column: span 12;
+  }
+}
+
+.ph-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(2rem, 1.2rem + 3.4vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  margin-block: var(--rp-space-4);
+}
+
+.ph-lead {
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-text-soft);
+  line-height: var(--rp-lh-snug);
+  max-inline-size: 48ch;
+}
+
+.ph-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* --------------------------------------------------------------------------
+   4. Genre strip
+   -------------------------------------------------------------------------- */
+
+.ph-genres {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--rp-space-3) var(--rp-space-5);
+  padding-block: var(--rp-space-5);
+  border-block: 1px solid var(--rp-border);
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+/* A sepia dot between genres, drawn rather than typed. */
+.ph-genres span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-5);
+}
+
+.ph-genres span:not(:last-child)::after {
+  content: '';
+  inline-size: 4px;
+  block-size: 4px;
+  border-radius: 50%;
+  background: var(--rp-primary);
+}
+
+/* --------------------------------------------------------------------------
+   5. Ragged gallery  the signature block
+   -------------------------------------------------------------------------- */
+
+.ph-grid {
+  display: grid;
+  /* `dense` keeps the mosaic from leaving holes when the filter hides a tile. */
+  grid-auto-flow: dense;
+  gap: var(--rp-space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  grid-auto-rows: 11rem;
+}
+
+.ph-shot {
+  position: relative;
+  grid-row: span 2;
+  overflow: hidden;
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-surface);
+}
+
+/* The ragged spans only apply once there is room for a second column 
+   below that a `span 2` column would create an implicit track and overflow. */
+@media (min-width: 760px) {
+  .ph-shot--tall {
+    grid-row: span 3;
+  }
+
+  .ph-shot--wide {
+    grid-column: span 2;
+  }
+}
+
+.ph-shot img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--rp-ease), filter 0.7s var(--rp-ease);
+}
+
+.ph-shot:hover img {
+  transform: scale(1.04);
+}
+
+.ph-shot figcaption {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--rp-space-7) var(--rp-space-5) var(--rp-space-4);
+  background: linear-gradient(transparent, rgba(10, 8, 7, 0.86));
+  color: #fff;
+}
+
+.ph-shot figcaption b {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+}
+
+.ph-shot figcaption span {
+  font-size: var(--rp-fs-xs);
+  opacity: 0.78;
+}
+
+/* --------------------------------------------------------------------------
+   6. Packages
+   -------------------------------------------------------------------------- */
+
+.ph-packages {
+  display: grid;
+  gap: var(--rp-space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+}
+
+.ph-package {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border-strong);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-bg);
+}
+
+/* The recommended package inverts instead of shouting in colour. */
+.ph-package--pick {
+  background: var(--rp-text);
+  border-color: var(--rp-text);
+  color: var(--rp-bg);
+}
+
+.ph-package--pick .ph-list li {
+  color: inherit;
+  opacity: 0.85;
+}
+
+.ph-package--pick .ph-list .rp-icon {
+  color: var(--rp-primary-strong);
+}
+
+.ph-package-tag {
+  position: absolute;
+  inset-block-start: calc(var(--rp-space-3) * -1);
+  inset-inline-start: var(--rp-space-6);
+  padding: 2px var(--rp-space-3);
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-primary);
+  color: var(--rp-on-primary);
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+}
+
+.ph-package h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+}
+
+.ph-price {
+  margin-block: var(--rp-space-2) var(--rp-space-5);
+  padding-block-end: var(--rp-space-5);
+  border-block-end: 1px solid currentColor;
+  font-size: var(--rp-fs-sm);
+  font-weight: 700;
+  color: var(--rp-primary);
+}
+
+.ph-package--pick .ph-price {
+  color: var(--rp-primary-strong);
+}
+
+.ph-list {
+  display: grid;
+  gap: var(--rp-space-3);
+  margin-block-end: var(--rp-space-6);
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.ph-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--rp-space-2);
+}
+
+.ph-list .rp-icon {
+  flex: none;
+  inline-size: 1em;
+  block-size: 1em;
+  margin-block-start: 0.4em;
+  color: var(--rp-primary);
+}
+
+.ph-package .rp-btn {
+  margin-block-start: auto;
+}
+
+/* --------------------------------------------------------------------------
+   7. Process
+   -------------------------------------------------------------------------- */
+
+.ph-steps {
+  display: grid;
+  gap: var(--rp-space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+}
+
+.ph-step {
+  padding-block-start: var(--rp-space-5);
+  border-block-start: 2px solid var(--rp-text);
+}
+
+.ph-step b {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-sm);
+  font-weight: 800;
+  color: var(--rp-primary);
+}
+
+.ph-step h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block: var(--rp-space-2) var(--rp-space-3);
+}
+
+.ph-step p {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   8. Camera / delivery spec strip
+   -------------------------------------------------------------------------- */
+
+.ph-spec {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  border-block: 1px solid var(--rp-border);
+}
+
+.ph-spec-cell {
+  padding: var(--rp-space-6) var(--rp-space-5);
+  border-inline-end: 1px solid var(--rp-border);
+}
+
+.ph-spec-cell:last-child {
+  border-inline-end: 0;
+}
+
+@media (max-width: 700px) {
+  .ph-spec-cell {
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--rp-border);
+  }
+
+  .ph-spec-cell:last-child {
+    border-block-end: 0;
+  }
+}
+
+.ph-spec-key {
+  display: block;
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  color: var(--rp-primary);
+  margin-block-end: var(--rp-space-2);
+}
+
+.ph-spec-cell strong {
+  display: block;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-2xl);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.ph-spec-note {
+  display: block;
+  margin-block-start: var(--rp-space-1);
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+/* --------------------------------------------------------------------------
+   9. Split layout  about and contact
+   -------------------------------------------------------------------------- */
+
+.ph-split {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  /* minmax(0, …) so a photograph cannot widen the column past the viewport. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+/* minmax(0, …) here too: a plain 1fr keeps its auto minimum, so a wide form
+   row inside the panel would push the whole page sideways. */
+@media (max-width: 880px) {
+  .ph-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ph-portrait {
+  inline-size: 100%;
+  max-inline-size: 420px;
+  aspect-ratio: 4 / 5;
+  block-size: auto;
+  object-fit: cover;
+}
+
+.ph-panel {
+  padding: var(--rp-space-6);
+  border: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-bg);
+}

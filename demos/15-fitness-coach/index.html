@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<!--
+  پورتفولیو باورسا Demo 15 · Fitness Coach
+  Archetype D, card-led (program cards, weekly plan table, coaching tiers), dark-first.
+-->
+<html lang="fa" dir="rtl" data-theme-default="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>حسام نیک‌پور | مربی تناسب اندام و تغذیه ورزشی</title>
+  <meta name="description" content="برنامه‌ی تمرین و تغذیه‌ی اختصاصی، حضوری و آنلاین  با برنامه‌ی هفتگی مشخص، پیگیری منظم و گزارش پیشرفت.">
+  <meta name="theme-color" content="#0c1008">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="حسام نیک‌پور | مربی تناسب اندام">
+  <meta property="og:description" content="برنامه‌ای که بتوانی هفته‌ی دوازدهم هم اجرایش کنی.">
+  <meta property="og:image" content="img/hero.jpg">
+
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+
+  <script>
+    (function () {
+      var DEFAULT = document.documentElement.getAttribute('data-theme-default') || 'light';
+      var stored = null;
+      try { stored = localStorage.getItem('rp-theme'); } catch (e) { /* private mode */ }
+      var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : DEFAULT);
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add('rp-js');
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../core/css/reset.css">
+  <link rel="stylesheet" href="../../core/css/core.css">
+  <link rel="stylesheet" href="../../core/css/components.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="../../core/css/utilities.css">
+</head>
+
+<body class="rp-demo--fitness-coach">
+
+  <!-- rp:sprite:start -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="rp-sprite" aria-hidden="true" hidden>
+  
+    <!-- ===== Interface ===== -->
+    <symbol id="menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="chevron-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="chevron-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol>
+    <symbol id="arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+    <symbol id="arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="arrow-up-right" viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></symbol>
+    <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+    <symbol id="external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-8 8"/><path d="M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></symbol>
+    <symbol id="download" viewBox="0 0 24 24"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol>
+    <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></symbol>
+    <symbol id="play" viewBox="0 0 24 24"><path d="M8 5.5l10 6.5-10 6.5z"/></symbol>
+  
+    <!-- ===== Theme ===== -->
+    <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></symbol>
+    <symbol id="moon" viewBox="0 0 24 24"><path d="M20 14.5A8.2 8.2 0 019.6 4 8.4 8.4 0 1020 14.5z"/></symbol>
+  
+    <!-- ===== Contact ===== -->
+    <symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7.5l7.2 5a1.4 1.4 0 001.6 0L20 7.5"/></symbol>
+    <symbol id="phone" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 006 6l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.5 5.7a2 2 0 012-2.2z"/></symbol>
+    <symbol id="map-pin" viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+    <symbol id="calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3.5v3M16 3.5v3"/></symbol>
+    <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="send" viewBox="0 0 24 24"><path d="M21 3.5L10.5 14M21 3.5l-6.5 17-4-7.5-7.5-4z"/></symbol>
+  
+    <!-- ===== Social ===== -->
+    <symbol id="github" viewBox="0 0 24 24"><path d="M9 19.5c-4.3 1.3-4.3-2.2-6-2.7m12 5.2v-3.4a3 3 0 00-.8-2.3c2.7-.3 5.5-1.3 5.5-5.9a4.6 4.6 0 00-1.3-3.2 4.3 4.3 0 00-.1-3.2s-1-.3-3.4 1.3a11.7 11.7 0 00-6 0C6.5 3.7 5.5 4 5.5 4a4.3 4.3 0 00-.1 3.2A4.6 4.6 0 004 10.4c0 4.6 2.8 5.6 5.5 5.9a3 3 0 00-.8 2.3V22"/></symbol>
+    <symbol id="linkedin" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V16M8 7.6v.1M12 16v-3.2a2 2 0 014 0V16"/></symbol>
+    <symbol id="twitter" viewBox="0 0 24 24"><path d="M4 4l7.2 9.4L4.4 20M20 4l-7 7.7L20 20h-3.6L4 4h3.7"/></symbol>
+    <symbol id="instagram" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><path d="M17 7v.1"/></symbol>
+    <symbol id="telegram" viewBox="0 0 24 24"><path d="M21 4L2.8 11.2l5.1 1.7L19 6.4l-8.3 8.2.4 5 2.7-3.6 4.3 3z"/></symbol>
+    <symbol id="whatsapp" viewBox="0 0 24 24"><path d="M3.5 20.5l1.3-4a8 8 0 113.2 3.1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5.6 0 1-.4 1-1v-.8l-2-.7-.8 1a5.6 5.6 0 01-2.2-2.2l1-.8-.7-2H10c-.6 0-1 .4-1 1z"/></symbol>
+    <symbol id="dribbble" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M5 8.5c5 .5 9.7-.6 12.5-3M3.8 14.5c4.8-2.6 10.3-1.7 13.8 1.8M9 3.8c3.6 4 5.6 9 6 16"/></symbol>
+    <symbol id="behance" viewBox="0 0 24 24"><path d="M3 6.5h5a2.5 2.5 0 010 5H3zM3 11.5h5.5a3 3 0 010 6H3z"/><path d="M14 13.5h7a3.2 3.2 0 00-6.4 0 3.2 3.2 0 005.7 2"/><path d="M15 6.5h5"/></symbol>
+  
+    <!-- ===== Professions & sections ===== -->
+    <symbol id="code" viewBox="0 0 24 24"><path d="M8.5 8L4 12l4.5 4M15.5 8L20 12l-4.5 4M13.5 5l-3 14"/></symbol>
+    <symbol id="terminal" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7 10l2.5 2L7 14M12.5 15h4"/></symbol>
+    <symbol id="layers" viewBox="0 0 24 24"><path d="M12 3l8.5 4.5L12 12 3.5 7.5z"/><path d="M3.5 12L12 16.5 20.5 12M3.5 16.5L12 21l8.5-4.5"/></symbol>
+    <symbol id="smartphone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.8"/><path d="M10.5 18.5h3"/></symbol>
+    <symbol id="monitor" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2.5"/><path d="M8.5 21h7M12 17v4"/></symbol>
+    <symbol id="palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 000 18c1.4 0 2-1 2-2s-.7-1.6-.7-2.4c0-.8.7-1.6 1.7-1.6H17a4 4 0 004-4c0-4.4-4-8-9-8z"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/></symbol>
+    <symbol id="pen" viewBox="0 0 24 24"><path d="M15.5 4.5l4 4L8 20H4v-4z"/><path d="M13.5 6.5l4 4"/></symbol>
+    <symbol id="book" viewBox="0 0 24 24"><path d="M4 4.5h6a3 3 0 013 3V20a2.5 2.5 0 00-2.5-2H4z"/><path d="M20 4.5h-6a3 3 0 00-3 3V20a2.5 2.5 0 012.5-2H20z"/></symbol>
+    <symbol id="scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M3.5 9l3.5-4 3.5 4"/><path d="M13.5 9L17 5l3.5 4"/><path d="M3.5 9a3.5 3.5 0 007 0M13.5 9a3.5 3.5 0 007 0"/></symbol>
+    <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l7 2.5v6c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5v-6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="stethoscope" viewBox="0 0 24 24"><path d="M6 3v5a4 4 0 008 0V3"/><path d="M10 15v-3M10 15a5 5 0 0010 0v-1.5"/><circle cx="20" cy="11" r="2"/></symbol>
+    <symbol id="heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.3A4.2 4.2 0 0112 8a4.2 4.2 0 017 2.7c0 4.9-7 9.3-7 9.3z"/></symbol>
+    <symbol id="activity" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 12 2.5-6h5"/></symbol>
+    <symbol id="chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><path d="M8 20v-6M12.5 20V9M17 20v-9"/></symbol>
+    <symbol id="trending" viewBox="0 0 24 24"><path d="M3 16.5l6-6 4 4 8-8"/><path d="M15 6.5h6v6"/></symbol>
+    <symbol id="target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="briefcase" viewBox="0 0 24 24"><rect x="3" y="7.5" width="18" height="12" rx="2.5"/><path d="M9 7.5V6a2 2 0 012-2h2a2 2 0 012 2v1.5M3 12.5h18"/></symbol>
+    <symbol id="users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M3 19a6 6 0 0112 0"/><path d="M16 5.3a3.4 3.4 0 010 6.4M17 19a6 6 0 00-1.6-4"/></symbol>
+    <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0115 0"/></symbol>
+    <symbol id="award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.5 5 2.5-1.5-7.5"/></symbol>
+    <symbol id="rocket" viewBox="0 0 24 24"><path d="M13 4c4 1 7 4 7 8l-4 4-5-5 2-7z"/><path d="M11 11L4.5 13 8 16.5 6 21l4.5-2 3.5 3.5"/><circle cx="15" cy="9" r="1.4"/></symbol>
+    <symbol id="lightbulb" viewBox="0 0 24 24"><path d="M9 17a6 6 0 116 0v2H9z"/><path d="M10 21.5h4"/></symbol>
+    <symbol id="film" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M8 4.5v15M16 4.5v15M3 9.5h5M16 9.5h5M3 14.5h5M16 14.5h5"/></symbol>
+    <symbol id="camera" viewBox="0 0 24 24"><path d="M4 7.5h3l1.5-2.5h7L17 7.5h3a1.5 1.5 0 011.5 1.5v9A1.5 1.5 0 0120 19.5H4A1.5 1.5 0 012.5 18V9A1.5 1.5 0 014 7.5z"/><circle cx="12" cy="13" r="3.6"/></symbol>
+    <symbol id="mic" viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0013 0M12 18v3.5"/></symbol>
+    <symbol id="star" viewBox="0 0 24 24"><path d="M12 3.5l2.7 5.6 6.1.9-4.4 4.3 1 6.2-5.4-2.9-5.4 2.9 1-6.2L3.2 10l6.1-.9z"/></symbol>
+    <symbol id="quote" viewBox="0 0 24 24"><path d="M9.5 6C6.5 7.5 5 10 5 13v5h6v-6H8c0-2 .8-3.5 2.5-4.5zM20 6c-3 1.5-4.5 4-4.5 7v5h6v-6h-3c0-2 .8-3.5 2.5-4.5z"/></symbol>
+    <symbol id="sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol>
+    <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5a13 13 0 010 17 13 13 0 010-17z"/></symbol>
+    <symbol id="settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 14a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7 1.1v.3a2 2 0 11-4 0v-.2a1.6 1.6 0 00-2.8-1.1l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 003.7 15H3.4a2 2 0 010-4h.2a1.6 1.6 0 001.1-2.7l-.1-.1a2 2 0 112.8-2.8l.1.1A1.6 1.6 0 0010 4.4V4a2 2 0 014 0v.2a1.6 1.6 0 002.7 1.1l.1-.1a2 2 0 112.8 2.8l-.1.1A1.6 1.6 0 0020.3 11h.3a2 2 0 010 4h-.2a1.6 1.6 0 00-1 .9z"/></symbol>
+    <symbol id="hand-wave" viewBox="0 0 24 24"><path d="M8.6 12.6V5.8a1.3 1.3 0 012.6 0v5.9"/><path d="M11.2 11.3V4.7a1.3 1.3 0 012.6 0v6.4"/><path d="M13.8 11.6V6.5a1.3 1.3 0 012.6 0v6.4"/><path d="M16.4 12.4c0-1.6 2.4-1.6 2.4.3 0 4.1-1.7 8-5.9 8-3 0-5.2-1.8-6.1-4.4l-1.2-3.4c-.4-1.3 1.4-2.1 2.1-.9l1.2 2.1"/><path d="M4.3 5.7l1.4.9M6.4 2.8l.5 1.6"/></symbol>
+    <symbol id="grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></symbol>
+  
+  </svg>
+  <!-- rp:sprite:end -->
+
+  <a class="rp-skip-link" href="#main">پرش به محتوای اصلی</a>
+
+  <header class="rp-header" data-rp-header>
+    <div class="rp-container rp-header-inner">
+
+      <a class="rp-brand" href="#hero">
+        <span class="rp-brand-mark" aria-hidden="true">
+          <svg class="rp-icon"><use href="#activity"></use></svg>
+        </span>
+        <span>حسام نیک‌پور</span>
+      </a>
+
+      <nav class="rp-nav" id="primary-nav" data-rp-scrollspy aria-label="ناوبری اصلی">
+        <a class="rp-nav-link" href="#programs">دوره‌ها</a>
+        <a class="rp-nav-link" href="#week">برنامه هفتگی</a>
+        <a class="rp-nav-link" href="#results">نتایج</a>
+        <a class="rp-nav-link" href="#pricing">بسته‌ها</a>
+        <a class="rp-nav-link" href="#faq">پرسش‌ها</a>
+        <a class="rp-nav-link" href="#contact">تماس</a>
+      </nav>
+
+      <div class="rp-header-actions">
+        <button type="button" class="rp-icon-btn rp-theme-toggle" data-rp-theme-toggle aria-label="حالت روشن">
+          <svg class="rp-icon rp-theme-toggle-light" aria-hidden="true"><use href="#moon"></use></svg>
+          <svg class="rp-icon rp-theme-toggle-dark" aria-hidden="true"><use href="#sun"></use></svg>
+        </button>
+        <a class="rp-btn rp-btn--primary rp-btn--sm rp-hide-sm" href="#contact">جلسه مشاوره</a>
+        <button type="button" class="rp-nav-toggle" data-rp-nav-toggle aria-controls="primary-nav" aria-label="باز کردن منو">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ==================================================================
+         Hero  centred copy over a card
+         ================================================================== -->
+    <section class="ft-hero" id="hero">
+      <div class="rp-container">
+
+        <div class="ft-hero-inner" data-rp-reveal>
+          <span class="ft-tag">
+            <svg class="rp-icon" aria-hidden="true"><use href="#activity"></use></svg>
+            مربی تناسب اندام و تغذیه ورزشی · تهران و آنلاین
+          </span>
+
+          <h1 class="ft-hero-title">برنامه‌ای که هفته‌ی دوازدهم هم اجرایش می‌کنی.</h1>
+
+          <p class="ft-hero-lead">
+            برنامه‌ی سخت نوشتن آسان است؛ برنامه‌ای که با شغل، خواب و زانوی تو جور
+            دربیاید سخت است. کار من همین دومی است.
+          </p>
+
+          <div class="ft-hero-actions">
+            <a class="rp-btn rp-btn--primary rp-btn--lg" href="#contact">
+              <svg class="rp-icon" aria-hidden="true"><use href="#calendar"></use></svg>
+              رزرو جلسه مشاوره
+            </a>
+            <a class="rp-btn rp-btn--outline rp-btn--lg" href="#programs">دیدن دوره‌ها</a>
+          </div>
+        </div>
+
+        <div class="ft-hero-card" data-rp-reveal="120">
+          <img src="img/hero.jpg" alt="تمرین در فضای باز شهری هنگام غروب" width="900" height="1200" fetchpriority="high">
+          <div class="ft-hero-stats">
+            <div><strong><span data-rp-counter="380">۳۸۰</span>+</strong><span>ورزشکار تحت برنامه</span></div>
+            <div><strong><span data-rp-counter="9">۹</span> سال</strong><span>سابقه مربیگری</span></div>
+            <div><strong><span data-rp-counter="87">۸۷</span>٪</strong><span>ماندگاری تا پایان دوره</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Programs
+         ================================================================== -->
+    <section class="rp-section" id="programs">
+      <div class="rp-container">
+
+        <div class="rp-section-head rp-section-head--center rp-mi-auto">
+          <span class="rp-eyebrow">دوره‌ها</span>
+          <h2 class="rp-section-title">سه مسیر، بسته به جایی که ایستاده‌ای</h2>
+          <p class="rp-section-lead">
+            هر دوره با یک ارزیابی حرکتی شروع می‌شود. اگر چیزی درد می‌کند، اول آن را حل می‌کنیم.
+          </p>
+        </div>
+
+        <div class="rp-grid ft-programs">
+
+          <article class="ft-program" data-rp-reveal>
+            <span class="ft-program-icon"><svg class="rp-icon"><use href="#target"></use></svg></span>
+            <h3>هشت هفته چربی‌سوزی</h3>
+            <p>برای کسی که می‌خواهد ترکیب بدنش عوض شود بدون اینکه زندگی‌اش تعطیل شود.</p>
+            <dl class="ft-facts">
+              <div><dt>مدت</dt><dd>۸ هفته</dd></div>
+              <div><dt>جلسه</dt><dd>۴ جلسه در هفته</dd></div>
+              <div><dt>سطح</dt><dd>مبتدی تا متوسط</dd></div>
+            </dl>
+            <a class="rp-btn rp-btn--outline rp-btn--block" href="#contact">شروع این دوره</a>
+          </article>
+
+          <article class="ft-program ft-program--pick" data-rp-reveal="80">
+            <span class="ft-program-tag">پرطرفدارترین</span>
+            <span class="ft-program-icon"><svg class="rp-icon"><use href="#activity"></use></svg></span>
+            <h3>دوازده هفته قدرت</h3>
+            <p>برنامه‌ی پایه‌ای که بیشتر شاگردهایم با آن شروع می‌کنند: قدرت، ثبات و عادت.</p>
+            <dl class="ft-facts">
+              <div><dt>مدت</dt><dd>۱۲ هفته</dd></div>
+              <div><dt>جلسه</dt><dd>۴ تا ۵ جلسه در هفته</dd></div>
+              <div><dt>سطح</dt><dd>همه سطوح</dd></div>
+            </dl>
+            <a class="rp-btn rp-btn--primary rp-btn--block" href="#contact">شروع این دوره</a>
+          </article>
+
+          <article class="ft-program" data-rp-reveal="160">
+            <span class="ft-program-icon"><svg class="rp-icon"><use href="#globe"></use></svg></span>
+            <h3>چهار هفته آنلاین</h3>
+            <p>برای شهرستان یا کسی که می‌خواهد قبل از تعهد بلندمدت، روش کار را ببیند.</p>
+            <dl class="ft-facts">
+              <div><dt>مدت</dt><dd>۴ هفته</dd></div>
+              <div><dt>جلسه</dt><dd>۳ جلسه در هفته</dd></div>
+              <div><dt>سطح</dt><dd>مبتدی</dd></div>
+            </dl>
+            <a class="rp-btn rp-btn--outline rp-btn--block" href="#contact">شروع این دوره</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Weekly plan  the signature block
+         ================================================================== -->
+    <section class="rp-section rp-section--alt" id="week">
+      <div class="rp-container">
+
+        <div class="rp-section-head">
+          <span class="rp-eyebrow">برنامه هفتگی</span>
+          <h2 class="rp-section-title">یک هفته‌ی نمونه از دوره‌ی دوازده هفته</h2>
+          <p class="rp-section-lead">
+            برنامه‌ی واقعی بر اساس ارزیابی تو نوشته می‌شود، اما ریتم هفته معمولاً همین است:
+            دو روز سنگین، دو روز متوسط، و ریکاوری واقعی.
+          </p>
+        </div>
+
+        <div class="ft-week" data-rp-reveal>
+          <div class="ft-week-head" aria-hidden="true">
+            <span>روز</span><span>تمرکز</span><span>مدت</span><span>شدت</span>
+          </div>
+
+          <div class="ft-day">
+            <b>شنبه</b>
+            <span class="ft-focus">پایین‌تنه · اسکات و ددلیفت</span>
+            <span class="ft-dur">۷۵ دقیقه</span>
+            <div class="ft-int"><i style="--i: 90%"></i><em>۹۰٪</em></div>
+          </div>
+
+          <div class="ft-day">
+            <b>یکشنبه</b>
+            <span class="ft-focus">بالاتنه · پرس و کشش</span>
+            <span class="ft-dur">۶۰ دقیقه</span>
+            <div class="ft-int"><i style="--i: 75%"></i><em>۷۵٪</em></div>
+          </div>
+
+          <div class="ft-day ft-day--rest">
+            <b>دوشنبه</b>
+            <span class="ft-focus">ریکاوری فعال · پیاده‌روی و تحرک</span>
+            <span class="ft-dur">۳۰ دقیقه</span>
+            <div class="ft-int"><i style="--i: 25%"></i><em>۲۵٪</em></div>
+          </div>
+
+          <div class="ft-day">
+            <b>سه‌شنبه</b>
+            <span class="ft-focus">تمام‌بدن · حرکات ترکیبی</span>
+            <span class="ft-dur">۷۰ دقیقه</span>
+            <div class="ft-int"><i style="--i: 85%"></i><em>۸۵٪</em></div>
+          </div>
+
+          <div class="ft-day">
+            <b>چهارشنبه</b>
+            <span class="ft-focus">هوازی پایه · دویدن آرام</span>
+            <span class="ft-dur">۴۰ دقیقه</span>
+            <div class="ft-int"><i style="--i: 55%"></i><em>۵۵٪</em></div>
+          </div>
+
+          <div class="ft-day">
+            <b>پنجشنبه</b>
+            <span class="ft-focus">قدرت · تمرکز روی ضعف‌ها</span>
+            <span class="ft-dur">۶۵ دقیقه</span>
+            <div class="ft-int"><i style="--i: 80%"></i><em>۸۰٪</em></div>
+          </div>
+
+          <div class="ft-day ft-day--rest">
+            <b>جمعه</b>
+            <span class="ft-focus">استراحت کامل</span>
+            <span class="ft-dur">—</span>
+            <div class="ft-int"><i style="--i: 6%"></i><em>۰٪</em></div>
+          </div>
+        </div>
+
+        <p class="ft-week-note" data-rp-reveal>
+          <svg class="rp-icon"><use href="#lightbulb"></use></svg>
+          اگر یک جلسه از دست رفت، جبرانش نمی‌کنیم. هفته را همان‌جا که هست ادامه می‌دهیم 
+          این تنها راهی است که برنامه بعد از ماه اول هم زنده می‌ماند.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Results
+         ================================================================== -->
+    <section class="rp-section" id="results">
+      <div class="rp-container">
+
+        <div class="rp-section-head">
+          <span class="rp-eyebrow">نتایج</span>
+          <h2 class="rp-section-title">شش نفر، شش نقطه‌ی شروع متفاوت</h2>
+          <p class="rp-section-lead">
+            عددها با اجازه‌ی خودشان منتشر شده و همه مربوط به دوره‌های سه‌ماهه است.
+          </p>
+        </div>
+
+        <div class="rp-grid ft-results">
+
+          <article class="ft-result" data-rp-reveal>
+            <div class="ft-result-media">
+              <img src="img/work-1.jpg" alt="تمرین با وزنه در باشگاه" width="1200" height="900" loading="lazy">
+              <span class="ft-result-badge">−۱۱ کیلو</span>
+            </div>
+            <div class="ft-result-body">
+              <h3>رضا، ۳۸ ساله</h3>
+              <p>کارمند، هفته‌ای سه جلسه. بیشترین تغییر از اصلاح خواب و صبحانه آمد، نه از تمرین.</p>
+            </div>
+          </article>
+
+          <article class="ft-result" data-rp-reveal="80">
+            <div class="ft-result-media">
+              <img src="img/work-2.jpg" alt="تمرین کششی روی مت" width="1200" height="900" loading="lazy">
+              <span class="ft-result-badge">بدون درد</span>
+            </div>
+            <div class="ft-result-body">
+              <h3>نسرین، ۴۵ ساله</h3>
+              <p>کمردرد مزمن. سه ماه تمرین ثبات مرکزی و حالا بدون درد پله‌ها را بالا می‌رود.</p>
+            </div>
+          </article>
+
+          <article class="ft-result" data-rp-reveal="160">
+            <div class="ft-result-media">
+              <img src="img/work-3.jpg" alt="دویدن در مسیر شهری" width="1200" height="900" loading="lazy">
+              <span class="ft-result-badge">۱۰ کیلومتر</span>
+            </div>
+            <div class="ft-result-body">
+              <h3>امید، ۲۹ ساله</h3>
+              <p>از دو کیلومتر با تنگی نفس تا اتمام ده کیلومتر تهران در پنج ماه.</p>
+            </div>
+          </article>
+
+          <article class="ft-result" data-rp-reveal>
+            <div class="ft-result-media">
+              <img src="img/work-4.jpg" alt="تمرین با کتل‌بل" width="1200" height="900" loading="lazy">
+              <span class="ft-result-badge">+۷ کیلو</span>
+            </div>
+            <div class="ft-result-body">
+              <h3>سینا، ۲۴ ساله</h3>
+              <p>افزایش وزن سالم. سخت‌ترین بخش، خوردن کافی بود نه تمرین کردن.</p>
+            </div>
+          </article>
+
+          <article class="ft-result" data-rp-reveal="80">
+            <div class="ft-result-media">
+              <img src="img/work-5.jpg" alt="تمرین گروهی در فضای باز" width="1200" height="900" loading="lazy">
+              <span class="ft-result-badge">۲ برابر</span>
+            </div>
+            <div class="ft-result-body">
+              <h3>مهسا، ۳۳ ساله</h3>
+              <p>رکورد اسکات دو برابر شد؛ مهم‌تر اینکه دیگر از وزنه‌زدن نمی‌ترسد.</p>
+            </div>
+          </article>
+
+          <article class="ft-result" data-rp-reveal="160">
+            <div class="ft-result-media">
+              <img src="img/work-6.jpg" alt="ورزشکار در حال گرم کردن" width="1200" height="900" loading="lazy">
+              <span class="ft-result-badge">بازگشت</span>
+            </div>
+            <div class="ft-result-body">
+              <h3>کاوه، ۴۱ ساله</h3>
+              <p>بعد از جراحی زانو، بازگشت تدریجی به فوتبال هفتگی بدون عود آسیب.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Coaching tiers
+         ================================================================== -->
+    <section class="rp-section rp-section--alt" id="pricing">
+      <div class="rp-container">
+
+        <div class="rp-section-head rp-section-head--center rp-mi-auto">
+          <span class="rp-eyebrow">بسته‌های مربیگری</span>
+          <h2 class="rp-section-title">سه سطح همراهی</h2>
+          <p class="rp-section-lead">
+            همه‌ی بسته‌ها شامل ارزیابی اولیه، برنامه‌ی تمرین و راهنمای تغذیه هستند.
+            تفاوت در میزان پیگیری است.
+          </p>
+        </div>
+
+        <div class="ft-tiers">
+
+          <article class="ft-tier" data-rp-reveal>
+            <h3>آنلاین</h3>
+            <div class="ft-tier-price">۲٫۹ میلیون تومان<span>ماهانه</span></div>
+            <ul class="ft-list">
+              <li><svg class="rp-icon"><use href="#check"></use></svg>برنامه‌ی تمرین اختصاصی</li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg>راهنمای تغذیه‌ی پایه</li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg>بازبینی ویدیوی حرکات</li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg>یک تماس در ماه</li>
+            </ul>
+            <a class="rp-btn rp-btn--outline rp-btn--block" href="#contact">انتخاب بسته</a>
+          </article>
+
+          <article class="ft-tier ft-tier--pick" data-rp-reveal="80">
+            <span class="ft-tier-tag">محبوب</span>
+            <h3>ترکیبی</h3>
+            <div class="ft-tier-price">۵٫۴ میلیون تومان<span>ماهانه</span></div>
+            <ul class="ft-list">
+              <li><svg class="rp-icon"><use href="#check"></use></svg>هر چیزی که در بسته‌ی آنلاین هست</li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg>دو جلسه‌ی حضوری در ماه</li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg>اصلاح هفتگی برنامه</li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg>پاسخ‌گویی پیامی در طول هفته</li>
+            </ul>
+            <a class="rp-btn rp-btn--primary rp-btn--block" href="#contact">انتخاب بسته</a>
+          </article>
+
+          <article class="ft-tier" data-rp-reveal="160">
+            <h3>حضوری کامل</h3>
+            <div class="ft-tier-price">۹٫۸ میلیون تومان<span>ماهانه</span></div>
+            <ul class="ft-list">
+              <li><svg class="rp-icon"><use href="#check"></use></svg>هشت جلسه‌ی حضوری در ماه</li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg>برنامه‌ی تغذیه‌ی دقیق</li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg>سنجش ترکیب بدنی ماهانه</li>
+              <li><svg class="rp-icon"><use href="#check"></use></svg>هماهنگی با فیزیوتراپ در صورت نیاز</li>
+            </ul>
+            <a class="rp-btn rp-btn--outline rp-btn--block" href="#contact">انتخاب بسته</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         FAQ
+         ================================================================== -->
+    <section class="rp-section" id="faq">
+      <div class="rp-container rp-container--narrow">
+
+        <div class="rp-section-head">
+          <span class="rp-eyebrow">پرسش‌های متداول</span>
+          <h2 class="rp-section-title">چیزهایی که جلسه‌ی اول پرسیده می‌شود</h2>
+        </div>
+
+        <div data-rp-accordion>
+
+          <div class="rp-accordion-item is-open">
+            <button type="button" class="rp-accordion-trigger">
+              <span>مکمل لازم است؟</span>
+              <svg class="rp-icon"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="rp-accordion-panel"><div><div class="rp-accordion-body">
+              در بیشتر موارد نه. تا وقتی خواب، پروتئین روزانه و تعداد جلسات سر جایش نباشد،
+              هیچ مکملی تفاوت معناداری ایجاد نمی‌کند. اگر لازم شد، فقط چیزی را پیشنهاد
+              می‌دهم که شواهد روشنی پشتش باشد و از فروشش سودی نمی‌برم.
+            </div></div></div>
+          </div>
+
+          <div class="rp-accordion-item">
+            <button type="button" class="rp-accordion-trigger">
+              <span>باشگاه نمی‌روم، می‌شود در خانه تمرین کرد؟</span>
+              <svg class="rp-icon"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="rp-accordion-panel"><div><div class="rp-accordion-body">
+              بله، برای دوره‌ی چهار هفته و بخشی از دوره‌ی هشت هفته. برای برنامه‌ی قدرت
+              دست‌کم به یک جفت دمبل قابل تنظیم و یک کش مقاومتی نیاز داریم.
+            </div></div></div>
+          </div>
+
+          <div class="rp-accordion-item">
+            <button type="button" class="rp-accordion-trigger">
+              <span>آسیب قدیمی دارم؛ باز هم می‌توانم شروع کنم؟</span>
+              <svg class="rp-icon"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="rp-accordion-panel"><div><div class="rp-accordion-body">
+              معمولاً بله، اما جلسه‌ی اول را به ارزیابی حرکتی اختصاص می‌دهیم. اگر موضوع
+              درمانی باشد، تا وقتی فیزیوتراپ یا پزشکت تأیید نکند برنامه‌ی تمرینی نمی‌نویسم.
+            </div></div></div>
+          </div>
+
+          <div class="rp-accordion-item">
+            <button type="button" class="rp-accordion-trigger">
+              <span>چقدر طول می‌کشد تا نتیجه ببینم؟</span>
+              <svg class="rp-icon"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="rp-accordion-panel"><div><div class="rp-accordion-body">
+              حس بهتر و خواب بهتر معمولاً از هفته‌ی دوم. تغییر قابل مشاهده در آینه از هفته‌ی
+              ششم به بعد. هر کسی وعده‌ی سریع‌تری بدهد، دارد چیزی می‌فروشد.
+            </div></div></div>
+          </div>
+
+          <div class="rp-accordion-item">
+            <button type="button" class="rp-accordion-trigger">
+              <span>اگر وسط دوره منصرف شوم چه می‌شود؟</span>
+              <svg class="rp-icon"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="rp-accordion-panel"><div><div class="rp-accordion-body">
+              پرداخت ماهانه است و هر ماه می‌توانی ادامه ندهی. برنامه‌ها و گزارش‌های همان
+              مدت هم برای خودت می‌ماند و کامل تحویل داده می‌شود.
+            </div></div></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         About
+         ================================================================== -->
+    <section class="rp-section rp-section--alt" id="about">
+      <div class="rp-container">
+        <div class="ft-split">
+
+          <div data-rp-reveal>
+            <img class="ft-portrait rp-radius-lg" src="img/portrait.jpg" alt="حسام نیک‌پور، مربی تناسب اندام"
+              width="900" height="1100" loading="lazy">
+          </div>
+
+          <div data-rp-reveal="100">
+            <span class="rp-eyebrow">درباره من</span>
+            <h2 class="rp-section-title">حسام نیک‌پور</h2>
+            <p class="rp-color-muted rp-mbs-4">
+              کارشناسی ارشد فیزیولوژی ورزشی و نُه سال مربیگری. خودم سه سال با کمردرد
+              دست‌وپنجه نرم کردم و همان دوره فهمیدم بیشتر برنامه‌های اینترنتی برای بدنی
+              نوشته شده‌اند که هیچ‌وقت آسیب ندیده است.
+            </p>
+            <p class="rp-color-muted rp-mbs-4">
+              با هر شاگرد یک قرار ساده می‌گذارم: من برنامه‌ای می‌نویسم که قابل اجرا باشد،
+              تو صادقانه می‌گویی چه چیزی را انجام نداده‌ای. بدون این دومی، هیچ برنامه‌ای
+              جواب نمی‌دهد.
+            </p>
+
+            <div class="rp-mbs-6">
+              <div class="rp-skill">
+                <div class="rp-skill-head"><span>برنامه‌ریزی تمرین قدرتی</span><span>۹۶٪</span></div>
+                <div class="rp-skill-track"><div class="rp-skill-fill" data-rp-skill="96"></div></div>
+              </div>
+              <div class="rp-skill">
+                <div class="rp-skill-head"><span>ارزیابی حرکتی و اصلاح</span><span>۹۲٪</span></div>
+                <div class="rp-skill-track"><div class="rp-skill-fill" data-rp-skill="92"></div></div>
+              </div>
+              <div class="rp-skill">
+                <div class="rp-skill-head"><span>تغذیه ورزشی</span><span>۸۸٪</span></div>
+                <div class="rp-skill-track"><div class="rp-skill-fill" data-rp-skill="88"></div></div>
+              </div>
+              <div class="rp-skill">
+                <div class="rp-skill-head"><span>بازتوانی پس از آسیب</span><span>۸۴٪</span></div>
+                <div class="rp-skill-track"><div class="rp-skill-fill" data-rp-skill="84"></div></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Testimonials
+         ================================================================== -->
+    <section class="rp-section">
+      <div class="rp-container">
+
+        <div class="rp-section-head rp-section-head--center rp-mi-auto">
+          <span class="rp-eyebrow">نظر شاگردان</span>
+          <h2 class="rp-section-title">کسانی که دوره را تمام کرده‌اند</h2>
+        </div>
+
+        <div class="rp-slider" data-rp-slider>
+          <div class="rp-slider-track">
+
+            <article class="rp-quote">
+              <div class="rp-stars" aria-label="امتیاز ۵ از ۵">
+                <svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg>
+              </div>
+              <p class="rp-quote-text">«اولین مربی‌ای که وقتی گفتم این هفته فقط دو جلسه رفتم، دعوایم نکرد و برنامه را عوض کرد.»</p>
+              <div class="rp-quote-foot">
+                <img class="rp-avatar" src="img/avatar-1.jpg" alt="" width="200" height="200" loading="lazy">
+                <div><div class="rp-quote-name">رضا م.</div><div class="rp-quote-role">دوره دوازده هفته</div></div>
+              </div>
+            </article>
+
+            <article class="rp-quote">
+              <div class="rp-stars" aria-label="امتیاز ۵ از ۵">
+                <svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg>
+              </div>
+              <p class="rp-quote-text">«کمردردم را جدی گرفت و تا نظر فیزیوتراپم را نگرفت، برنامه ننوشت. همین اعتمادم را جلب کرد.»</p>
+              <div class="rp-quote-foot">
+                <img class="rp-avatar" src="img/avatar-2.jpg" alt="" width="200" height="200" loading="lazy">
+                <div><div class="rp-quote-name">نسرین ب.</div><div class="rp-quote-role">بسته ترکیبی</div></div>
+              </div>
+            </article>
+
+            <article class="rp-quote">
+              <div class="rp-stars" aria-label="امتیاز ۵ از ۵">
+                <svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg>
+              </div>
+              <p class="rp-quote-text">«شهرستانم و آنلاین کار کردیم. هر هفته ویدیوهایم را دید و ایراد فرم را دقیق گفت.»</p>
+              <div class="rp-quote-foot">
+                <img class="rp-avatar" src="img/avatar-3.jpg" alt="" width="200" height="200" loading="lazy">
+                <div><div class="rp-quote-name">امید ط.</div><div class="rp-quote-role">دوره آنلاین</div></div>
+              </div>
+            </article>
+
+            <article class="rp-quote">
+              <div class="rp-stars" aria-label="امتیاز ۵ از ۵">
+                <svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg><svg class="rp-icon"><use href="#star"></use></svg>
+              </div>
+              <p class="rp-quote-text">«سه بار قبلاً شروع کرده و رها کرده بودم. این بار برنامه با زندگی‌ام جور بود و ماندم.»</p>
+              <div class="rp-quote-foot">
+                <img class="rp-avatar" src="img/avatar-4.jpg" alt="" width="200" height="200" loading="lazy">
+                <div><div class="rp-quote-name">مهسا ک.</div><div class="rp-quote-role">دوره هشت هفته</div></div>
+              </div>
+            </article>
+
+          </div>
+
+          <div class="rp-slider-nav">
+            <button type="button" class="rp-icon-btn" data-rp-slider-prev aria-label="قبلی"><svg class="rp-icon"><use href="#arrow-right"></use></svg></button>
+            <div class="rp-slider-dots"></div>
+            <button type="button" class="rp-icon-btn" data-rp-slider-next aria-label="بعدی"><svg class="rp-icon"><use href="#arrow-left"></use></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Contact
+         ================================================================== -->
+    <section class="rp-section rp-section--alt" id="contact">
+      <div class="rp-container">
+
+        <div class="rp-section-head">
+          <span class="rp-eyebrow">تماس</span>
+          <h2 class="rp-section-title">جلسه‌ی مشاوره‌ی رایگان</h2>
+          <p class="rp-section-lead">
+            بیست دقیقه، تلفنی یا حضوری. هدفت را می‌پرسم و صادقانه می‌گویم چقدر طول می‌کشد
+            و آیا اصلاً به مربی نیاز داری یا نه.
+          </p>
+        </div>
+
+        <div class="ft-split">
+
+          <div class="ft-panel" data-rp-reveal>
+            <h3 class="rp-fs-lg rp-fw-700 rp-mbe-5">راه‌های ارتباط</h3>
+
+            <div class="rp-contact-item">
+              <span class="rp-contact-icon"><svg class="rp-icon"><use href="#phone"></use></svg></span>
+              <div>
+                <div class="rp-contact-label">تلفن</div>
+                <a class="rp-contact-value" href="tel:+989121234567">۰۹۱۲ ۱۲۳ ۴۵۶۷</a>
+              </div>
+            </div>
+
+            <div class="rp-contact-item">
+              <span class="rp-contact-icon"><svg class="rp-icon"><use href="#instagram"></use></svg></span>
+              <div>
+                <div class="rp-contact-label">اینستاگرام</div>
+                <a class="rp-contact-value rp-ltr" href="#">@hesam.coach</a>
+              </div>
+            </div>
+
+            <div class="rp-contact-item">
+              <span class="rp-contact-icon"><svg class="rp-icon"><use href="#map-pin"></use></svg></span>
+              <div>
+                <div class="rp-contact-label">باشگاه</div>
+                <div class="rp-contact-value">تهران، سعادت‌آباد  جلسات حضوری با وقت قبلی</div>
+              </div>
+            </div>
+
+            <div class="rp-contact-item">
+              <span class="rp-contact-icon"><svg class="rp-icon"><use href="#clock"></use></svg></span>
+              <div>
+                <div class="rp-contact-label">ظرفیت</div>
+                <div class="rp-contact-value">شش شاگرد حضوری، ظرفیت آنلاین باز است</div>
+              </div>
+            </div>
+          </div>
+
+          <form class="ft-panel rp-form" data-rp-form novalidate data-rp-reveal="100">
+            <div class="rp-form-row">
+              <div class="rp-field">
+                <label class="rp-label" for="ft-name">نام</label>
+                <input class="rp-input" id="ft-name" name="name" type="text" required minlength="3" placeholder="نام و نام خانوادگی" autocomplete="name">
+                <span class="rp-field-error" aria-live="polite"></span>
+              </div>
+              <div class="rp-field">
+                <label class="rp-label" for="ft-phone">شماره تماس</label>
+                <input class="rp-input" id="ft-phone" name="phone" type="tel" required minlength="8" placeholder="۰۹۱۲ ۰۰۰ ۰۰۰۰" autocomplete="tel">
+                <span class="rp-field-error" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="rp-form-row">
+              <div class="rp-field">
+                <label class="rp-label" for="ft-goal">هدف اصلی</label>
+                <select class="rp-select" id="ft-goal" name="goal" required>
+                  <option value="">انتخاب کنید…</option>
+                  <option>کاهش چربی</option>
+                  <option>افزایش قدرت و عضله</option>
+                  <option>بازتوانی پس از آسیب</option>
+                  <option>آمادگی برای مسابقه</option>
+                </select>
+                <span class="rp-field-error" aria-live="polite"></span>
+              </div>
+              <div class="rp-field">
+                <label class="rp-label" for="ft-level">سطح فعلی</label>
+                <select class="rp-select" id="ft-level" name="level" required>
+                  <option value="">انتخاب کنید…</option>
+                  <option>تازه شروع می‌کنم</option>
+                  <option>گاهی ورزش می‌کنم</option>
+                  <option>منظم تمرین می‌کنم</option>
+                  <option>ورزشکار رقابتی</option>
+                </select>
+                <span class="rp-field-error" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="rp-field">
+              <label class="rp-label" for="ft-message">وضعیت فعلی</label>
+              <textarea class="rp-textarea" id="ft-message" name="message" required minlength="20" placeholder="چند روز در هفته وقت داری؟ آسیب یا محدودیت پزشکی خاصی هست؟ قبلاً چه چیزی را امتحان کرده‌ای؟"></textarea>
+              <span class="rp-field-error" aria-live="polite"></span>
+            </div>
+
+            <p class="rp-form-status" role="status" aria-live="polite"></p>
+
+            <button class="rp-btn rp-btn--primary rp-btn--lg rp-btn--block" type="submit">
+              <svg class="rp-icon"><use href="#send"></use></svg>
+              درخواست جلسه مشاوره
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rp-footer">
+    <div class="rp-container">
+      <div class="rp-footer-grid">
+
+        <div>
+          <a class="rp-brand rp-mbe-3" href="#hero">
+            <span class="rp-brand-mark" aria-hidden="true"><svg class="rp-icon"><use href="#activity"></use></svg></span>
+            <span>حسام نیک‌پور</span>
+          </a>
+          <p class="rp-fs-sm rp-color-muted rp-maxw-sm">
+            مربی تناسب اندام و تغذیه ورزشی؛ برنامه‌ی اختصاصی، حضوری و آنلاین، با پیگیری واقعی.
+          </p>
+        </div>
+
+        <nav aria-label="پیوندهای فوتر">
+          <h2 class="rp-fs-sm rp-fw-700 rp-mbe-3">پیمایش</h2>
+          <ul class="rp-stack rp-fs-sm rp-color-muted" role="list" style="--rp-gap: .5rem">
+            <li><a href="#programs">دوره‌ها</a></li>
+            <li><a href="#week">برنامه هفتگی</a></li>
+            <li><a href="#results">نتایج</a></li>
+            <li><a href="#pricing">بسته‌ها</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="دوره‌ها">
+          <h2 class="rp-fs-sm rp-fw-700 rp-mbe-3">دوره‌ها</h2>
+          <ul class="rp-stack rp-fs-sm rp-color-muted" role="list" style="--rp-gap: .5rem">
+            <li><a href="#programs">هشت هفته چربی‌سوزی</a></li>
+            <li><a href="#programs">دوازده هفته قدرت</a></li>
+            <li><a href="#programs">چهار هفته آنلاین</a></li>
+            <li><a href="#faq">پرسش‌های متداول</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <h2 class="rp-fs-sm rp-fw-700 rp-mbe-3">ظرفیت</h2>
+          <p class="rp-fs-sm rp-color-muted rp-mbe-4">
+            شش شاگرد حضوری در هر دوره تا پیگیری واقعی ممکن بماند. ظرفیت آنلاین باز است.
+          </p>
+          <div class="rp-socials">
+            <a class="rp-icon-btn" href="#" aria-label="اینستاگرام"><svg class="rp-icon"><use href="#instagram"></use></svg></a>
+            <a class="rp-icon-btn" href="#" aria-label="واتساپ"><svg class="rp-icon"><use href="#whatsapp"></use></svg></a>
+            <a class="rp-icon-btn" href="#" aria-label="تلگرام"><svg class="rp-icon"><use href="#telegram"></use></svg></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="rp-footer-bottom">
+        <span>© <span data-rp-year="jalali">۱۴۰۴</span> حسام نیک‌پور</span>
+        <span>ساخته‌شده با قالب پورتفولیو باورسا</span>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" class="rp-icon-btn rp-to-top" data-rp-to-top aria-label="بازگشت به بالا">
+    <svg class="rp-icon"><use href="#arrow-up"></use></svg>
+  </button>
+
+  <script src="../../core/js/core.js" defer></script>
+</body>
+
+</html>

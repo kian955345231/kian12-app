@@ -1,0 +1,442 @@
+/* ==========================================================================
+   Demo 09  Freelancer  ·  demos/09-freelancer/css/theme.css
+
+   Design rationale
+   ----------------
+   Warm and personal. Coral primary on a sand ground, soft rounded shapes and
+   a first-person voice. Layout archetype D like demo 02, but where the app
+   developer is crisp and product-like, this one is conversational: a greeting
+   hero with an offset portrait, story-shaped sections and  unique to this
+   demo  three pricing packages.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--freelancer only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #f4643f;
+  --rp-primary-strong: #dc4a26;
+  --rp-primary-soft: rgba(244, 100, 63, 0.12);
+  --rp-accent: #2c9c8f;
+  --rp-on-primary: #ffffff;
+  --rp-on-accent: #ffffff;
+  --rp-danger: #d63b4a;
+
+  --rp-bg: #fffaf7;
+  --rp-surface: #fdf0e9;
+  --rp-surface-2: #f8e2d7;
+  --rp-text: #241a18;
+  --rp-text-soft: #4a3833;
+  --rp-muted: #85706a;
+  --rp-border: #f2e0d6;
+  --rp-border-strong: #dcc0b1;
+
+  --rp-container: 1140px;
+  --rp-radius: 18px;
+  --rp-radius-lg: 26px;
+  --rp-btn-radius: var(--rp-radius-pill);
+  --rp-shadow: 0 2px 5px rgba(36, 26, 24, 0.04), 0 12px 30px rgba(36, 26, 24, 0.07);
+  --rp-shadow-lg: 0 20px 50px rgba(36, 26, 24, 0.14);
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #ff7f61;
+  --rp-primary-strong: #ff9478;
+  --rp-primary-soft: rgba(255, 127, 97, 0.16);
+  --rp-accent: #4fc3b3;
+  --rp-on-primary: #26100a;
+
+  --rp-bg: #17110f;
+  --rp-surface: #211815;
+  --rp-surface-2: #2d211c;
+  --rp-text: #fbf1ec;
+  --rp-text-soft: #ddcbc3;
+  --rp-muted: #a08d85;
+  --rp-border: #2d211c;
+  --rp-border-strong: #45332b;
+}
+
+/* --------------------------------------------------------------------------
+   3. Hero  greeting + offset portrait
+   -------------------------------------------------------------------------- */
+
+.fl-hero {
+  padding-block: clamp(2.5rem, 1.5rem + 5vw, 5rem) var(--rp-section-y);
+}
+
+.fl-hero-grid {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4rem);
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .fl-hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fl-wave {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 46px;
+  block-size: 46px;
+  border-radius: 50%;
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+  animation: fl-wave 2.6s var(--rp-ease) infinite;
+  transform-origin: 70% 70%;
+}
+
+.fl-wave .rp-icon {
+  --rp-icon-size: 1.6rem;
+  stroke-width: 1.6;
+}
+
+@keyframes fl-wave {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  10%, 30% { transform: rotate(14deg); }
+  20%, 40% { transform: rotate(-8deg); }
+}
+
+.fl-hero-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(2rem, 1.3rem + 3.2vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.24;
+  margin-block: var(--rp-space-3) var(--rp-space-4);
+}
+
+.fl-hero-title span {
+  color: var(--rp-primary);
+}
+
+.fl-hero-lead {
+  font-size: var(--rp-fs-lg);
+  color: var(--rp-text-soft);
+  max-inline-size: 50ch;
+  line-height: var(--rp-lh-snug);
+}
+
+.fl-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* Portrait with a coral blob behind it. */
+.fl-portrait {
+  position: relative;
+  max-inline-size: 440px;
+  margin-inline: auto;
+}
+
+.fl-portrait img {
+  position: relative;
+  z-index: 1;
+  inline-size: 100%;
+  border-radius: 40% 60% 55% 45% / 48% 42% 58% 52%;
+}
+
+.fl-portrait::before {
+  content: '';
+  position: absolute;
+  inset: -6% -6% 6% 6%;
+  background: var(--rp-primary-soft);
+  border-radius: 55% 45% 40% 60% / 42% 58% 42% 58%;
+}
+
+/* Small floating "available" tag on the portrait. */
+.fl-tag {
+  position: absolute;
+  z-index: 2;
+  inset-block-end: 6%;
+  inset-inline-start: -4%;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  padding: var(--rp-space-3) var(--rp-space-4);
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-bg);
+  box-shadow: var(--rp-shadow-lg);
+  font-size: var(--rp-fs-sm);
+  font-weight: 700;
+}
+
+.fl-tag i {
+  inline-size: 9px;
+  block-size: 9px;
+  border-radius: 50%;
+  background: var(--rp-accent);
+}
+
+/* --------------------------------------------------------------------------
+   4. What I do  soft cards
+   -------------------------------------------------------------------------- */
+
+.fl-skills {
+  --rp-grid-min: 250px;
+}
+
+.fl-skill-card {
+  padding: var(--rp-space-6);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-surface);
+  transition: transform 0.35s var(--rp-ease), background-color 0.35s var(--rp-ease);
+}
+
+.fl-skill-card:hover {
+  transform: translateY(-6px);
+  background: var(--rp-surface-2);
+}
+
+.fl-skill-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 56px;
+  block-size: 56px;
+  margin-block-end: var(--rp-space-4);
+  border-radius: 18px;
+  background: var(--rp-bg);
+  color: var(--rp-primary);
+}
+
+.fl-skill-card h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block-end: var(--rp-space-2);
+}
+
+.fl-skill-card p {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+/* --------------------------------------------------------------------------
+   5. How we work  connected steps
+   -------------------------------------------------------------------------- */
+
+.fl-steps {
+  display: grid;
+  gap: var(--rp-space-6);
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  text-align: center;
+}
+
+.fl-step-badge {
+  display: grid;
+  place-items: center;
+  inline-size: 64px;
+  block-size: 64px;
+  margin-inline: auto;
+  margin-block-end: var(--rp-space-4);
+  border-radius: 50%;
+  background: var(--rp-primary);
+  color: var(--rp-on-primary);
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 800;
+}
+
+.fl-step h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block-end: var(--rp-space-2);
+}
+
+.fl-step p {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+/* --------------------------------------------------------------------------
+   6. Pricing packages  unique to this demo
+   -------------------------------------------------------------------------- */
+
+.fl-pricing {
+  display: grid;
+  gap: var(--rp-space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  align-items: stretch;
+}
+
+.fl-plan {
+  display: flex;
+  flex-direction: column;
+  padding: var(--rp-space-6);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  transition: transform 0.35s var(--rp-ease), box-shadow 0.35s var(--rp-ease);
+}
+
+.fl-plan:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--rp-shadow-lg);
+}
+
+/* The recommended plan is raised and inverted. */
+.fl-plan--featured {
+  background: var(--rp-text);
+  color: var(--rp-bg);
+  border-color: transparent;
+}
+
+.fl-plan--featured .fl-plan-price,
+.fl-plan--featured h3 {
+  color: var(--rp-bg);
+}
+
+.fl-plan--featured .fl-plan-list li {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.fl-plan-badge {
+  align-self: flex-start;
+  margin-block-end: var(--rp-space-3);
+  padding: 0.3em 0.9em;
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-primary);
+  color: var(--rp-on-primary);
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+}
+
+.fl-plan h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+}
+
+.fl-plan-price {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-3xl);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-block: var(--rp-space-3) var(--rp-space-1);
+  color: var(--rp-text);
+}
+
+.fl-plan-note {
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+.fl-plan--featured .fl-plan-note {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.fl-plan-list {
+  display: grid;
+  gap: var(--rp-space-3);
+  margin-block: var(--rp-space-5);
+  font-size: var(--rp-fs-sm);
+}
+
+.fl-plan-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--rp-space-3);
+  color: var(--rp-text-soft);
+}
+
+.fl-plan-list .rp-icon {
+  flex: none;
+  margin-block-start: 0.25em;
+  color: var(--rp-primary);
+}
+
+.fl-plan .rp-btn {
+  margin-block-start: auto;
+}
+
+/* --------------------------------------------------------------------------
+   7. Work gallery
+   -------------------------------------------------------------------------- */
+
+.fl-work {
+  --rp-grid-min: 300px;
+}
+
+.fl-work-card {
+  border-radius: var(--rp-radius-lg);
+  overflow: hidden;
+  background: var(--rp-surface);
+  transition: transform 0.35s var(--rp-ease), box-shadow 0.35s var(--rp-ease);
+}
+
+.fl-work-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--rp-shadow-lg);
+}
+
+.fl-work-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.fl-work-media img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--rp-ease);
+}
+
+.fl-work-card:hover .fl-work-media img {
+  transform: scale(1.05);
+}
+
+.fl-work-body {
+  padding: var(--rp-space-5);
+}
+
+.fl-work-body h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+  margin-block-end: var(--rp-space-2);
+}
+
+.fl-work-body p {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+/* --------------------------------------------------------------------------
+   8. Contact  friendly panel
+   -------------------------------------------------------------------------- */
+
+.fl-contact {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-surface);
+}
+
+@media (max-width: 880px) {
+  .fl-contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fl-contact .rp-input,
+.fl-contact .rp-textarea,
+.fl-contact .rp-select {
+  background: var(--rp-bg);
+  border-color: transparent;
+}

@@ -1,0 +1,569 @@
+/* ==========================================================================
+   Demo 07  Entrepreneur  ·  demos/07-entrepreneur/css/theme.css
+
+   Design rationale
+   ----------------
+   Loud on purpose. A vivid orange carries the page with deep violet as the
+   counterweight; the hero is a single saturated block rather than a white
+   canvas. Layout archetype E (bento) but built from large, heavy blocks and
+   a vertical milestone timeline  a different rhythm from demo 03's airy,
+   typographic bento.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--entrepreneur only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #ea580c;
+  --rp-primary-strong: #c2410c;
+  --rp-primary-soft: rgba(234, 88, 12, 0.12);
+  --rp-accent: #7c3aed;
+  --rp-on-primary: #ffffff;
+  --rp-on-accent: #ffffff;
+  --rp-danger: #dc2626;
+
+  --rp-bg: #ffffff;
+  --rp-surface: #fdf4ef;
+  --rp-surface-2: #fae4d7;
+  --rp-text: #1c1024;
+  --rp-text-soft: #3c2a48;
+  --rp-muted: #7a6a84;
+  --rp-border: #f0e2da;
+  --rp-border-strong: #dcc3b2;
+
+  --rp-container: 1220px;
+  --rp-radius: 16px;
+  --rp-radius-lg: 30px;
+  --rp-btn-radius: var(--rp-radius-pill);
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #fb7a3c;
+  --rp-primary-strong: #fd8f57;
+  --rp-primary-soft: rgba(251, 122, 60, 0.16);
+  --rp-accent: #a78bfa;
+  --rp-on-primary: #1c0d05;
+
+  --rp-bg: #130b1a;
+  --rp-surface: #1c1126;
+  --rp-surface-2: #281734;
+  --rp-text: #fbf5ff;
+  --rp-text-soft: #d9cbe4;
+  --rp-muted: #9a89a6;
+  --rp-border: #2b1c39;
+  --rp-border-strong: #422a56;
+}
+
+/* --------------------------------------------------------------------------
+   3. Hero  a two-column saturated block: copy on one side, the founder's
+      photograph on the other. The photo, not empty gradient, fills the width,
+      so the block keeps a normal banner proportion (~2:1 on desktop) instead
+      of growing into a near-square slab.
+   -------------------------------------------------------------------------- */
+
+.en-hero {
+  padding-block: clamp(1.5rem, 0.5rem + 3vw, 3rem) var(--rp-section-y);
+}
+
+.en-hero-block {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  /* minmax(0, …): the photo column may shrink, never push the block wider. */
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.85fr);
+  align-items: stretch;
+  gap: clamp(1.5rem, 1rem + 2vw, 3.25rem);
+  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  border-radius: var(--rp-radius-lg);
+  background: linear-gradient(140deg, var(--rp-primary), var(--rp-accent) 130%);
+  color: #fff;
+}
+
+/* Two soft light blooms so the flat gradient gains depth. */
+.en-hero-block::before,
+.en-hero-block::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.12;
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.en-hero-block::before {
+  inline-size: 340px;
+  block-size: 340px;
+  inset-block-start: -140px;
+  inset-inline-start: -90px;
+}
+
+.en-hero-block::after {
+  inline-size: 260px;
+  block-size: 260px;
+  inset-block-end: -130px;
+  inset-inline-start: 28%;
+}
+
+.en-hero-inner {
+  position: relative;
+  align-self: center;
+  max-inline-size: 34rem;
+  padding: clamp(0.5rem, 0.25rem + 1.5vw, 2rem) clamp(0.5rem, 0.25rem + 1.5vw, 1.75rem);
+}
+
+/* The eyebrow chip, styled here rather than inline on the element. */
+.en-hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rp-space-2);
+  padding: 0.45em 1.1em;
+  border-radius: var(--rp-radius-pill);
+  background: rgba(255, 255, 255, 0.18);
+  font-size: var(--rp-fs-sm);
+  font-weight: 600;
+  color: #fff;
+}
+
+.en-hero-title {
+  font-family: var(--rp-font-display);
+  font-size: clamp(2rem, 1.1rem + 2.9vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  margin-block: var(--rp-space-4);
+}
+
+.en-hero-lead {
+  font-size: var(--rp-fs-base);
+  line-height: var(--rp-lh-snug);
+  opacity: 0.92;
+  max-inline-size: 30rem;
+}
+
+/* --- The photograph ------------------------------------------------------ */
+
+.en-hero-media {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  border-radius: calc(var(--rp-radius-lg) - 10px);
+  background: rgba(0, 0, 0, 0.12);
+  /* A ratio floor rather than a fixed height: the photo fills whatever the
+     copy column needs, and never collapses when the copy is short. */
+  min-block-size: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+.en-hero-media img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+/* Name plate over the photograph  the personal touch the block was missing. */
+.en-hero-caption {
+  position: absolute;
+  /* Anchored to the reading edge and sized to its own text  a plate, not a
+     subtitle bar across the whole frame. */
+  inset-inline-start: var(--rp-space-4);
+  inset-block-end: var(--rp-space-4);
+  max-inline-size: calc(100% - var(--rp-space-4) * 2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: var(--rp-space-3) var(--rp-space-4);
+  border-radius: var(--rp-radius);
+  background: rgba(28, 16, 36, 0.55);
+  backdrop-filter: blur(8px);
+  color: #fff;
+}
+
+.en-hero-caption-name {
+  font-family: var(--rp-font-display);
+  font-weight: 700;
+  font-size: var(--rp-fs-base);
+}
+
+.en-hero-caption-role {
+  font-size: var(--rp-fs-xs);
+  opacity: 0.8;
+}
+
+@media (max-width: 900px) {
+  .en-hero-block {
+    grid-template-columns: 1fr;
+    gap: var(--rp-space-5);
+  }
+
+  .en-hero-inner {
+    max-inline-size: 46ch;
+    padding-inline: var(--rp-space-2);
+  }
+
+  .en-hero-media {
+    aspect-ratio: 16 / 10;
+    min-block-size: 0;
+  }
+
+  /* In the wide mobile crop, hold the face rather than the sky above it. */
+  .en-hero-media img {
+    object-position: center 38%;
+  }
+}
+
+.en-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-6);
+}
+
+/* On the coloured block the primary button must invert. */
+.en-hero-block .rp-btn--primary {
+  background: #fff;
+  color: var(--rp-primary-strong);
+}
+
+.en-hero-block .rp-btn--primary:hover {
+  background: #fff;
+  color: var(--rp-text);
+}
+
+.en-hero-block .rp-btn--outline {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.en-hero-block .rp-btn--outline:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: #fff;
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   4. Bento of heavy blocks
+   -------------------------------------------------------------------------- */
+
+.en-bento {
+  display: grid;
+  gap: var(--rp-space-4);
+  grid-template-columns: repeat(3, 1fr);
+  margin-block-start: var(--rp-space-4);
+}
+
+.en-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--rp-space-4);
+  min-block-size: 210px;
+  padding: var(--rp-space-6);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-surface);
+  border: 1px solid var(--rp-border);
+}
+
+.en-block--dark {
+  background: var(--rp-text);
+  color: var(--rp-bg);
+  border-color: transparent;
+}
+
+.en-block--accent {
+  background: var(--rp-accent);
+  color: var(--rp-on-accent);
+  border-color: transparent;
+}
+
+.en-block--wide {
+  grid-column: span 2;
+}
+
+.en-block-value {
+  font-family: var(--rp-font-display);
+  font-size: clamp(2rem, 1.2rem + 2.6vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.en-block-label {
+  font-size: var(--rp-fs-sm);
+  opacity: 0.8;
+}
+
+@media (max-width: 820px) {
+  .en-bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .en-block--wide {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 520px) {
+  .en-bento {
+    grid-template-columns: 1fr;
+  }
+
+  .en-block--wide {
+    grid-column: span 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Press strip
+   -------------------------------------------------------------------------- */
+
+.en-press {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rp-space-6);
+  opacity: 0.55;
+}
+
+.en-press img {
+  block-size: 40px;
+  inline-size: auto;
+}
+
+/* --------------------------------------------------------------------------
+   6. Ventures
+   -------------------------------------------------------------------------- */
+
+.en-ventures {
+  --rp-grid-min: 300px;
+}
+
+.en-venture {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rp-space-4);
+  padding: var(--rp-space-6);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+  transition: transform 0.35s var(--rp-ease), box-shadow 0.35s var(--rp-ease);
+}
+
+.en-venture:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--rp-shadow-lg);
+}
+
+.en-venture-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rp-space-3);
+}
+
+.en-venture-logo {
+  inline-size: 56px;
+  block-size: 56px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.en-venture-logo img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* Status pill: active / exited / advising. */
+.en-status {
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  padding: 0.35em 0.9em;
+  border-radius: var(--rp-radius-pill);
+  background: var(--rp-primary-soft);
+  color: var(--rp-primary);
+}
+
+.en-status--exit {
+  background: color-mix(in srgb, var(--rp-accent) 15%, transparent);
+  color: var(--rp-accent);
+}
+
+.en-venture h3 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-xl);
+  font-weight: 700;
+}
+
+.en-venture p {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+.en-venture-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-4);
+  margin-block-start: auto;
+  padding-block-start: var(--rp-space-4);
+  border-block-start: 1px solid var(--rp-border);
+  font-size: var(--rp-fs-xs);
+  color: var(--rp-muted);
+}
+
+.en-venture-foot strong {
+  color: var(--rp-text);
+}
+
+/* --------------------------------------------------------------------------
+   7. Milestone timeline  alternating sides on desktop
+   -------------------------------------------------------------------------- */
+
+.en-timeline {
+  position: relative;
+  max-inline-size: 900px;
+  margin-inline: auto;
+}
+
+.en-timeline::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  inline-size: 2px;
+  background: linear-gradient(var(--rp-primary), var(--rp-accent));
+  transform: translateX(50%);
+}
+
+.en-milestone {
+  position: relative;
+  inline-size: calc(50% - var(--rp-space-7));
+  padding: var(--rp-space-5);
+  border-radius: var(--rp-radius);
+  background: var(--rp-bg);
+  border: 1px solid var(--rp-border);
+}
+
+.en-milestone + .en-milestone {
+  margin-block-start: var(--rp-space-5);
+}
+
+/* Even entries move to the opposite side of the spine. */
+.en-milestone:nth-child(even) {
+  margin-inline-start: calc(50% + var(--rp-space-7));
+}
+
+/* The dot on the spine. */
+.en-milestone::before {
+  content: '';
+  position: absolute;
+  inset-block-start: var(--rp-space-6);
+  inset-inline-start: calc(100% + var(--rp-space-7) - 7px);
+  inline-size: 14px;
+  block-size: 14px;
+  border-radius: 50%;
+  background: var(--rp-primary);
+  box-shadow: 0 0 0 4px var(--rp-bg), 0 0 0 7px var(--rp-primary-soft);
+}
+
+.en-milestone:nth-child(even)::before {
+  inset-inline-start: auto;
+  inset-inline-end: calc(100% + var(--rp-space-7) - 7px);
+}
+
+.en-milestone-year {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 800;
+  color: var(--rp-primary);
+}
+
+.en-milestone h3 {
+  font-weight: 700;
+  margin-block: var(--rp-space-1) var(--rp-space-2);
+}
+
+.en-milestone p {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+@media (max-width: 780px) {
+  .en-timeline::before {
+    inset-inline-start: 7px;
+    transform: none;
+  }
+
+  .en-milestone,
+  .en-milestone:nth-child(even) {
+    inline-size: auto;
+    margin-inline-start: var(--rp-space-7);
+  }
+
+  /* Single spine on the inline-start edge: every dot moves back onto it. */
+  .en-milestone::before,
+  .en-milestone:nth-child(even)::before {
+    inset-inline-start: auto;
+    inset-inline-end: calc(100% + var(--rp-space-7) - 15px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Newsletter CTA
+   -------------------------------------------------------------------------- */
+
+.en-newsletter {
+  display: grid;
+  gap: var(--rp-space-6);
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: clamp(2rem, 1rem + 3vw, 3.5rem);
+  border-radius: var(--rp-radius-lg);
+  background: var(--rp-text);
+  color: var(--rp-bg);
+}
+
+@media (max-width: 780px) {
+  .en-newsletter {
+    grid-template-columns: 1fr;
+  }
+}
+
+.en-newsletter h2 {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-2xl);
+  font-weight: 800;
+  line-height: var(--rp-lh-tight);
+}
+
+.en-newsletter p {
+  opacity: 0.72;
+  margin-block-start: var(--rp-space-3);
+  font-size: var(--rp-fs-sm);
+}
+
+.en-newsletter .rp-input {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: inherit;
+}
+
+.en-newsletter .rp-input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.en-newsletter .rp-label {
+  color: inherit;
+  opacity: 0.8;
+}

@@ -1,0 +1,518 @@
+/* ==========================================================================
+   Demo 10  Actor  ·  demos/10-actor/css/theme.css
+
+   Design rationale
+   ----------------
+   Cinematic and dark by default. Near-black ground, crimson as the single
+   dramatic accent and a muted gold for credits; imagery runs full-bleed and
+   type is set large with wide tracking, like a title card. Layout archetype
+   C like demo 05, but inverted in mood: where the doctor is calm daylight,
+   this is a darkened theatre.
+
+   ISOLATION CONTRACT
+   Scoped to :root (token values) or .rp-demo--actor only.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens  light (a "gallery print" variant of the same identity)
+   -------------------------------------------------------------------------- */
+
+:root {
+  --rp-primary: #c8102e;
+  --rp-primary-strong: #a80c25;
+  --rp-primary-soft: rgba(200, 16, 46, 0.1);
+  --rp-accent: #a8834b;
+  --rp-on-primary: #ffffff;
+  --rp-danger: #c8102e;
+
+  --rp-bg: #f7f4f2;
+  --rp-surface: #ece7e4;
+  --rp-surface-2: #ded7d3;
+  --rp-text: #100e11;
+  --rp-text-soft: #322d33;
+  --rp-muted: #6d666b;
+  --rp-border: #ddd6d2;
+  --rp-border-strong: #bdb2ac;
+
+  --rp-container: 1260px;
+  --rp-radius-sm: 2px;
+  --rp-radius: 4px;
+  --rp-radius-lg: 6px;
+  --rp-btn-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens  dark (the mode this demo is designed in)
+   -------------------------------------------------------------------------- */
+
+:root[data-theme='dark'] {
+  --rp-primary: #e11d48;
+  --rp-primary-strong: #f43f5e;
+  --rp-primary-soft: rgba(225, 29, 72, 0.16);
+  --rp-accent: #d4b483;
+  --rp-on-primary: #ffffff;
+
+  --rp-bg: #08070a;
+  --rp-surface: #100e14;
+  --rp-surface-2: #1a171f;
+  --rp-text: #f7f4f2;
+  --rp-text-soft: #cdc6c9;
+  --rp-muted: #8b8289;
+  --rp-border: #201c26;
+  --rp-border-strong: #332d3a;
+  --rp-shadow-lg: 0 24px 70px rgba(0, 0, 0, 0.75);
+}
+
+/* --------------------------------------------------------------------------
+   3. Title-card typography
+   -------------------------------------------------------------------------- */
+
+.rp-demo--actor .rp-eyebrow {
+  letter-spacing: 0.28em;
+  font-weight: 600;
+  color: var(--rp-accent);
+}
+
+.rp-demo--actor .rp-section-title {
+  letter-spacing: 0.01em;
+}
+
+/* Header stays transparent over the cinematic hero. */
+.rp-demo--actor .rp-header::before {
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.rp-demo--actor .rp-header.is-stuck::before {
+  background: color-mix(in srgb, var(--rp-bg) 88%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+/* --------------------------------------------------------------------------
+   4. Full-bleed cinematic hero
+   -------------------------------------------------------------------------- */
+
+.ac-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-block-size: min(96vh, 880px);
+  /* Pull the transparent header over the image. */
+  margin-block-start: calc(-1 * var(--rp-header-h));
+  padding-block: calc(var(--rp-header-h) + var(--rp-space-8)) var(--rp-space-9);
+  overflow: hidden;
+  color: #fff;
+}
+
+.ac-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.ac-hero-bg img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  /* Keep the subject in frame when the viewport turns tall and narrow. */
+  object-position: center 30%;
+  /* Desaturated, high-contrast: a film still rather than a photo. */
+  filter: grayscale(0.35) contrast(1.1);
+}
+
+/* On a phone the hero must not eat a whole screen-and-a-half: cap it and let
+   the title block sit closer to the fold. */
+@media (max-width: 640px) {
+  .ac-hero {
+    min-block-size: min(84vh, 620px);
+    padding-block-end: var(--rp-space-7);
+  }
+}
+
+.ac-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to top, #08070a 4%, rgba(8, 7, 10, 0.35) 55%, rgba(8, 7, 10, 0.75)),
+    linear-gradient(to left, transparent 40%, rgba(225, 29, 72, 0.25));
+}
+
+.ac-hero-name {
+  font-family: var(--rp-font-display);
+  font-size: clamp(2.6rem, 1.3rem + 6vw, 7rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-block: var(--rp-space-4) var(--rp-space-5);
+}
+
+.ac-hero-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3) var(--rp-space-5);
+  font-size: var(--rp-fs-lg);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.ac-hero-roles span {
+  position: relative;
+}
+
+.ac-hero-roles span + span::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: calc(var(--rp-space-5) / -2);
+  inline-size: 5px;
+  block-size: 5px;
+  border-radius: 50%;
+  background: var(--rp-primary);
+  transform: translateY(-50%);
+}
+
+.ac-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rp-space-3);
+  margin-block-start: var(--rp-space-7);
+}
+
+.ac-hero .rp-btn--outline {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.ac-hero .rp-btn--outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #fff;
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   5. Showreel
+   -------------------------------------------------------------------------- */
+
+.ac-reel {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--rp-radius-lg);
+  overflow: hidden;
+  background: var(--rp-surface);
+}
+
+.ac-reel img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  filter: grayscale(0.3) brightness(0.72);
+  transition: filter 0.5s var(--rp-ease), transform 0.8s var(--rp-ease);
+}
+
+.ac-reel:hover img {
+  filter: grayscale(0) brightness(0.85);
+  transform: scale(1.03);
+}
+
+/* Play button, centred, with an expanding ring on hover. */
+.ac-play {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(50%, -50%);
+  display: grid;
+  place-items: center;
+  inline-size: clamp(64px, 9vw, 96px);
+  block-size: clamp(64px, 9vw, 96px);
+  border-radius: 50%;
+  background: var(--rp-primary);
+  color: #fff;
+  transition: transform 0.35s var(--rp-ease), background-color 0.35s var(--rp-ease);
+}
+
+/* In LTR the translate must flip; logical transforms do not exist yet. */
+[dir='ltr'] .ac-play {
+  transform: translate(-50%, -50%);
+}
+
+.ac-play::after {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border: 1px solid var(--rp-primary);
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: ac-ring 2.4s var(--rp-ease) infinite;
+}
+
+@keyframes ac-ring {
+  0% { transform: scale(0.92); opacity: 0.55; }
+  70% { transform: scale(1.25); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.ac-play .rp-icon {
+  --rp-icon-size: 2em;
+  fill: currentColor;
+  stroke: none;
+  /* The triangle must point along the reading direction. */
+  transform: scaleX(-1);
+}
+
+.ac-reel-caption {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  padding: var(--rp-space-5);
+  background: linear-gradient(to top, rgba(8, 7, 10, 0.9), transparent);
+  color: #fff;
+  font-size: var(--rp-fs-sm);
+}
+
+/* --------------------------------------------------------------------------
+   6. Filmography table
+   -------------------------------------------------------------------------- */
+
+.ac-credits {
+  inline-size: 100%;
+  border-collapse: collapse;
+}
+
+.ac-credits caption {
+  text-align: start;
+  padding-block-end: var(--rp-space-4);
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+.ac-credits th {
+  text-align: start;
+  padding-block: var(--rp-space-3);
+  border-block-end: 1px solid var(--rp-border-strong);
+  font-size: var(--rp-fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--rp-muted);
+}
+
+.ac-credits td {
+  padding-block: var(--rp-space-4);
+  border-block-end: 1px solid var(--rp-border);
+  vertical-align: baseline;
+}
+
+.ac-credits tr:hover td {
+  background: var(--rp-surface);
+}
+
+.ac-credits-year {
+  font-family: var(--rp-font-mono);
+  color: var(--rp-accent);
+  white-space: nowrap;
+}
+
+.ac-credits-title {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  font-weight: 700;
+}
+
+.ac-credits-role,
+.ac-credits-dir {
+  color: var(--rp-muted);
+  font-size: var(--rp-fs-sm);
+}
+
+/* On small screens the table becomes stacked blocks. */
+@media (max-width: 720px) {
+  .ac-credits thead {
+    display: none;
+  }
+
+  .ac-credits tr {
+    display: grid;
+    gap: var(--rp-space-1);
+    padding-block: var(--rp-space-4);
+    border-block-end: 1px solid var(--rp-border);
+  }
+
+  .ac-credits td {
+    padding: 0;
+    border: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Gallery
+   -------------------------------------------------------------------------- */
+
+.ac-gallery {
+  display: grid;
+  gap: var(--rp-space-3);
+  grid-template-columns: repeat(4, 1fr);
+  /* Rows scale with the column width instead of being pinned to 220px, so the
+     mosaic keeps its proportions on every screen. */
+  grid-auto-rows: minmax(0, clamp(150px, 15vw, 240px));
+  grid-auto-flow: dense;
+}
+
+.ac-shot {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--rp-radius);
+  background: var(--rp-surface);
+}
+
+.ac-shot img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  filter: grayscale(0.4);
+  transition: filter 0.5s var(--rp-ease), transform 0.7s var(--rp-ease);
+}
+
+.ac-shot:hover img {
+  filter: grayscale(0);
+  transform: scale(1.05);
+}
+
+.ac-shot--tall { grid-row: span 2; }
+.ac-shot--wide { grid-column: span 2; }
+
+/* Tablet: two columns. The tall span is dropped  in a two-column grid it
+   leaves a hole beside itself  and each frame gets its own aspect ratio. */
+@media (max-width: 860px) {
+  .ac-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+  }
+
+  .ac-shot {
+    aspect-ratio: 1 / 1;
+  }
+
+  .ac-shot--tall {
+    grid-row: span 1;
+    aspect-ratio: 3 / 4;
+  }
+
+  .ac-shot--wide {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* Phone: one column of full-width film stills  a contact sheet, not a mosaic
+   of 170px thumbnails. */
+@media (max-width: 560px) {
+  .ac-gallery {
+    grid-template-columns: 1fr;
+    gap: var(--rp-space-4);
+  }
+
+  .ac-shot,
+  .ac-shot--wide {
+    grid-column: span 1;
+    aspect-ratio: 3 / 2;
+  }
+
+  .ac-shot--tall {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Press quotes
+   -------------------------------------------------------------------------- */
+
+.ac-press {
+  display: grid;
+  gap: var(--rp-space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+.ac-press-item {
+  padding: var(--rp-space-6);
+  border-inline-start: 2px solid var(--rp-primary);
+  background: var(--rp-surface);
+}
+
+.ac-press-item blockquote {
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+  line-height: 1.65;
+}
+
+.ac-press-item cite {
+  display: block;
+  margin-block-start: var(--rp-space-4);
+  font-style: normal;
+  font-size: var(--rp-fs-xs);
+  letter-spacing: 0.1em;
+  color: var(--rp-accent);
+}
+
+/* --------------------------------------------------------------------------
+   9. Awards
+   -------------------------------------------------------------------------- */
+
+.ac-awards {
+  display: grid;
+  gap: var(--rp-space-4);
+}
+
+.ac-award {
+  display: flex;
+  align-items: center;
+  gap: var(--rp-space-4);
+  padding-block: var(--rp-space-4);
+  border-block-end: 1px solid var(--rp-border);
+}
+
+.ac-award .rp-icon {
+  color: var(--rp-accent);
+  flex: none;
+}
+
+.ac-award strong {
+  display: block;
+  font-family: var(--rp-font-display);
+  font-size: var(--rp-fs-lg);
+}
+
+.ac-award span {
+  font-size: var(--rp-fs-sm);
+  color: var(--rp-muted);
+}
+
+.ac-award-year {
+  margin-inline-start: auto;
+  font-family: var(--rp-font-mono);
+  color: var(--rp-accent);
+}
+
+/* --------------------------------------------------------------------------
+   10. Representation / contact
+   -------------------------------------------------------------------------- */
+
+.ac-contact {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 4rem);
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: start;
+}
+
+/* minmax(0, …) rather than a bare 1fr: 1fr keeps its auto minimum, so the
+   contact panel's form row would push the whole page sideways below ~360px. */
+@media (max-width: 880px) {
+  .ac-contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ac-panel {
+  padding: var(--rp-space-6);
+  background: var(--rp-surface);
+  border-radius: var(--rp-radius-lg);
+}
